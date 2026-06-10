@@ -170,15 +170,16 @@ nav {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-  color: #fff;
-  border: none;
-  box-shadow: var(--glow-shadow);
+  background: transparent;
+  color: var(--accent-1);
+  border: 2px solid var(--accent-1);
+  box-shadow: none;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 50px rgba(0, 245, 255, 0.3);
+  background: rgba(0, 245, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
 }
 
 .btn-outline {
@@ -306,6 +307,11 @@ footer {
   padding: 2rem;
   border-radius: 0 16px 16px 0;
   margin: 2rem 0;
+}
+
+.highlight-box h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 .highlight-box p:last-child {
