@@ -37,13 +37,13 @@
         
         <div class="highlight-box" style="margin-top: 0;">
           <h3>Opportunity Type: Linear</h3>
-          <p>This project represents a <strong>Linear Opportunity</strong>—focusing on the continuous, iterative improvement of an existing core product. By streamlining Snapdeal's checkout flow, we are removing friction from an established user journey to maximize conversion efficiency.</p>
+          <p>This project represents a <strong>Linear Opportunity</strong> - focusing on the continuous, iterative improvement of an existing core product. By streamlining Snapdeal's checkout flow, we are removing friction from an established user journey to maximize conversion efficiency.</p>
         </div>
 
         <h2>Executive Summary</h2>
         <p>Our goal was to overhaul Snapdeal’s mobile checkout to cut cart abandonment and boost conversions. We analyzed user behavior and the Indian e-commerce context, audited the existing Snapdeal flow, and benchmarked top competitors for best practices.</p>
-        <p>Key findings included rampant checkout drop-offs (globally ~70% abandonment) and strong user demand for trust cues and simplicity. We defined clear personas and mapped their journeys. Through heuristic review, we identified major pain points—hidden costs, form overload, weak CTA hierarchy, and confusion around payment options.</p>
-        <p>We envisioned a streamlined, mobile-first checkout: a concise 3–4 step flow with autofill support and minimal fields. We introduced trust signals and microcopy to reassure users. The new design promises simpler steps, transparent pricing, and greater trust – all critical to turning browsers into buyers in India’s value-driven market.</p>
+        <p>Key findings included rampant checkout drop-offs (globally ~70% abandonment) and strong user demand for trust cues and simplicity. We defined clear personas and mapped their journeys. Through heuristic review, we identified major pain points - hidden costs, form overload, weak CTA hierarchy, and confusion around payment options.</p>
+        <p>We envisioned a streamlined, mobile-first checkout: a concise 3-4 step flow with autofill support and minimal fields. We introduced trust signals and microcopy to reassure users. The new design promises simpler steps, transparent pricing, and greater trust - all critical to turning browsers into buyers in India’s value-driven market.</p>
 
         <div class="highlight-box">
           <h3>Problem Statement</h3>
@@ -51,8 +51,8 @@
         </div>
 
         <h2>Background Context</h2>
-        <p><strong>Indian E-Commerce Landscape:</strong> India’s online market is massive, with over 85% of Snapdeal orders coming from mobile devices. However, trust issues persist: Cash-on-Delivery (CoD) remains extremely common (60–65% of orders). UPI payments have soared, but CoD is a vital trust option in smaller towns.</p>
-        <p><strong>Snapdeal’s Market:</strong> Snapdeal caters to the value-conscious middle class. Over 70% of customers are 18–45 year-olds earning ₹3–10L/year. These users prioritize free shipping and CoD to reduce payment friction. They expect a fast, easy checkout on slow connections.</p>
+        <p><strong>Indian E-Commerce Landscape:</strong> India’s online market is massive, with over 85% of Snapdeal orders coming from mobile devices. However, trust issues persist: Cash-on-Delivery (CoD) remains extremely common (60-65% of orders). UPI payments have soared, but CoD is a vital trust option in smaller towns.</p>
+        <p><strong>Snapdeal’s Market:</strong> Snapdeal caters to the value-conscious middle class. Over 70% of customers are 18-45 year-olds earning ₹3-10L/year. These users prioritize free shipping and CoD to reduce payment friction. They expect a fast, easy checkout on slow connections.</p>
 
         <h2>UX Audit & Pain Points</h2>
         <p>We performed an audit of Snapdeal’s existing checkout to uncover pain points:</p>
@@ -133,22 +133,22 @@ journey
           <tbody>
             <tr>
               <td>Amazon India</td>
-              <td>3–4 steps (Cart &rarr; Login &rarr; Address &rarr; Pay)</td>
+              <td>3-4 steps (Cart &rarr; Login &rarr; Address &rarr; Pay)</td>
               <td>Padlock icons, A-to-z guarantee, exact delivery date</td>
             </tr>
             <tr>
               <td>Flipkart</td>
-              <td>3–4 steps</td>
+              <td>3-4 steps</td>
               <td>"Flipkart Assured", seller transparency</td>
             </tr>
             <tr>
               <td>Myntra</td>
-              <td>2–3 steps (Express checkout)</td>
+              <td>2-3 steps (Express checkout)</td>
               <td>30-day returns heavily emphasized</td>
             </tr>
             <tr>
               <td>Snapdeal (Current)</td>
-              <td>4–5+ steps</td>
+              <td>4-5+ steps</td>
               <td>Sparse trust badges, unclear return info</td>
             </tr>
           </tbody>
@@ -159,7 +159,7 @@ journey
         <p>We adopted an 8px baseline grid with touch targets &ge;44x44dp. Primary CTAs ("Place Order", "Pay ₹X") are full-width, high-contrast orange buttons fixed at the bottom of the screen.</p>
 
         <h3>Trust & Security Design</h3>
-        <p>On the payment screen, a lock icon next to the "Pay Now" button signals SSL encryption. Return policy links and estimated delivery dates are shown early in the process. We labeled CoD clearly: "Cash on Delivery (Home payment) – ₹30 fee" with an explanatory tooltip.</p>
+        <p>On the payment screen, a lock icon next to the "Pay Now" button signals SSL encryption. Return policy links and estimated delivery dates are shown early in the process. We labeled CoD clearly: "Cash on Delivery (Home payment) - ₹30 fee" with an explanatory tooltip.</p>
 
         <h3>Task Flows</h3>
         <p>We mapped the primary checkout task flow. Below is a simplified cart-to-success flow:</p>
@@ -201,8 +201,8 @@ flowchart LR
             <div class="mermaid">
 flowchart TB
     subgraph Cart Screen
-        A["Product 1 – ₹499 (Qty 1)"] 
-        B["Product 2 – ₹299 (Qty 2)"] 
+        A["Product 1 - ₹499 (Qty 1)"] 
+        B["Product 2 - ₹299 (Qty 2)"] 
         C["Subtotal: ₹1097"] 
         D["Coupon Code: [Apply]"] 
         E["Total Payable: ₹1097"] 
@@ -214,12 +214,12 @@ flowchart TB
             <div class="mermaid">
 flowchart TB
     subgraph Address Screen
-        A["Saved Address 1 (✓) Home – 560001"] 
+        A["Saved Address 1 (✓) Home - 560001"] 
         B["+ Add New Address"] 
         C["Pincode: [560001]"] 
         D["Name: [Priya Kumar]"] 
         E["Phone: [Enter 10-digit mobile]"] 
-        F["Delivery Preference: [Standard 3–5 days]"] 
+        F["Delivery Preference: [Standard 3-5 days]"] 
         G["Continue Button →"]
     end
             </div>
@@ -228,10 +228,10 @@ flowchart TB
             <div class="mermaid">
 flowchart TB
     subgraph Payment Screen
-        A["Credit/Debit Card – [**** **** **** 1234]"] 
-        B["UPI – [Enter UPI ID]"] 
-        C["Netbanking – [Choose Bank]"] 
-        D["Cash on Delivery – ₹30 fee"] 
+        A["Credit/Debit Card - [**** **** **** 1234]"] 
+        B["UPI - [Enter UPI ID]"] 
+        C["Netbanking - [Choose Bank]"] 
+        D["Cash on Delivery - ₹30 fee"] 
         E["Order Total: ₹1097"] 
         F["Pay Now Button →"]
     end
