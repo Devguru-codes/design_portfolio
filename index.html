@@ -4,18 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
     <title>UX Design Portfolio</title>
     <meta name="description" content="Portfolio of a UX/UI Designer showcasing case studies in e-commerce and fintech." />
-    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <div class="bg-mesh"></div>
 
     <nav>
       <div class="container nav-container">
-        <a href="/" class="logo">Portfolio.</a>
-        <div class="nav-links">
-          <a href="#work">Work</a>
+        <div class="nav-container">
+      <div class="logo">
+        <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
+      </div>
           <a href="#about">About</a>
         </div>
       </div>
@@ -25,8 +29,14 @@
       <section class="hero container fade-up">
         <div>
           <span class="card-tag fade-up delay-1">UX/UI Designer</span>
-          <h1 class="fade-up delay-1">Crafting digital experiences that matter.</h1>
-          <p class="fade-up delay-2">Specializing in intuitive, data-driven interfaces for e-commerce and fintech products.</p>
+          <h1 class="fade-up delay-1">Hi, I'm Devguru Tiwari.</h1>
+      <p class="fade-up delay-2" style="font-size: 1.5rem; font-weight: 600; color: #fff;">
+        3rd-Year Student at IIIT Nagpur.<br>
+        <span style="color: var(--accent-1);">Data Scientist & Systems Engineer.</span>
+      </p>
+      <p class="fade-up delay-2">
+        I architect scalable systems and analyze complex datasets. This is a collection of my UX research and UI design work.
+      </p>
           <div class="fade-up delay-3">
             <a href="#work" class="btn btn-primary">View My Work</a>
           </div>
@@ -70,11 +80,18 @@
       </section>
     </main>
 
-    <footer>
-      <div class="container fade-up">
-        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
+  <footer class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+      <p style="margin: 0;">&copy; 2026 Devguru Tiwari. All rights reserved.</p>
+      <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+        <a href="mailto:your.email@gmail.com" target="_blank" style="color: var(--text-secondary); text-decoration: none;">Email</a>
+        <a href="tel:+910000000000" style="color: var(--text-secondary); text-decoration: none;">Phone</a>
+        <a href="https://github.com/Devguru-codes" target="_blank" style="color: var(--text-secondary); text-decoration: none;">GitHub</a>
+        <a href="https://www.linkedin.com/in/devguru-tiwari" target="_blank" style="color: var(--text-secondary); text-decoration: none;">LinkedIn</a>
+        <a href="https://my-portfolio-website-silk-one.vercel.app/" target="_blank" style="color: var(--accent-1); font-weight: 600; text-decoration: none;">Full Portfolio</a>
       </div>
-    </footer>
+    </div>
+  </footer>
 
     <script type="module" src="/main.js"></script>
   </body>

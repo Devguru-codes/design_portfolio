@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --bg-color: #0a0a0f;
-  --surface-color: rgba(255, 255, 255, 0.03);
-  --surface-hover: rgba(255, 255, 255, 0.08);
-  --border-color: rgba(255, 255, 255, 0.08);
+  --bg-color: #0a0e17;
+  --surface-color: #161b22;
+  --surface-hover: #1e242d;
+  --border-color: rgba(255, 255, 255, 0.1);
   --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
+  --text-secondary: #8b949e;
   
-  --accent-1: #6366f1; /* Indigo */
-  --accent-2: #8b5cf6; /* Violet */
-  --accent-3: #ec4899; /* Pink */
+  --accent-1: #00f5ff; /* Neon Cyan */
+  --accent-2: #66fcf1; /* Teal */
+  --accent-3: #45a29e; /* Muted Teal */
   
-  --glow-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+  --glow-shadow: 0 0 40px rgba(0, 245, 255, 0.15);
   --glass-blur: blur(12px);
 }
 
@@ -23,7 +23,7 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-primary);
   line-height: 1.6;
@@ -40,8 +40,8 @@ body {
   height: 100vh;
   z-index: -1;
   background: 
-    radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.15), transparent 25%);
+    radial-gradient(circle at 15% 50%, rgba(0, 245, 255, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(102, 252, 241, 0.08), transparent 25%);
   filter: blur(60px);
   animation: bg-shift 20s ease-in-out infinite alternate;
 }
@@ -124,10 +124,7 @@ nav {
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.05em;
-  background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
 }
 
 .nav-links {
@@ -181,7 +178,7 @@ nav {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 50px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 50px rgba(0, 245, 255, 0.3);
 }
 
 .btn-outline {
@@ -223,14 +220,14 @@ nav {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 50%);
+  background: radial-gradient(circle at top right, rgba(0, 245, 255, 0.1), transparent 50%);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 
 .card:hover {
   transform: translateY(-10px);
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: rgba(0, 245, 255, 0.5);
   box-shadow: var(--glow-shadow);
 }
 
@@ -242,7 +239,7 @@ nav {
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 100px;
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(0, 245, 255, 0.1);
   color: var(--accent-1);
   font-size: 0.875rem;
   font-weight: 500;
@@ -304,7 +301,7 @@ footer {
 }
 
 .highlight-box {
-  background: linear-gradient(145deg, var(--surface-color), rgba(99, 102, 241, 0.05));
+  background: linear-gradient(145deg, var(--surface-color), rgba(0, 245, 255, 0.05));
   border-left: 4px solid var(--accent-1);
   padding: 2rem;
   border-radius: 0 16px 16px 0;
