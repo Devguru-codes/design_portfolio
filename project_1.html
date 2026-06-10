@@ -93,19 +93,94 @@
         <h3>Trust & Security Design</h3>
         <p>On the payment screen, a lock icon next to the "Pay Now" button signals SSL encryption. Return policy links and estimated delivery dates are shown early in the process. We labeled CoD clearly: "Cash on Delivery (Home payment) – ₹30 fee" with an explanatory tooltip.</p>
 
+        <h3>Task Flows</h3>
+        <p>We mapped the primary checkout task flow. Below is a simplified cart-to-success flow:</p>
         <div class="diagram-box">
-          <pre>
-Cart View Wireframe Concept:
---------------------------------
-[ Product 1 – ₹499 (Qty 1) ]
-[ Product 2 – ₹299 (Qty 2) ]
---------------------------------
-Subtotal: ₹1097
-Coupon: [ Apply ]
---------------------------------
-Total: ₹1097
-[ Proceed to Checkout &rarr; ]
-          </pre>
+          <div class="mermaid">
+flowchart LR
+    A["Shopping Cart"] --> B["Proceed to Checkout"]
+    B --> C{"User Logged In?"}
+    C -->|Yes| D["Select Shipping Address"]
+    C -->|No| E["Continue as Guest / Sign In"]
+    E --> D
+    D --> F["Choose Payment Method"]
+    F --> G["Review Order Details"]
+    G --> H["Place Order Button"]
+    H --> I["Order Confirmation"]
+          </div>
+        </div>
+
+        <h3>User Flows</h3>
+        <p>A user flow highlights entry and exit points. For example, a user story “Buy a phone case”:</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+flowchart LR
+    A["Product Page: Phone Case"] --> B["Add to Cart"]
+    B --> C{"On Cart Page?"}
+    C -->|Back to Shopping| D["Continue Browsing"]
+    C -->|Yes| E["View Cart Contents"]
+    E --> F["Click Checkout"]
+    F --> G["Address Screen"]
+    G --> H["Payment Screen"]
+    H --> I["Order Review"]
+    I --> J["Order Success"]
+          </div>
+        </div>
+
+        <h3>Low-Fidelity Wireframes</h3>
+        <div class="grid">
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Cart Screen
+        A["Product 1 – ₹499 (Qty 1)"] 
+        B["Product 2 – ₹299 (Qty 2)"] 
+        C["Subtotal: ₹1097"] 
+        D["Coupon Code: [Apply]"] 
+        E["Total Payable: ₹1097"] 
+        F["Checkout Button →"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Address Screen
+        A["Saved Address 1 (✓) Home – 560001"] 
+        B["+ Add New Address"] 
+        C["Pincode: [560001]"] 
+        D["Name: [Priya Kumar]"] 
+        E["Phone: [Enter 10-digit mobile]"] 
+        F["Delivery Preference: [Standard 3–5 days]"] 
+        G["Continue Button →"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Payment Screen
+        A["Credit/Debit Card – [**** **** **** 1234]"] 
+        B["UPI – [Enter UPI ID]"] 
+        C["Netbanking – [Choose Bank]"] 
+        D["Cash on Delivery – ₹30 fee"] 
+        E["Order Total: ₹1097"] 
+        F["Pay Now Button →"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Review Screen
+        A["Items List with Prices"] 
+        B["Shipping Address"] 
+        C["Payment Method Selected"] 
+        D["Total (incl. shipping) ₹1097"] 
+        E["Place Order Button →"]
+    end
+            </div>
+          </div>
         </div>
 
         <h3>UX Writing & Error Recovery</h3>
@@ -128,6 +203,10 @@ Total: ₹1097
       </div>
     </footer>
 
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

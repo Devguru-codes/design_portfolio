@@ -93,19 +93,50 @@
           <li><strong>Insights:</strong> Analytical dashboards with charts.</li>
         </ul>
 
+        <h3>AI Chat Interaction Flow</h3>
         <div class="diagram-box">
-          <pre>
-Dashboard UI Concept:
-------------------------------------
-Net Worth: ₹120,000 (↑5% this month)
-------------------------------------
-Monthly Budget: ₹20k spent of ₹25k
-Upcoming Bills: Electric ₹1,200
-------------------------------------
-Goal: Car Downpayment [==--] 20%
-------------------------------------
-[ +Add Expense ]  [ Ask Mentor Chat ]
-          </pre>
+          <div class="mermaid">
+sequenceDiagram
+    actor User
+    participant ChatUI as Chatbot UI
+    participant Coordinator as DhanSarthi (Coordinator)
+    participant Agent as KarVid (Tax Agent)
+
+    User->>ChatUI: "How can I save on taxes?"
+    ChatUI->>Coordinator: "User asks about tax savings"
+    Coordinator->>Agent: "Route query: tax advice"
+    Agent-->>Coordinator: "80C deductions, HRA exemptions, etc."
+    Coordinator-->>ChatUI: "Compiled tax-saving suggestions"
+    ChatUI-->>User: "You can invest in [options] under 80C to reduce taxable income..."
+          </div>
+        </div>
+
+        <h3>Wireframes</h3>
+        <div class="grid">
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Dashboard
+        A["Net Worth: ₹120,000 (↑5% this month)"] 
+        B["Monthly Budget: ₹20,000 spent of ₹25,000"] 
+        C["Upcoming Bills: Electricity ₹1,200 due 5th"] 
+        D["Goal: Car Downpayment – 20% complete"] 
+        E["Quick Actions: +Add Expense / Ask Mentor"] 
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Goals
+        Goal1["Home Fund: ₹3L/₹15L – 20%"] 
+        ProgressBar1["ProgressBar: 20%"] --> Goal1
+        Goal2["Vacation: ₹20K/₹100K – 20%"] 
+        ProgressBar2["ProgressBar: 20%"] --> Goal2
+        AddGoal["+ Set New Goal"] 
+    end
+            </div>
+          </div>
         </div>
 
         <h2>UX Layouts & Visuals</h2>
@@ -131,6 +162,10 @@ Goal: Car Downpayment [==--] 20%
       </div>
     </footer>
 
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
