@@ -144,7 +144,61 @@ flowchart TB
           </div>
         </div>
 
-        <h2>UX Layouts & Visuals</h2>
+        <h2>User Research & Empathy</h2>
+        
+        <h3>User Segmentation</h3>
+        <p>We segmented our target audience based on financial literacy and goals:</p>
+        <ul>
+          <li><strong>FIRE Seekers:</strong> Aggressive savers focused on early retirement, needing complex calculations.</li>
+          <li><strong>Newlyweds / Young Families:</strong> Joint finance managers planning large milestones (e.g., buying a house).</li>
+          <li><strong>Novice Investors:</strong> Have disposable income but lack direction and require heavy hand-holding.</li>
+        </ul>
+
+        <h3>Primary User Persona: Rahul & Sneha</h3>
+        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+          <p><strong>Profile:</strong> A newlywed couple in their early 30s. They have a decent combined income but no formal budget.</p>
+          <p><strong>Goal:</strong> To save enough for a downpayment on a house in 5 years without sacrificing their current lifestyle.</p>
+          <p><strong>Pain Point:</strong> They are overwhelmed by conflicting financial advice and find spreadsheets too tedious to maintain consistently.</p>
+        </div>
+
+        <h3>Empathy Mapping (Rahul & Sneha)</h3>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Says:</strong> "We don't know where our money goes at the end of the month."
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Thinks:</strong> "Are we saving enough for the downpayment?"
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Does:</strong> Tries to use Excel but gives up; leaves money sitting in low-yield savings accounts.
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Feels:</strong> Overwhelmed by jargon; uncertain about their financial future.
+          </div>
+        </div>
+
+        <h3>Persona-Specific Journey Map</h3>
+        <p>Mapping their journey from financial confusion to confident action:</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+journey
+    title Rahul & Sneha's Financial Journey
+    section Discovery
+      Realize they need to save: 3: Rahul, Sneha
+      Download AI Money Mentor: 4: Rahul, Sneha
+    section Onboarding
+      Input income and expenses: 3: Rahul, Sneha
+      Set 'House Downpayment' goal: 5: Rahul, Sneha
+    section Interaction
+      Ask AI how to reach goal: 4: Rahul, Sneha
+      AI explains 50/30/20 rule: 5: Rahul, Sneha
+    section Action
+      Set up automatic SIP: 5: Rahul, Sneha
+      Track progress on Dashboard: 5: Rahul, Sneha
+          </div>
+        </div>
+
+        <h2>User Pain Points & Core Features</h2>
         <p><strong>Dashboard:</strong> Multi-section layout. "Net Worth" card spans full width. Below, Budget and Bills side-by-side. Clean, grid-aligned layout with consistent margins.</p>
         <p><strong>Chat UI:</strong> Full-screen vertical flow. Bot messages have a soft blue background. Suggested quick-reply chips appear above the input field.</p>
         <p><strong>Color Scheme:</strong> A trustworthy palette of blues and teals (#2196F3, #4CAF50). White backgrounds with charcoal text. A high-contrast dark theme is also available.</p>

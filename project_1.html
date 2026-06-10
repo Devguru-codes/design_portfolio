@@ -58,7 +58,63 @@
           <li><strong>Lack of Trust Cues:</strong> Few reassuring messages or security markers.</li>
         </ul>
 
-        <h2>Competitor Analysis</h2>
+        <h2>Design Process & User Research</h2>
+        <p>A user-centric redesign requires deeply understanding the motivations, anxieties, and behaviors of the target audience.</p>
+
+        <h3>User Segmentation</h3>
+        <p>We divided the Snapdeal user base into three primary segments based on shopping habits:</p>
+        <ul>
+          <li><strong>Budget-Conscious Shoppers:</strong> Highly price-sensitive, motivated by discounts and free shipping.</li>
+          <li><strong>First-Time Online Buyers:</strong> Lower digital literacy, highly skeptical of digital payments, need strong trust cues.</li>
+          <li><strong>Tech-Savvy Deal Hunters:</strong> Quick comparison shoppers who want a frictionless checkout experience without forced sign-ups.</li>
+        </ul>
+
+        <h3>Primary User Persona: Priya</h3>
+        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+          <p><strong>Profile:</strong> 28-year-old marketing executive. She is tech-savvy but very mindful of her monthly budget.</p>
+          <p><strong>Goal:</strong> To find the best deals online and checkout quickly without hidden surprises.</p>
+          <p><strong>Pain Point:</strong> She frequently abandons carts on e-commerce sites when unexpected delivery charges or convenience fees are added at the final step.</p>
+        </div>
+
+        <h3>Empathy Mapping (Priya)</h3>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Says:</strong> "Why is the total suddenly higher? Did they add a fee?"
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Thinks:</strong> "Is my payment information really secure on this app?"
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Does:</strong> Hunts for promo codes online; abandons the cart if shipping is too high.
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Feels:</strong> Anxious about hidden charges; frustrated by unnecessarily long forms.
+          </div>
+        </div>
+
+        <h3>Persona-Specific Journey Map</h3>
+        <p>Mapping Priya's checkout journey to identify critical friction points:</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+journey
+    title Priya's Checkout Journey
+    section Discovery
+      Finds a great deal: 5: Priya
+      Adds item to cart: 4: Priya
+    section Cart Review
+      Checks subtotal: 4: Priya
+      Sees hidden shipping fee: 2: Priya
+    section Checkout
+      Forced to create account: 1: Priya
+      Enters Address: 3: Priya
+      Selects Payment Method: 3: Priya
+      Sees Trust Badge: 4: Priya
+    section Final
+      Completes Order: 5: Priya
+          </div>
+        </div>
+
+        <h3>Heuristic Evaluation & Competitor Analysis</h3>
         <table>
           <thead>
             <tr>

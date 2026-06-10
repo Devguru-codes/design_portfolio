@@ -36,15 +36,71 @@
         <h2>Product Overview</h2>
         <p>As homes become smarter, users are increasingly overwhelmed by juggling multiple apps to control different devices. The "Unified Smart Home Dashboard" is a conceptual mobile app designed to bring all smart devices under one roof with a customizable, widget-based interface.</p>
 
+        <div style="text-align: center; margin: 3rem 0;">
+          <img src="/smart_home_dashboard.png" alt="Smart Home Dashboard Mockup" style="max-width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          <p style="font-size: 0.9rem; color: #888; margin-top: 1rem;">High-Fidelity AI Generated Concept</p>
+        </div>
+
         <div class="highlight-box">
           <h3>Problem Statement</h3>
           <p>Users report high cognitive load and frustration when trying to execute simple routines (e.g., turning off all lights and locking doors before bed) because they have to open three different applications. We needed to create a centralized hub that reduces time-to-action.</p>
         </div>
 
-        <h2>Design Strategy</h2>
-        <p>Our strategy focused on <strong>customizability</strong> and <strong>quick actions</strong>. We introduced a drag-and-drop widget system where users can pin their most-used devices or "Scenes" (multi-device macros) directly to the home screen.</p>
+        <h2>Design Strategy & User Research</h2>
+        <p>Our strategy focused on <strong>customizability</strong> and <strong>quick actions</strong>. To achieve this, we had to first understand the friction users face daily.</p>
         
-        <h3>User Flow: Creating a "Goodnight" Scene</h3>
+        <h3>User Segmentation</h3>
+        <p>We segmented the user base by their technical aptitude and the complexity of their smart home setup:</p>
+        <ul>
+          <li><strong>Tech Enthusiasts:</strong> Power users with 15+ devices from various ecosystems, frustrated by lack of interoperability.</li>
+          <li><strong>Busy Parents:</strong> Users who want "set it and forget it" automated routines (like a morning wake-up light sequence).</li>
+          <li><strong>Elderly/Accessibility Needs:</strong> Users who require large, distinct touch targets and high contrast interfaces over voice control.</li>
+        </ul>
+
+        <h3>Primary User Persona: Arjun</h3>
+        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+          <p><strong>Profile:</strong> A 35-year-old tech enthusiast. His home has smart lights, a smart lock, a smart thermostat, and cameras—all from different brands.</p>
+          <p><strong>Goal:</strong> To execute complex, multi-device routines with a single tap rather than opening 4 separate apps.</p>
+          <p><strong>Pain Point:</strong> He experiences high cognitive load trying to remember which app controls which device, especially when he's tired at night.</p>
+        </div>
+
+        <h3>Empathy Mapping (Arjun)</h3>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Says:</strong> "I just want to turn everything off and lock the door with one tap before bed."
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Thinks:</strong> "Why do I need 5 different apps just to control my living room?"
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Does:</strong> Uses voice assistants heavily but wants a visual fallback when people are sleeping.
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Feels:</strong> Annoyed by fragmentation; overwhelmed by notifications from different ecosystems.
+          </div>
+        </div>
+
+        <h3>Persona-Specific Journey Map</h3>
+        <p>Mapping Arjun's journey to create a "Goodnight" routine:</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+journey
+    title Arjun's 'Goodnight' Automation Journey
+    section Trigger
+      Gets ready for bed: 5: Arjun
+      Opens Unified App: 4: Arjun
+    section Creation
+      Taps 'Add Scene': 5: Arjun
+      Selects Lights, Lock, Thermostat: 3: Arjun
+      Sets desired states: 4: Arjun
+    section Execution
+      Pins 'Goodnight' to Home: 5: Arjun
+      Taps widget to execute: 5: Arjun
+      Everything turns off: 5: Arjun
+          </div>
+        </div>
+
+        <h3>Core User Flow: Creating a Scene</h3>
         <div class="diagram-box">
           <div class="mermaid">
 flowchart LR
