@@ -43,7 +43,11 @@ const modalHtml = `
       <h2 style="color: #fff; margin-bottom: 1.5rem;">Contact Details</h2>
       <p style="margin-bottom: 1rem; font-size: 1.2rem;"><strong style="color: var(--accent-1);">Email:</strong><br><a href="mailto:devguruatwork@gmail.com" style="color: #fff; text-decoration: none;">devguruatwork@gmail.com</a></p>
       <p style="margin-bottom: 2rem; font-size: 1.2rem;"><strong style="color: var(--accent-1);">Phone:</strong><br><a href="tel:+919354926131" style="color: #fff; text-decoration: none;">9354926131</a></p>
-      <a href="mailto:devguruatwork@gmail.com" class="btn btn-primary" style="display: block; width: 100%;">Send Email</a>
+      <div style="display: flex; gap: 1rem; flex-direction: column;">
+        <a href="mailto:devguruatwork@gmail.com" class="btn btn-primary" style="display: block; width: 100%;">Email Me</a>
+        <a href="https://github.com/Devguru-codes" target="_blank" class="btn btn-outline" style="display: block; width: 100%;">GitHub</a>
+        <a href="https://www.linkedin.com/in/devguru-tiwari" target="_blank" class="btn btn-outline" style="display: block; width: 100%;">LinkedIn</a>
+      </div>
     </div>
   </div>
 `;

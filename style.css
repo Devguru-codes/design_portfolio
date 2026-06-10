@@ -1,18 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --bg-color: #0a0e17;
-  --surface-color: #161b22;
-  --surface-hover: #1e242d;
+  --bg-color: #000000;
+  --surface-color: #0a0a0a;
+  --surface-hover: #141414;
   --border-color: rgba(255, 255, 255, 0.1);
-  --text-primary: #ffffff;
-  --text-secondary: #8b949e;
-  
-  --accent-1: #00f5ff; /* Neon Cyan */
-  --accent-2: #66fcf1; /* Teal */
-  --accent-3: #45a29e; /* Muted Teal */
-  
-  --glow-shadow: 0 0 40px rgba(0, 245, 255, 0.15);
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --accent-1: #6366f1;
+  --accent-2: #8b5cf6;
+  --glow-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
   --glass-blur: blur(12px);
 }
 
@@ -266,8 +263,13 @@ footer {
 
 /* Case Study Content Styles */
 .case-study-hero {
-  padding: 12rem 0 6rem;
+  padding: 6rem 0 3rem;
   text-align: center;
+}
+
+.case-study-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: 1rem;
 }
 
 .case-study-hero .card-tag {
@@ -349,6 +351,12 @@ footer {
   color: var(--accent-2);
   font-size: 0.9rem;
   line-height: 1.4;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto !important;
+  max-height: 450px;
 }
 
 table {
