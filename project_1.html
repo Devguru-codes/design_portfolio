@@ -28,6 +28,11 @@
 
       <section class="container content-block fade-up delay-1">
         
+        <div class="highlight-box" style="margin-top: 0;">
+          <h3>Opportunity Type: Linear</h3>
+          <p>This project represents a <strong>Linear Opportunity</strong>—focusing on the continuous, iterative improvement of an existing core product. By streamlining Snapdeal's checkout flow, we are removing friction from an established user journey to maximize conversion efficiency.</p>
+        </div>
+
         <h2>Executive Summary</h2>
         <p>Our goal was to overhaul Snapdeal’s mobile checkout to cut cart abandonment and boost conversions. We analyzed user behavior and the Indian e-commerce context, audited the existing Snapdeal flow, and benchmarked top competitors for best practices.</p>
         <p>Key findings included rampant checkout drop-offs (globally ~70% abandonment) and strong user demand for trust cues and simplicity. We defined clear personas and mapped their journeys. Through heuristic review, we identified major pain points—hidden costs, form overload, weak CTA hierarchy, and confusion around payment options.</p>
@@ -186,12 +191,25 @@ flowchart TB
         <h3>UX Writing & Error Recovery</h3>
         <p>We crafted action-oriented copy. Instead of vague errors, inline validation guides users instantly (e.g. "We deliver only to certain pincodes. Please re-enter."). Empty states encourage browsing ("Your cart is empty! Find great deals...").</p>
 
-        <h2>Metrics & A/B Testing Ideas</h2>
-        <p>To measure impact, we defined KPIs including Checkout Conversion Rate, Cart Abandonment Rate, and Drop-off by Step. Proposed A/B tests include:</p>
+        <h2>Metrics & KPIs</h2>
+        <p><strong>North Star Metric: Checkout Conversion Rate</strong><br>
+        The primary indicator of success for this redesign is the percentage of initiated checkouts that successfully convert into completed orders. Reducing the current ~70% abandonment rate is our main objective.</p>
+        
+        <h3>Success Metrics</h3>
         <ul>
-          <li>Single-Page vs Multi-Page Checkout.</li>
-          <li>Trust Badge Emphasis (SSL lock vs none).</li>
-          <li>Listing UPI vs CoD first in payment options.</li>
+          <li><strong>Cart Abandonment Rate:</strong> Tracking the overall reduction of drop-offs during the checkout flow.</li>
+          <li><strong>Payment Success Rate:</strong> Percentage of started payment attempts that succeed without errors.</li>
+          <li><strong>Average Checkout Time:</strong> Time taken from clicking "Checkout" to the final "Order Placed" screen.</li>
+          <li><strong>Drop-off by Step:</strong> Funnel analysis to pinpoint exactly where users abandon (e.g., Address vs. Payment).</li>
+          <li><strong>User Satisfaction (NPS):</strong> Post-checkout surveys to measure perceived confidence and trust.</li>
+        </ul>
+
+        <h3>A/B Testing Ideas</h3>
+        <p>To continually iterate and optimize, we propose testing:</p>
+        <ul>
+          <li>Single-Page vs Multi-Page Checkout flows.</li>
+          <li>Trust Badge Emphasis (e.g., testing the impact of prominent SSL lock icons).</li>
+          <li>Listing UPI vs CoD first in payment options to observe shifting preferences.</li>
         </ul>
 
       </section>
