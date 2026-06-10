@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snapdeal Checkout Redesign - Case Study</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="bg-mesh"></div>
+
+    <nav>
+      <div class="container nav-container">
+        <a href="/" class="logo">Portfolio.</a>
+        <div class="nav-links">
+          <a href="/#work">Work</a>
+          <a href="/#about">About</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="case-study-hero container fade-up">
+        <span class="card-tag">E-Commerce UX Case Study</span>
+        <h1>Reducing Checkout Friction in Indian E-Commerce</h1>
+        <p>Snapdeal Checkout Redesign</p>
+      </section>
+
+      <section class="container content-block fade-up delay-1">
+        
+        <h2>Executive Summary</h2>
+        <p>Our goal was to overhaul Snapdeal’s mobile checkout to cut cart abandonment and boost conversions. We analyzed user behavior and the Indian e-commerce context, audited the existing Snapdeal flow, and benchmarked top competitors for best practices.</p>
+        <p>Key findings included rampant checkout drop-offs (globally ~70% abandonment) and strong user demand for trust cues and simplicity. We defined clear personas and mapped their journeys. Through heuristic review, we identified major pain points—hidden costs, form overload, weak CTA hierarchy, and confusion around payment options.</p>
+        <p>We envisioned a streamlined, mobile-first checkout: a concise 3–4 step flow with autofill support and minimal fields. We introduced trust signals and microcopy to reassure users. The new design promises simpler steps, transparent pricing, and greater trust – all critical to turning browsers into buyers in India’s value-driven market.</p>
+
+        <div class="highlight-box">
+          <h3>Problem Statement</h3>
+          <p>Snapdeal faced high cart abandonment in its mobile checkout. In India, these issues are amplified by the “Bharat” shopper: mobile-first, price-sensitive users who demand trust (e.g. COD or UPI options). We needed to simplify the flow, make costs clear, and build trust, so more users complete payment.</p>
+        </div>
+
+        <h2>Background Context</h2>
+        <p><strong>Indian E-Commerce Landscape:</strong> India’s online market is massive, with over 85% of Snapdeal orders coming from mobile devices. However, trust issues persist: Cash-on-Delivery (CoD) remains extremely common (60–65% of orders). UPI payments have soared, but CoD is a vital trust option in smaller towns.</p>
+        <p><strong>Snapdeal’s Market:</strong> Snapdeal caters to the value-conscious middle class. Over 70% of customers are 18–45 year-olds earning ₹3–10L/year. These users prioritize free shipping and CoD to reduce payment friction. They expect a fast, easy checkout on slow connections.</p>
+
+        <h2>UX Audit & Pain Points</h2>
+        <p>We performed an audit of Snapdeal’s existing checkout to uncover pain points:</p>
+        <ul>
+          <li><strong>Lengthy Flow:</strong> >4 screens (cart, login, address, payment, review).</li>
+          <li><strong>Hidden Costs:</strong> Extra fees appeared late in the flow, leading to abandonment.</li>
+          <li><strong>Forced Login:</strong> Mandatory sign-in deters ~26% of shoppers.</li>
+          <li><strong>Form Friction:</strong> Weak autofill/hint support on forms.</li>
+          <li><strong>Payment Confusion:</strong> CoD option lacked clarity, UPI options were buried.</li>
+          <li><strong>Lack of Trust Cues:</strong> Few reassuring messages or security markers.</li>
+        </ul>
+
+        <h2>Competitor Analysis</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Checkout Steps</th>
+              <th>Trust & Delivery</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Amazon India</td>
+              <td>3–4 steps (Cart &rarr; Login &rarr; Address &rarr; Pay)</td>
+              <td>Padlock icons, A-to-z guarantee, exact delivery date</td>
+            </tr>
+            <tr>
+              <td>Flipkart</td>
+              <td>3–4 steps</td>
+              <td>"Flipkart Assured", seller transparency</td>
+            </tr>
+            <tr>
+              <td>Myntra</td>
+              <td>2–3 steps (Express checkout)</td>
+              <td>30-day returns heavily emphasized</td>
+            </tr>
+            <tr>
+              <td>Snapdeal (Current)</td>
+              <td>4–5+ steps</td>
+              <td>Sparse trust badges, unclear return info</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Design Strategy & Solutions</h2>
+        <h3>Mobile-First Layout</h3>
+        <p>We adopted an 8px baseline grid with touch targets &ge;44x44dp. Primary CTAs ("Place Order", "Pay ₹X") are full-width, high-contrast orange buttons fixed at the bottom of the screen.</p>
+
+        <h3>Trust & Security Design</h3>
+        <p>On the payment screen, a lock icon next to the "Pay Now" button signals SSL encryption. Return policy links and estimated delivery dates are shown early in the process. We labeled CoD clearly: "Cash on Delivery (Home payment) – ₹30 fee" with an explanatory tooltip.</p>
+
+        <div class="diagram-box">
+          <pre>
+Cart View Wireframe Concept:
+--------------------------------
+[ Product 1 – ₹499 (Qty 1) ]
+[ Product 2 – ₹299 (Qty 2) ]
+--------------------------------
+Subtotal: ₹1097
+Coupon: [ Apply ]
+--------------------------------
+Total: ₹1097
+[ Proceed to Checkout &rarr; ]
+          </pre>
+        </div>
+
+        <h3>UX Writing & Error Recovery</h3>
+        <p>We crafted action-oriented copy. Instead of vague errors, inline validation guides users instantly (e.g. "We deliver only to certain pincodes. Please re-enter."). Empty states encourage browsing ("Your cart is empty! Find great deals...").</p>
+
+        <h2>Metrics & A/B Testing Ideas</h2>
+        <p>To measure impact, we defined KPIs including Checkout Conversion Rate, Cart Abandonment Rate, and Drop-off by Step. Proposed A/B tests include:</p>
+        <ul>
+          <li>Single-Page vs Multi-Page Checkout.</li>
+          <li>Trust Badge Emphasis (SSL lock vs none).</li>
+          <li>Listing UPI vs CoD first in payment options.</li>
+        </ul>
+
+      </section>
+    </main>
+
+    <footer>
+      <div class="container fade-up">
+        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
