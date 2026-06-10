@@ -8,6 +8,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         project1: resolve(__dirname, 'project_1.html'),
         project2: resolve(__dirname, 'project_2.html'),
+        project3: resolve(__dirname, 'project_3.html'),
       },
     },
   },

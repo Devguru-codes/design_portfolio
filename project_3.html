@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Home Dashboard - Case Study</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="bg-mesh"></div>
+
+    <nav>
+      <div class="container nav-container">
+        <a href="/" class="logo">Portfolio.</a>
+        <div class="nav-links">
+          <a href="/#work">Work</a>
+          <a href="/#about">About</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="case-study-hero container fade-up">
+        <span class="card-tag">IoT UX Case Study</span>
+        <h1>Unified Smart Home Dashboard</h1>
+        <p>Simplifying everyday device management</p>
+      </section>
+
+      <section class="container content-block fade-up delay-1">
+        
+        <div class="highlight-box" style="margin-top: 0;">
+          <h3>Opportunity Type: Adjacent</h3>
+          <p>This represents an <strong>Adjacent Opportunity</strong>. It expands the ecosystem by creating a unified software experience that ties together various existing hardware devices (smart lights, thermostats, locks) into a cohesive, simplified market offering.</p>
+        </div>
+
+        <h2>Product Overview</h2>
+        <p>As homes become smarter, users are increasingly overwhelmed by juggling multiple apps to control different devices. The "Unified Smart Home Dashboard" is a conceptual mobile app designed to bring all smart devices under one roof with a customizable, widget-based interface.</p>
+
+        <div class="highlight-box">
+          <h3>Problem Statement</h3>
+          <p>Users report high cognitive load and frustration when trying to execute simple routines (e.g., turning off all lights and locking doors before bed) because they have to open three different applications. We needed to create a centralized hub that reduces time-to-action.</p>
+        </div>
+
+        <h2>Design Strategy</h2>
+        <p>Our strategy focused on <strong>customizability</strong> and <strong>quick actions</strong>. We introduced a drag-and-drop widget system where users can pin their most-used devices or "Scenes" (multi-device macros) directly to the home screen.</p>
+        
+        <h3>User Flow: Creating a "Goodnight" Scene</h3>
+        <div class="diagram-box">
+          <div class="mermaid">
+flowchart LR
+    A["Home Dashboard"] --> B["Tap '+' Add Scene"]
+    B --> C["Select Devices"]
+    C --> D["Set Actions (Lights Off, Door Lock)"]
+    D --> E["Name Scene ('Goodnight')"]
+    E --> F["Save & Add to Home"]
+          </div>
+        </div>
+
+        <h3>Low-Fidelity Wireframes</h3>
+        <div class="grid">
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Dashboard
+        A["Header: Welcome Home!"] 
+        B["Quick Scene: Good Morning"] 
+        C["Quick Scene: Goodnight"] 
+        D["Widget: Living Room Temp 72°"] 
+        E["Widget: Front Door [Locked]"] 
+        F["Nav: Home | Devices | Settings"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Device Hub
+        A["Category: Lighting"] 
+        B["Living Room Lamp [Toggle]"] 
+        C["Kitchen Strip [Slider 50%]"] 
+        D["Category: Security"] 
+        E["Camera Feed [View]"] 
+    end
+            </div>
+          </div>
+        </div>
+
+        <h2>Metrics & KPIs</h2>
+        <p><strong>North Star Metric: Time-to-Action</strong><br>
+        The primary indicator of success is the average time (in seconds) it takes a user to complete a routine task, aiming to reduce it from ~45 seconds (across multiple apps) to under 10 seconds.</p>
+        
+        <h3>Success Metrics</h3>
+        <ul>
+          <li><strong>Daily Active Users (DAU):</strong> Engagement indicating the app is the primary control hub.</li>
+          <li><strong>Scene Creation Rate:</strong> The percentage of users who successfully build and utilize automated multi-device macros.</li>
+          <li><strong>Widget Retention:</strong> How often users customize and keep widgets on their home screen.</li>
+        </ul>
+
+      </section>
+    </main>
+
+    <footer>
+      <div class="container fade-up">
+        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
+      </div>
+    </footer>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
