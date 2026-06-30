@@ -135,7 +135,7 @@ document.addEventListener('click', (e) => {
       pointer-events: auto;
     }
     .tour-highlight {
-      position: absolute;
+      position: fixed;
       z-index: 10002;
       border: 2px solid #6366f1;
       border-radius: 12px;
@@ -144,7 +144,7 @@ document.addEventListener('click', (e) => {
       pointer-events: none;
     }
     .tour-tooltip {
-      position: absolute;
+      position: fixed;
       z-index: 10003;
       background: #111;
       border: 1px solid rgba(99, 102, 241, 0.5);
@@ -367,82 +367,113 @@ document.addEventListener('click', (e) => {
     tooltip.className = 'tour-tooltip';
     document.body.appendChild(tooltip);
 
+    let tourActive = true;
+    let trackRAF = null;
+    let activeTarget = null;
+    let activeStepConfig = null;
+
+    function updatePositions() {
+      if (!tourActive || !activeTarget || !activeStepConfig) return;
+
+      const rect = activeTarget.getBoundingClientRect();
+      const pad = 8;
+
+      // Position highlight (fixed to viewport)
+      highlight.style.top = (rect.top - pad) + 'px';
+      highlight.style.left = (rect.left - pad) + 'px';
+      highlight.style.width = (rect.width + pad * 2) + 'px';
+      highlight.style.height = (rect.height + pad * 2) + 'px';
+
+      // Position tooltip
+      const ttRect = tooltip.getBoundingClientRect();
+      let ttTop, ttLeft;
+
+      if (activeStepConfig.position === 'bottom') {
+        ttTop = rect.bottom + 16;
+        ttLeft = rect.left + rect.width / 2 - ttRect.width / 2;
+      } else if (activeStepConfig.position === 'top') {
+        ttTop = rect.top - ttRect.height - 16;
+        ttLeft = rect.left + rect.width / 2 - ttRect.width / 2;
+      } else if (activeStepConfig.position === 'right') {
+        ttTop = rect.top + rect.height / 2 - ttRect.height / 2;
+        ttLeft = rect.right + 16;
+      } else {
+        ttTop = rect.top + rect.height / 2 - ttRect.height / 2;
+        ttLeft = rect.left - ttRect.width - 16;
+      }
+
+      // Clamp to viewport
+      const margin = 16;
+      ttLeft = Math.max(margin, Math.min(ttLeft, window.innerWidth - ttRect.width - margin));
+      
+      // Smart vertical clamping (flip to bottom if top goes off-screen, etc.)
+      if (ttTop < margin) {
+         ttTop = rect.bottom + 16; // flip to bottom
+      }
+      if (ttTop + ttRect.height > window.innerHeight - margin) {
+         ttTop = rect.top - ttRect.height - 16; // flip to top
+      }
+      // Final hard clamp
+      ttTop = Math.max(margin, Math.min(ttTop, window.innerHeight - ttRect.height - margin));
+
+      tooltip.style.top = ttTop + 'px';
+      tooltip.style.left = ttLeft + 'px';
+
+      if (tourActive) {
+        trackRAF = requestAnimationFrame(updatePositions);
+      }
+    }
+
     function goToStep(index) {
       currentStep = index;
 
       if (index >= TOUR_STEPS.length) {
         // Tour complete
+        tourActive = false;
+        cancelAnimationFrame(trackRAF);
         highlight.remove();
         tooltip.remove();
         showComplete();
         return;
       }
 
-      const step = TOUR_STEPS[index];
-      const target = document.querySelector(step.selector);
-      if (!target) { goToStep(index + 1); return; }
+      activeStepConfig = TOUR_STEPS[index];
+      activeTarget = document.querySelector(activeStepConfig.selector);
+      
+      if (!activeTarget) { goToStep(index + 1); return; }
 
-      // Scroll to element
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Scroll to element (smoothly)
+      activeTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-      setTimeout(() => {
-        const rect = target.getBoundingClientRect();
-        const pad = 8;
-
-        // Position highlight
-        highlight.style.top = (rect.top + window.scrollY - pad) + 'px';
-        highlight.style.left = (rect.left - pad) + 'px';
-        highlight.style.width = (rect.width + pad * 2) + 'px';
-        highlight.style.height = (rect.height + pad * 2) + 'px';
-
-        // Build tooltip content
-        tooltip.innerHTML = `
-          <h4>Step ${index + 1} of ${TOUR_STEPS.length}</h4>
-          <h3>${step.title}</h3>
-          <p>${step.text}</p>
-          <div class="tour-footer">
-            <span class="tour-progress">${index + 1} / ${TOUR_STEPS.length}</span>
-            <div class="tour-btns">
-              <button class="tour-btn tour-btn-skip">${index === 0 ? 'Skip Tour' : 'Skip'}</button>
-              <button class="tour-btn tour-btn-next">${index === TOUR_STEPS.length - 1 ? 'Finish' : 'Next'}</button>
-            </div>
+      // Build tooltip content immediately
+      tooltip.innerHTML = `
+        <h4>Step ${index + 1} of ${TOUR_STEPS.length}</h4>
+        <h3>${activeStepConfig.title}</h3>
+        <p>${activeStepConfig.text}</p>
+        <div class="tour-footer">
+          <span class="tour-progress">${index + 1} / ${TOUR_STEPS.length}</span>
+          <div class="tour-btns">
+            <button class="tour-btn tour-btn-skip">${index === 0 ? 'Skip Tour' : 'Skip'}</button>
+            <button class="tour-btn tour-btn-next">${index === TOUR_STEPS.length - 1 ? 'Finish' : 'Next'}</button>
           </div>
-        `;
+        </div>
+      `;
 
-        // Position tooltip
-        const ttRect = tooltip.getBoundingClientRect();
-        let ttTop, ttLeft;
+      // Wire buttons
+      tooltip.querySelector('.tour-btn-next').addEventListener('click', () => goToStep(index + 1));
+      tooltip.querySelector('.tour-btn-skip').addEventListener('click', () => {
+        tourActive = false;
+        cancelAnimationFrame(trackRAF);
+        highlight.remove();
+        tooltip.remove();
+        localStorage.setItem('tour_completed', 'true');
+        showDismissMessage();
+      });
 
-        if (step.position === 'bottom') {
-          ttTop = rect.bottom + window.scrollY + 16;
-          ttLeft = rect.left + rect.width / 2 - 190;
-        } else if (step.position === 'top') {
-          ttTop = rect.top + window.scrollY - ttRect.height - 16;
-          ttLeft = rect.left + rect.width / 2 - 190;
-        } else if (step.position === 'right') {
-          ttTop = rect.top + window.scrollY + rect.height / 2 - 80;
-          ttLeft = rect.right + 16;
-        } else {
-          ttTop = rect.top + window.scrollY + rect.height / 2 - 80;
-          ttLeft = rect.left - 400;
-        }
-
-        // Keep tooltip on screen
-        ttLeft = Math.max(16, Math.min(ttLeft, window.innerWidth - 400));
-        ttTop = Math.max(80, ttTop);
-
-        tooltip.style.top = ttTop + 'px';
-        tooltip.style.left = ttLeft + 'px';
-
-        // Wire buttons
-        tooltip.querySelector('.tour-btn-next').addEventListener('click', () => goToStep(index + 1));
-        tooltip.querySelector('.tour-btn-skip').addEventListener('click', () => {
-          highlight.remove();
-          tooltip.remove();
-          localStorage.setItem('tour_completed', 'true');
-          showDismissMessage();
-        });
-      }, 500);
+      // Start tracking
+      if (!trackRAF) {
+        updatePositions();
+      }
     }
 
     goToStep(0);
