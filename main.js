@@ -44,7 +44,7 @@ const modalHtml = `
       <p style="margin-bottom: 1rem; font-size: 1.2rem;"><strong style="color: var(--accent-1);">Email:</strong><br><a href="mailto:devguruatwork@gmail.com" style="color: #fff; text-decoration: none;">devguruatwork@gmail.com</a></p>
       <p style="margin-bottom: 2rem; font-size: 1.2rem;"><strong style="color: var(--accent-1);">Phone:</strong><br><a href="tel:+919354926131" style="color: #fff; text-decoration: none;">9354926131</a></p>
       <div style="display: flex; gap: 1rem; flex-direction: column;">
-        <a href="mailto:devguruatwork@gmail.com" class="btn btn-primary" style="display: block; width: 100%;">Email Me</a>
+        <a href="#" id="copyEmailBtn" class="btn btn-primary" style="display: block; width: 100%;">Copy Email</a>
         <a href="https://github.com/Devguru-codes" target="_blank" class="btn btn-outline" style="display: block; width: 100%;">GitHub</a>
         <a href="https://www.linkedin.com/in/devguru-tiwari" target="_blank" class="btn btn-outline" style="display: block; width: 100%;">LinkedIn</a>
       </div>
@@ -60,6 +60,21 @@ document.addEventListener('click', (e) => {
   }
   if (e.target.id === 'closeModal' || e.target.id === 'contactModal') {
     document.getElementById('contactModal').style.display = 'none';
+  }
+  if (e.target.id === 'copyEmailBtn') {
+    e.preventDefault();
+    navigator.clipboard.writeText('devguruatwork@gmail.com').then(() => {
+      const btn = e.target;
+      const originalText = btn.textContent;
+      btn.textContent = 'Email Copied!';
+      btn.style.background = 'rgba(0, 245, 255, 0.2)';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = 'transparent';
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy email: ', err);
+    });
   }
 });
 
