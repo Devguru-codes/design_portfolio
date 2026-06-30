@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snapdeal Checkout Redesign - Case Study</title>
+    <title>AI Voice Call Centre - Case Study</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,251 +29,236 @@
 
     <main>
       <section class="case-study-hero container fade-up">
-        <span class="card-tag">E-Commerce UX Case Study</span>
-        <h1>Reducing Checkout Friction in Indian E-Commerce</h1>
-        <p>Snapdeal Checkout Redesign</p>
+        <span class="card-tag">AI / Voice UX Case Study</span>
+        <h1>Building an AI-Powered Voice Call Centre from Scratch</h1>
+        <p>Multi-Agent Voice Platform with Real-Time STT, LLM Routing, and TTS</p>
       </section>
 
       <section class="container content-block">
         
         <div class="highlight-box" style="margin-top: 0;">
-          <h3>Opportunity Type: Linear</h3>
-          <p>This project represents a <strong>Linear Opportunity</strong> - focusing on the continuous, iterative improvement of an existing core product. By streamlining Snapdeal's checkout flow, we are removing friction from an established user journey to maximize conversion efficiency.</p>
+          <h3>Opportunity Type: Disruptive</h3>
+          <p>This represents a <strong>Disruptive Opportunity</strong>. Traditional call centres rely on human agents and rigid IVR trees. This project replaces the entire stack with an AI-native voice pipeline: real-time speech recognition, LLM-powered reasoning with tool execution, and neural text-to-speech, all orchestrated as a multi-agent swarm that hot-swaps personas during a live call.</p>
         </div>
 
         <h2>Executive Summary</h2>
-        <p>Our goal was to overhaul Snapdeal’s mobile checkout to cut cart abandonment and boost conversions. We analyzed user behavior and the Indian e-commerce context, audited the existing Snapdeal flow, and benchmarked top competitors for best practices.</p>
-        <p>Key findings included rampant checkout drop-offs (globally ~70% abandonment) and strong user demand for trust cues and simplicity. We defined clear personas and mapped their journeys. Through heuristic review, we identified major pain points - hidden costs, form overload, weak CTA hierarchy, and confusion around payment options.</p>
-        <p>We envisioned a streamlined, mobile-first checkout: a concise 3-4 step flow with autofill support and minimal fields. We introduced trust signals and microcopy to reassure users. The new design promises simpler steps, transparent pricing, and greater trust - all critical to turning browsers into buyers in India’s value-driven market.</p>
+        <p>Enterprise call centres are expensive. A mid-size company spends $6-12 per minute on human agents, with 40% of call time wasted on routing and hold music. Existing solutions like Retell AI, Bland AI, and Vapi charge $0.10-0.25 per minute and lock you into proprietary platforms.</p>
+        <p>This project is a fully open-source alternative. It features a real-time voice pipeline streaming PCM audio over WebSockets, with sub-second latency from microphone input to spoken AI response. The system uses Faster Whisper for speech-to-text, Groq's Llama-3 for LLM reasoning, and Edge TTS for neural voice synthesis.</p>
+        <p>The key innovation is the multi-agent swarm architecture: a single call is handled by specialized agents (Receptionist, Sales, Support, Scheduling) that seamlessly transfer context to each other mid-conversation. Each agent has its own persona, voice, tool permissions, and prompt-engineered system instructions. The platform includes a full CRM, calendar booking, email dispatch, RAG knowledge base, and post-call analytics dashboard.</p>
 
         <div class="highlight-box">
           <h3>Problem Statement</h3>
-          <p>Snapdeal faced high cart abandonment in its mobile checkout. In India, these issues are amplified by the “Bharat” shopper: mobile-first, price-sensitive users who demand trust (e.g. COD or UPI options). We needed to simplify the flow, make costs clear, and build trust, so more users complete payment.</p>
+          <p>Small and mid-size businesses cannot afford dedicated call centre teams. When they do set up phone support, callers face frustrating IVR menus, long hold times, and agents who lack context. Existing AI voice platforms are expensive, closed-source, and don't offer the flexibility to customize agent behavior, integrate with internal tools, or self-host for data privacy.</p>
         </div>
 
         <h2>Background Context</h2>
-        <p><strong>Indian E-Commerce Landscape:</strong> India’s online market is massive, with over 85% of Snapdeal orders coming from mobile devices. However, trust issues persist: Cash-on-Delivery (CoD) remains extremely common (60-65% of orders). UPI payments have soared, but CoD is a vital trust option in smaller towns.</p>
-        <p><strong>Snapdeal’s Market:</strong> Snapdeal caters to the value-conscious middle class. Over 70% of customers are 18-45 year-olds earning ₹3-10L/year. These users prioritize free shipping and CoD to reduce payment friction. They expect a fast, easy checkout on slow connections.</p>
+        <p><strong>Market Landscape:</strong> The global AI call centre market is projected to reach $4.1 billion by 2027. Key players (Retell AI, Vapi, Bland AI) offer hosted APIs at $0.10-0.25/min. However, enterprises with compliance requirements (healthcare, finance) need self-hosted solutions. Open-source alternatives are fragmented and lack production-grade orchestration.</p>
+        <p><strong>Technical Context:</strong> Three converging technologies make this feasible: (1) Faster Whisper delivers real-time STT on consumer GPUs, (2) Groq's LPU hardware enables sub-200ms LLM inference, and (3) Edge TTS provides free, high-quality neural voices. The missing piece was a production-grade orchestration layer that ties them together with tool calling and agent handoffs.</p>
 
-        <h2>UX Audit & Pain Points</h2>
-        <p>We performed an audit of Snapdeal’s existing checkout to uncover pain points:</p>
-        <ul>
-          <li><strong>Lengthy Flow:</strong> >4 screens (cart, login, address, payment, review).</li>
-          <li><strong>Hidden Costs:</strong> Extra fees appeared late in the flow, leading to abandonment.</li>
-          <li><strong>Forced Login:</strong> Mandatory sign-in deters ~26% of shoppers.</li>
-          <li><strong>Form Friction:</strong> Weak autofill/hint support on forms.</li>
-          <li><strong>Payment Confusion:</strong> CoD option lacked clarity, UPI options were buried.</li>
-          <li><strong>Lack of Trust Cues:</strong> Few reassuring messages or security markers.</li>
-        </ul>
+        <h2>System Architecture &amp; Design Decisions</h2>
+        <p>The architecture was designed around three core principles: sub-second latency, seamless agent handoffs, and extensible tool integration.</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+flowchart LR
+    A["Browser Microphone"] --> B["WebSocket (PCM Audio)"]
+    B --> C["STT: Faster Whisper"]
+    C --> D["ConversationManager"]
+    D --> E["LLM: Groq Llama-3"]
+    E --> F{"Tool Call?"}
+    F -->|Yes| G["Tools: CRM / Calendar / Email / RAG"]
+    G --> D
+    F -->|No| H["TTS: Edge TTS"]
+    H --> I["WebSocket (Audio Out)"]
+    I --> J["Browser Speaker"]
+          </div>
+        </div>
 
-        <h2>Design Process & User Research</h2>
-        <p>A user-centric redesign requires deeply understanding the motivations, anxieties, and behaviors of the target audience.</p>
+        <h2>Design Process &amp; User Research</h2>
 
         <h3>User Segmentation</h3>
-        <p>We divided the Snapdeal user base into three primary segments based on shopping habits:</p>
+        <p>We identified two user groups: the business admin configuring the system, and the end customer making a call.</p>
         <ul>
-          <li><strong>Budget-Conscious Shoppers:</strong> Highly price-sensitive, motivated by discounts and free shipping.</li>
-          <li><strong>First-Time Online Buyers:</strong> Lower digital literacy, highly skeptical of digital payments, need strong trust cues.</li>
-          <li><strong>Tech-Savvy Deal Hunters:</strong> Quick comparison shoppers who want a frictionless checkout experience without forced sign-ups.</li>
+          <li><strong>Business Admin:</strong> Needs a simple dashboard to configure agent prompts, upload knowledge base documents, and view call analytics. Technical literacy varies widely.</li>
+          <li><strong>End Customer (Caller):</strong> Expects a human-like conversation. Zero tolerance for latency, robotic voices, or being asked to repeat themselves. They should never feel "stuck" with the wrong agent.</li>
         </ul>
 
-        <h3>Primary User Persona: Priya</h3>
+        <h3>Primary User Persona: Meera (Business Admin)</h3>
         <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
-          <p><strong>Profile:</strong> 28-year-old marketing executive. She is tech-savvy but very mindful of her monthly budget.</p>
-          <p><strong>Goal:</strong> To find the best deals online and checkout quickly without hidden surprises.</p>
-          <p><strong>Pain Point:</strong> She frequently abandons carts on e-commerce sites when unexpected delivery charges or convenience fees are added at the final step.</p>
+          <p><strong>Profile:</strong> 34-year-old operations manager at a 50-person SaaS startup. She currently handles support calls herself because they can't afford a dedicated team.</p>
+          <p><strong>Goal:</strong> Set up an AI phone system that handles tier-1 support and appointment booking so she can focus on operations.</p>
+          <p><strong>Pain Point:</strong> Tried Vapi but the per-minute cost was unsustainable at their call volume. Tried building with raw APIs but couldn't get agent handoffs to work reliably.</p>
         </div>
 
-        <h3>Empathy Mapping (Priya)</h3>
+        <h3>Empathy Mapping (Meera)</h3>
         <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Says:</strong> "Why is the total suddenly higher? Did they add a fee?"
+            <strong>Says:</strong> "I need something I can set up in a day, not a month. And it can't cost more than a junior employee."
           </div>
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Thinks:</strong> "Is my payment information really secure on this app?"
+            <strong>Thinks:</strong> "If the AI sounds robotic or gets confused, callers will lose trust in our brand."
           </div>
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Does:</strong> Hunts for promo codes online; abandons the cart if shipping is too high.
+            <strong>Does:</strong> Answers support calls herself between meetings. Uses Google Sheets to track follow-ups. Manually books demo calls via email.
           </div>
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Feels:</strong> Anxious about hidden charges; frustrated by unnecessarily long forms.
+            <strong>Feels:</strong> Overwhelmed by context-switching. Frustrated that "simple" AI solutions are either too expensive or too fragile.
           </div>
         </div>
 
-        <h3>Persona-Specific Journey Map</h3>
-        <p>Mapping Priya's checkout journey to identify critical friction points:</p>
+        <h3>Multi-Agent Handoff Journey</h3>
+        <p>Mapping a typical inbound call through multiple agent personas:</p>
         <div class="diagram-box">
           <div class="mermaid">
 journey
-    title Priya's Checkout Journey
-    section Discovery
-      Finds a great deal: 5: Priya
-      Adds item to cart: 4: Priya
-    section Cart Review
-      Checks subtotal: 4: Priya
-      Sees hidden shipping fee: 2: Priya
-    section Checkout
-      Forced to create account: 1: Priya
-      Enters Address: 3: Priya
-      Selects Payment Method: 3: Priya
-      Sees Trust Badge: 4: Priya
-    section Final
-      Completes Order: 5: Priya
+    title Customer Call Journey Through Agent Swarm
+    section Greeting
+      Receptionist picks up: 5: Caller
+      Asks how to help: 5: Caller
+    section Routing
+      Caller asks about pricing: 4: Caller
+      Receptionist transfers to Sales: 4: Caller
+    section Sales Conversation
+      Sales agent asks discovery questions: 5: Caller
+      Caller wants to book a demo: 5: Caller
+      Sales transfers to Scheduling: 4: Caller
+    section Booking
+      Scheduling confirms date and time: 5: Caller
+      Sends confirmation email: 5: Caller
           </div>
         </div>
 
-        <h3>Heuristic Evaluation & Competitor Analysis</h3>
+        <h3>Competitive Analysis</h3>
         <table>
           <thead>
             <tr>
               <th>Platform</th>
-              <th>Checkout Steps</th>
-              <th>Trust & Delivery</th>
+              <th>Cost</th>
+              <th>Strengths</th>
+              <th>Gaps</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Amazon India</td>
-              <td>3-4 steps (Cart &rarr; Login &rarr; Address &rarr; Pay)</td>
-              <td>Padlock icons, A-to-z guarantee, exact delivery date</td>
+              <td>Retell AI</td>
+              <td>$0.10-0.20/min</td>
+              <td>Low latency, easy setup</td>
+              <td>Closed source, no self-hosting</td>
             </tr>
             <tr>
-              <td>Flipkart</td>
-              <td>3-4 steps</td>
-              <td>"Flipkart Assured", seller transparency</td>
+              <td>Vapi</td>
+              <td>$0.05/min + LLM costs</td>
+              <td>Developer-friendly API</td>
+              <td>No multi-agent handoffs, vendor lock-in</td>
             </tr>
             <tr>
-              <td>Myntra</td>
-              <td>2-3 steps (Express checkout)</td>
-              <td>30-day returns heavily emphasized</td>
+              <td>Bland AI</td>
+              <td>$0.09/min</td>
+              <td>Human-like voices</td>
+              <td>Limited tool integrations, no RAG</td>
             </tr>
             <tr>
-              <td>Snapdeal (Current)</td>
-              <td>4-5+ steps</td>
-              <td>Sparse trust badges, unclear return info</td>
+              <td>This Project (Ours)</td>
+              <td>Self-hosted (LLM API cost only)</td>
+              <td>Open-source, multi-agent swarm, full CRM + RAG</td>
+              <td>Requires technical setup</td>
             </tr>
           </tbody>
         </table>
 
-        <h2>Design Strategy & Solutions</h2>
-        <h3>Mobile-First Layout</h3>
-        <p>We adopted an 8px baseline grid with touch targets &ge;44x44dp. Primary CTAs ("Place Order", "Pay ₹X") are full-width, high-contrast orange buttons fixed at the bottom of the screen.</p>
+        <h2>Design Strategy &amp; Solutions</h2>
+        
+        <h3>Multi-Agent Swarm Architecture</h3>
+        <p>The core design innovation. Instead of a single monolithic agent, we defined four specialized personas (Receptionist, Sales, Support, Scheduling), each with its own system prompt, voice, and tool permissions. A transfer_agent tool allows any agent to hand off the conversation mid-call. The ConversationManager strips tool-call artifacts from the history during transfers to prevent the new agent from re-executing old actions.</p>
 
-        <h3>Trust & Security Design</h3>
-        <p>On the payment screen, a lock icon next to the "Pay Now" button signals SSL encryption. Return policy links and estimated delivery dates are shown early in the process. We labeled CoD clearly: "Cash on Delivery (Home payment) - ₹30 fee" with an explanatory tooltip.</p>
+        <h3>Prompt Engineering for Voice</h3>
+        <p>Voice AI prompts differ fundamentally from chat prompts. We engineered each agent's system prompt with: (1) explicit formatting rules (no markdown, no emojis), (2) gibberish detection to handle STT noise, (3) strict routing decision trees for the Receptionist, and (4) tool execution verification for the Scheduling Agent.</p>
 
-        <h3>Task Flows</h3>
-        <p>We mapped the primary checkout task flow. Below is a simplified cart-to-success flow:</p>
+        <h3>Real-Time Audio Pipeline</h3>
         <div class="diagram-box">
           <div class="mermaid">
 flowchart LR
-    A["Shopping Cart"] --> B["Proceed to Checkout"]
-    B --> C{"User Logged In?"}
-    C -->|Yes| D["Select Shipping Address"]
-    C -->|No| E["Continue as Guest / Sign In"]
-    E --> D
-    D --> F["Choose Payment Method"]
-    F --> G["Review Order Details"]
-    G --> H["Place Order Button"]
-    H --> I["Order Confirmation"]
+    A["Mic Input (PCM 16kHz)"] --> B["WebSocket Stream"]
+    B --> C["STT Buffer (1.5s silence trigger)"]
+    C --> D["Whisper Transcribe + VAD Filter"]
+    D --> E["Hallucination Blocklist Check"]
+    E --> F["ConversationManager"]
+    F --> G["Groq LLM (streaming)"]
+    G --> H["Edge TTS (streaming)"]
+    H --> I["WebSocket Audio Out"]
           </div>
         </div>
 
-        <h3>User Flows</h3>
-        <p>A user flow highlights entry and exit points. For example, a user story “Buy a phone case”:</p>
-        <div class="diagram-box">
-          <div class="mermaid">
-flowchart LR
-    A["Product Page: Phone Case"] --> B["Add to Cart"]
-    B --> C{"On Cart Page?"}
-    C -->|Back to Shopping| D["Continue Browsing"]
-    C -->|Yes| E["View Cart Contents"]
-    E --> F["Click Checkout"]
-    F --> G["Address Screen"]
-    G --> H["Payment Screen"]
-    H --> I["Order Review"]
-    I --> J["Order Success"]
-          </div>
-        </div>
-
-        <h3>Low-Fidelity Wireframes</h3>
+        <h3>Dashboard Wireframes</h3>
         <div class="grid">
           <div class="diagram-box">
             <div class="mermaid">
 flowchart TB
-    subgraph Cart Screen
-        A["Product 1 - ₹499 (Qty 1)"] 
-        B["Product 2 - ₹299 (Qty 2)"] 
-        C["Subtotal: ₹1097"] 
-        D["Coupon Code: [Apply]"] 
-        E["Total Payable: ₹1097"] 
-        F["Checkout Button →"]
+    subgraph Live Call Interface
+        A["Agent: Receptionist"] 
+        B["Status: Connected"] 
+        C["Transcript: Real-time text"] 
+        D["Agent Indicator: Color-coded"] 
+        E["End Call Button"]
     end
             </div>
           </div>
           <div class="diagram-box">
             <div class="mermaid">
 flowchart TB
-    subgraph Address Screen
-        A["Saved Address 1 (✓) Home - 560001"] 
-        B["+ Add New Address"] 
-        C["Pincode: [560001]"] 
-        D["Name: [Priya Kumar]"] 
-        E["Phone: [Enter 10-digit mobile]"] 
-        F["Delivery Preference: [Standard 3-5 days]"] 
-        G["Continue Button →"]
+    subgraph Analytics Dashboard
+        A["Total Calls: 142"] 
+        B["Avg Duration: 3m 24s"] 
+        C["Sentiment: 78% Positive"] 
+        D["Top Reasons: Pricing, Support, Booking"] 
+        E["Lead Score Distribution Chart"]
     end
             </div>
           </div>
           <div class="diagram-box">
             <div class="mermaid">
 flowchart TB
-    subgraph Payment Screen
-        A["Credit/Debit Card - [**** **** **** 1234]"] 
-        B["UPI - [Enter UPI ID]"] 
-        C["Netbanking - [Choose Bank]"] 
-        D["Cash on Delivery - ₹30 fee"] 
-        E["Order Total: ₹1097"] 
-        F["Pay Now Button →"]
+    subgraph Settings Panel
+        A["Company Name: [Acme Corp]"] 
+        B["Greeting Message: [Edit]"] 
+        C["Business Hours: [9am-6pm]"] 
+        D["Upload Knowledge Base: [Choose Files]"] 
+        E["Save Configuration"]
     end
             </div>
           </div>
           <div class="diagram-box">
             <div class="mermaid">
 flowchart TB
-    subgraph Review Screen
-        A["Items List with Prices"] 
-        B["Shipping Address"] 
-        C["Payment Method Selected"] 
-        D["Total (incl. shipping) ₹1097"] 
-        E["Place Order Button →"]
+    subgraph Call History Detail
+        A["Call ID: #1042"] 
+        B["Duration: 4m 12s | Sentiment: Positive"] 
+        C["Summary: Customer asked about pricing..."] 
+        D["Agents Used: Receptionist > Sales"] 
+        E["Action Items: Follow up on demo"]
     end
             </div>
           </div>
         </div>
 
-        <h3>UX Writing & Error Recovery</h3>
-        <p>We crafted action-oriented copy. Instead of vague errors, inline validation guides users instantly (e.g. "We deliver only to certain pincodes. Please re-enter."). Empty states encourage browsing ("Your cart is empty! Find great deals...").</p>
+        <h2>Key Technical Challenges &amp; Solutions</h2>
+        <ul>
+          <li><strong>Agent Self-Transfer Loop:</strong> The LLM sometimes tried to transfer to the same agent it was already running as (e.g., Support transferring to Support). We added a runtime guard that detects self-transfers and injects a system message telling the agent to help directly.</li>
+          <li><strong>STT Hallucinations:</strong> Whisper transcribes background noise as "thank you", "bye", or "mm-hmm". We added a blocklist filter and VAD (Voice Activity Detection) pre-processing to suppress phantom transcripts.</li>
+          <li><strong>ChatGPT Misrecognition:</strong> Domain-specific terms like "ChatGPT" were transcribed as "charging" or "chad GPT". We solved this with Whisper's initial_prompt parameter to bias the model toward expected vocabulary.</li>
+          <li><strong>Sentence Splitting:</strong> A 0.8s silence threshold was too aggressive, splitting sentences mid-pause. We increased it to 1.5s after user testing.</li>
+        </ul>
 
-        <h2>Metrics & KPIs</h2>
-        <p><strong>North Star Metric: Checkout Conversion Rate</strong><br>
-        The primary indicator of success for this redesign is the percentage of initiated checkouts that successfully convert into completed orders. Reducing the current ~70% abandonment rate is our main objective.</p>
+        <h2>Metrics &amp; KPIs</h2>
+        <p><strong>North Star Metric: Call Resolution Rate</strong><br>
+        The primary indicator of success is the percentage of inbound calls fully resolved by the AI without human escalation. Our target is 70%+ for tier-1 support and scheduling queries.</p>
         
         <h3>Success Metrics</h3>
         <ul>
-          <li><strong>Cart Abandonment Rate:</strong> Tracking the overall reduction of drop-offs during the checkout flow.</li>
-          <li><strong>Payment Success Rate:</strong> Percentage of started payment attempts that succeed without errors.</li>
-          <li><strong>Average Checkout Time:</strong> Time taken from clicking "Checkout" to the final "Order Placed" screen.</li>
-          <li><strong>Drop-off by Step:</strong> Funnel analysis to pinpoint exactly where users abandon (e.g., Address vs. Payment).</li>
-          <li><strong>User Satisfaction (NPS):</strong> Post-checkout surveys to measure perceived confidence and trust.</li>
-        </ul>
-
-        <h3>A/B Testing Ideas</h3>
-        <p>To continually iterate and optimize, we propose testing:</p>
-        <ul>
-          <li>Single-Page vs Multi-Page Checkout flows.</li>
-          <li>Trust Badge Emphasis (e.g., testing the impact of prominent SSL lock icons).</li>
-          <li>Listing UPI vs CoD first in payment options to observe shifting preferences.</li>
+          <li><strong>End-to-End Latency:</strong> Time from user finishing speaking to AI starting its response (target: under 1.5 seconds).</li>
+          <li><strong>Transfer Accuracy:</strong> Percentage of calls routed to the correct specialist agent on the first attempt.</li>
+          <li><strong>Tool Execution Success:</strong> Rate of successful CRM updates, calendar bookings, and email dispatches during calls.</li>
+          <li><strong>Customer Satisfaction (CSAT):</strong> Post-call rating of the AI interaction quality.</li>
+          <li><strong>Cost per Call:</strong> Total infrastructure cost per resolved call vs. human agent baseline ($6-12/call).</li>
         </ul>
 
       </section>

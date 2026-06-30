@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Home Dashboard - Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-mesh"></div>
+
+    <nav>
+      <div class="container nav-container">
+        <a href="/" style="text-decoration: none;">
+          <div class="logo">
+            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
+          </div>
+        </a>
+        <div class="nav-links" style="align-items: center; display: flex;">
+          <a href="/#work">Work</a>
+          <a href="/#about">About</a>
+          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="case-study-hero container fade-up">
+        <span class="card-tag">IoT UX Case Study</span>
+        <h1>Unified Smart Home Dashboard</h1>
+        <p>Simplifying everyday device management</p>
+      </section>
+
+      <section class="container content-block">
+        
+        <div class="highlight-box" style="margin-top: 0;">
+          <h3>Opportunity Type: Adjacent</h3>
+          <p>This represents an <strong>Adjacent Opportunity</strong>. It expands the ecosystem by creating a unified software experience that ties together various existing hardware devices (smart lights, thermostats, locks) into a cohesive, simplified market offering.</p>
+        </div>
+
+        <h2>Product Overview</h2>
+        <p>As homes become smarter, users are increasingly overwhelmed by juggling multiple apps to control different devices. The "Unified Smart Home Dashboard" is a conceptual mobile app designed to bring all smart devices under one roof with a customizable, widget-based interface.</p>
+
+        <div style="text-align: center; margin: 3rem 0;">
+          <img src="/smart_home_dashboard.png" alt="Smart Home Dashboard Mockup" style="max-width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          <p style="font-size: 0.9rem; color: #888; margin-top: 1rem;">High-Fidelity AI Generated Concept</p>
+        </div>
+
+        <div class="highlight-box">
+          <h3>Problem Statement</h3>
+          <p>Users report high cognitive load and frustration when trying to execute simple routines (e.g., turning off all lights and locking doors before bed) because they have to open three different applications. We needed to create a centralized hub that reduces time-to-action.</p>
+        </div>
+
+        <h2>Design Strategy & User Research</h2>
+        <p>Our strategy focused on <strong>customizability</strong> and <strong>quick actions</strong>. To achieve this, we had to first understand the friction users face daily.</p>
+        
+        <h3>User Segmentation</h3>
+        <p>We segmented the user base by their technical aptitude and the complexity of their smart home setup:</p>
+        <ul>
+          <li><strong>Tech Enthusiasts:</strong> Power users with 15+ devices from various ecosystems, frustrated by lack of interoperability.</li>
+          <li><strong>Busy Parents:</strong> Users who want "set it and forget it" automated routines (like a morning wake-up light sequence).</li>
+          <li><strong>Elderly/Accessibility Needs:</strong> Users who require large, distinct touch targets and high contrast interfaces over voice control.</li>
+        </ul>
+
+        <h3>Primary User Persona: Arjun</h3>
+        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+          <p><strong>Profile:</strong> A 35-year-old tech enthusiast. His home has smart lights, a smart lock, a smart thermostat, and cameras - all from different brands.</p>
+          <p><strong>Goal:</strong> To execute complex, multi-device routines with a single tap rather than opening 4 separate apps.</p>
+          <p><strong>Pain Point:</strong> He experiences high cognitive load trying to remember which app controls which device, especially when he's tired at night.</p>
+        </div>
+
+        <h3>Empathy Mapping (Arjun)</h3>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Says:</strong> "I just want to turn everything off and lock the door with one tap before bed."
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Thinks:</strong> "Why do I need 5 different apps just to control my living room?"
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Does:</strong> Uses voice assistants heavily but wants a visual fallback when people are sleeping.
+          </div>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <strong>Feels:</strong> Annoyed by fragmentation; overwhelmed by notifications from different ecosystems.
+          </div>
+        </div>
+
+        <h3>Persona-Specific Journey Map</h3>
+        <p>Mapping Arjun's journey to create a "Goodnight" routine:</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+journey
+    title Arjun's 'Goodnight' Automation Journey
+    section Trigger
+      Gets ready for bed: 5: Arjun
+      Opens Unified App: 4: Arjun
+    section Creation
+      Taps 'Add Scene': 5: Arjun
+      Selects Lights, Lock, Thermostat: 3: Arjun
+      Sets desired states: 4: Arjun
+    section Execution
+      Pins 'Goodnight' to Home: 5: Arjun
+      Taps widget to execute: 5: Arjun
+      Everything turns off: 5: Arjun
+          </div>
+        </div>
+
+        <h3>Core User Flow: Creating a Scene</h3>
+        <div class="diagram-box">
+          <div class="mermaid">
+flowchart LR
+    A["Home Dashboard"] --> B["Tap '+' Add Scene"]
+    B --> C["Select Devices"]
+    C --> D["Set Actions (Lights Off, Door Lock)"]
+    D --> E["Name Scene ('Goodnight')"]
+    E --> F["Save & Add to Home"]
+          </div>
+        </div>
+
+        <h3>Low-Fidelity Wireframes</h3>
+        <div class="grid">
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Dashboard
+        A["Header: Welcome Home!"] 
+        B["Quick Scene: Good Morning"] 
+        C["Quick Scene: Goodnight"] 
+        D["Widget: Living Room Temp 72°"] 
+        E["Widget: Front Door [Locked]"] 
+        F["Nav: Home | Devices | Settings"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Device Hub
+        A["Category: Lighting"] 
+        B["Living Room Lamp [Toggle]"] 
+        C["Kitchen Strip [Slider 50%]"] 
+        D["Category: Security"] 
+        E["Camera Feed [View]"] 
+    end
+            </div>
+          </div>
+        </div>
+
+        <h2>Metrics & KPIs</h2>
+        <p><strong>North Star Metric: Time-to-Action</strong><br>
+        The primary indicator of success is the average time (in seconds) it takes a user to complete a routine task, aiming to reduce it from ~45 seconds (across multiple apps) to under 10 seconds.</p>
+        
+        <h3>Success Metrics</h3>
+        <ul>
+          <li><strong>Daily Active Users (DAU):</strong> Engagement indicating the app is the primary control hub.</li>
+          <li><strong>Scene Creation Rate:</strong> The percentage of users who successfully build and utilize automated multi-device macros.</li>
+          <li><strong>Widget Retention:</strong> How often users customize and keep widgets on their home screen.</li>
+        </ul>
+
+      </section>
+    </main>
+
+    <footer>
+      <div class="container fade-up">
+        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
+      </div>
+    </footer>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+      mermaid.run({ querySelector: '.mermaid' }).catch(console.error);
+    </script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

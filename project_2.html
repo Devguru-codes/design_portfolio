@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Money Mentor - Case Study</title>
+    <title>Meeting Minutes AI - Case Study</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="bg-mesh"></div>
@@ -29,199 +29,230 @@
 
     <main>
       <section class="case-study-hero container fade-up">
-        <span class="card-tag">Fintech / AI Case Study</span>
-        <h1>AI Money Mentor (DhanSarthi)</h1>
-        <p>An AI-Powered Finance Assistant</p>
+        <span class="card-tag">AI / Productivity Case Study</span>
+        <h1>Automating Meeting Documentation with AI</h1>
+        <p>Meeting Minutes AI - From Live Call to Structured Notes in One Click</p>
       </section>
 
       <section class="container content-block">
         
         <div class="highlight-box" style="margin-top: 0;">
-          <h3>Opportunity Type: Disruptive</h3>
-          <p>This project represents a <strong>Disruptive Opportunity</strong>. By leveraging generative AI and multi-agent orchestration, it creates an entirely new category of highly personalized, on-demand financial advising that was previously inaccessible to the mass market.</p>
+          <h3>Opportunity Type: Transformational</h3>
+          <p>This represents a <strong>Transformational Opportunity</strong>. It takes an entirely manual, time-consuming process (attending meetings, taking notes, distributing minutes) and replaces it with a fully automated AI pipeline: a bot joins your Google Meet, records audio, transcribes speech with speaker identification, and generates structured meeting minutes with action items.</p>
         </div>
 
-        <h2>Product Overview & Positioning</h2>
-        <p>AI Money Mentor is a proposed AI-driven personal finance assistant app. It leverages a multi-agent architecture to give everyday Indians affordable, on-demand financial advice. The system orchestrates specialized AI agents for tasks like tax planning, investment analysis, and budgeting.</p>
-        <p>Unlike traditional banking apps that only show data, this product offers friendly AI guidance across multiple domains. It is targeted at mid-market consumers (e.g. salaried professionals, young families, gig workers) who may have some investible income but no financial planner.</p>
+        <h2>Executive Summary</h2>
+        <p>Professionals spend an average of 23 hours per week in meetings, yet 73% of employees admit to doing other work during meetings (Harvard Business Review). The result: incomplete notes, forgotten action items, and no institutional memory. Meeting minutes, when they exist, are written by a designated note-taker who misses parts of the discussion while writing.</p>
+        <p>Meeting Minutes AI solves this by automating the entire lifecycle. A Selenium-driven bot silently joins a Google Meet session. System audio is captured via WASAPI loopback (no virtual audio cables needed). The recording is then processed through a two-stage pipeline: Faster Whisper for word-level transcription, and pyannote.audio for speaker diarization (identifying who said what). Finally, an LLM (Groq's Llama-3 70B) generates structured minutes with sections for Summary, Key Discussion Points, Decisions Made, Action Items, and Notable Quotes.</p>
+        <p>A built-in Q&A interface lets users ask questions about the meeting ("What did the marketing team decide about the Q3 budget?") and receive cited answers grounded in the transcript.</p>
 
         <div class="highlight-box">
           <h3>Problem Statement</h3>
-          <p>750+ million employed Indians lack affordable personal finance support. Users face confusing choices and often feel anxious about money. Traditional apps present raw data but don't guide users in plain language. Furthermore, users mistrust automated advice (63% report chatbot security concerns). Our product must solve these pain points by providing personalized, explainable financial recommendations in a conversational UI.</p>
+          <p>Teams lose critical information from meetings because manual note-taking is incomplete and biased. A designated note-taker captures only 40-60% of the discussion. Action items are frequently lost, with 63% of meetings ending without clear next steps. There is no searchable archive of past discussions, forcing teams to rely on collective memory.</p>
         </div>
 
-        <h2>Why AI for Personal Finance?</h2>
-        <p>AI automates expertise and personalizes advice at scale. It can learn a user’s specific goals and craft relevant suggestions. It auto-categorizes expenses, reminds users about bill payments, and enables 24/7 interaction, shifting from a reactive platform to a proactive financial partner.</p>
+        <h2>Background Context</h2>
+        <p><strong>The Meeting Productivity Crisis:</strong> The average professional attends 62 meetings per month. 71% of those meetings are considered unproductive (Atlassian). The root cause isn't the meetings themselves but the lack of proper documentation and follow-through. Tools like Otter.ai and Fireflies.ai exist but cost $16-30/user/month, adding up quickly for teams.</p>
+        <p><strong>Technical Landscape:</strong> Open-source STT models (Whisper) have reached production quality. Speaker diarization (pyannote) can identify distinct speakers with 90%+ accuracy. LLMs can now summarize long transcripts reliably. The missing piece was an integrated pipeline that connects these components end-to-end with a simple user interface.</p>
 
-        <h2>Conversational UX & Trust</h2>
-        <p>Designing a finance AI requires careful attention to trust and transparency:</p>
+        <h2>UX Audit &amp; Pain Points</h2>
+        <p>We interviewed 15 professionals across startups and mid-size companies to understand their meeting documentation workflow:</p>
         <ul>
-          <li><strong>Clarity & Simplicity:</strong> Natural, jargon-free language.</li>
-          <li><strong>User Control:</strong> Quick suggestion buttons and data usage toggles.</li>
-          <li><strong>Trust Through Branding:</strong> "Powered by Money Mentor AI" with verified logos.</li>
-          <li><strong>Proactive Engagement:</strong> Nudging users intelligently (e.g. "I noticed you spent 20% more on dining").</li>
-          <li><strong>Explainable AI:</strong> Providing "Why this?" reasoning and citing data sources.</li>
+          <li><strong>Manual Note-Taking:</strong> One person is "sacrificed" to take notes, missing parts of the discussion. Notes are subjective and incomplete.</li>
+          <li><strong>No Speaker Attribution:</strong> Existing recording tools produce a wall of text. You can't tell who said what without listening to the entire recording.</li>
+          <li><strong>Action Item Amnesia:</strong> Action items discussed verbally are forgotten within 24 hours if not immediately captured in a task manager.</li>
+          <li><strong>No Searchable Archive:</strong> Past meeting discussions are buried in Google Docs or Slack threads. Finding "what we decided about X in the March meeting" is nearly impossible.</li>
+          <li><strong>Cost Barrier:</strong> Enterprise meeting AI tools (Otter, Fireflies, Grain) are expensive at scale. A 50-person company pays $800-1500/month.</li>
         </ul>
 
-        <h2>Competitive Landscape</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>App</th>
-              <th>Core Offering</th>
-              <th>AI/Chat Features</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>CRED</td>
-              <td>Credit card management</td>
-              <td>No chat AI, gamified interactions</td>
-            </tr>
-            <tr>
-              <td>Jupiter</td>
-              <td>Neo-bank + investing</td>
-              <td>AI advisor (JupiterGPT) for questions</td>
-            </tr>
-            <tr>
-              <td>Cleo (Global)</td>
-              <td>AI Budgeting Chatbot</td>
-              <td>Full AI chatbot, playful persona</td>
-            </tr>
-            <tr>
-              <td>DhanSarthi (Ours)</td>
-              <td>360° Financial Assistant</td>
-              <td>Multi-agent experts, explainable advice</td>
-            </tr>
-          </tbody>
-        </table>
+        <h2>Design Process &amp; User Research</h2>
 
-        <h2>Information Architecture</h2>
-        <p>The app’s structure organizes content into core areas:</p>
-        <ul>
-          <li><strong>Dashboard:</strong> Overview of net worth, budgets, upcoming bills.</li>
-          <li><strong>AI Chat Assistant ("Mentor"):</strong> The heart of the app, accessible everywhere.</li>
-          <li><strong>Wallet/Accounts:</strong> View-only linked bank and investment accounts.</li>
-          <li><strong>Goals:</strong> Set and track financial goals.</li>
-          <li><strong>Insights:</strong> Analytical dashboards with charts.</li>
-        </ul>
-
-        <h3>AI Chat Interaction Flow</h3>
-        <div class="diagram-box">
-          <div class="mermaid">
-sequenceDiagram
-    actor User
-    participant ChatUI as Chatbot UI
-    participant Coordinator as DhanSarthi (Coordinator)
-    participant Agent as KarVid (Tax Agent)
-
-    User->>ChatUI: "How can I save on taxes?"
-    ChatUI->>Coordinator: "User asks about tax savings"
-    Coordinator->>Agent: "Route query: tax advice"
-    Agent-->>Coordinator: "80C deductions, HRA exemptions, etc."
-    Coordinator-->>ChatUI: "Compiled tax-saving suggestions"
-    ChatUI-->>User: "You can invest in [options] under 80C to reduce taxable income..."
-          </div>
-        </div>
-
-        <h3>Wireframes</h3>
-        <div class="grid">
-          <div class="diagram-box">
-            <div class="mermaid">
-flowchart TB
-    subgraph Dashboard
-        A["Net Worth: ₹120,000 (↑5% this month)"] 
-        B["Monthly Budget: ₹20,000 spent of ₹25,000"] 
-        C["Upcoming Bills: Electricity ₹1,200 due 5th"] 
-        D["Goal: Car Downpayment - 20% complete"] 
-        E["Quick Actions: +Add Expense / Ask Mentor"] 
-    end
-            </div>
-          </div>
-          <div class="diagram-box">
-            <div class="mermaid">
-flowchart TB
-    subgraph Goals
-        Goal1["Home Fund: ₹3L/₹15L - 20%"] 
-        ProgressBar1["ProgressBar: 20%"] --> Goal1
-        Goal2["Vacation: ₹20K/₹100K - 20%"] 
-        ProgressBar2["ProgressBar: 20%"] --> Goal2
-        AddGoal["+ Set New Goal"] 
-    end
-            </div>
-          </div>
-        </div>
-
-        <h2>User Research & Empathy</h2>
-        
         <h3>User Segmentation</h3>
-        <p>We segmented our target audience based on financial literacy and goals:</p>
+        <p>We identified three primary user personas:</p>
         <ul>
-          <li><strong>FIRE Seekers:</strong> Aggressive savers focused on early retirement, needing complex calculations.</li>
-          <li><strong>Newlyweds / Young Families:</strong> Joint finance managers planning large milestones (e.g., buying a house).</li>
-          <li><strong>Novice Investors:</strong> Have disposable income but lack direction and require heavy hand-holding.</li>
+          <li><strong>The Project Manager:</strong> Needs structured minutes with clear action items and owner assignments. Wants to distribute minutes via email within 5 minutes of the meeting ending.</li>
+          <li><strong>The Team Lead:</strong> Wants a searchable archive of past decisions. Often needs to reference "what we agreed on" weeks later during standup disagreements.</li>
+          <li><strong>The Individual Contributor:</strong> Wants to focus on the discussion without worrying about note-taking. Needs a way to catch up on meetings they missed.</li>
         </ul>
 
-        <h3>Primary User Persona: Rahul & Sneha</h3>
+        <h3>Primary User Persona: Ananya</h3>
         <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
-          <p><strong>Profile:</strong> A newlywed couple in their early 30s. They have a decent combined income but no formal budget.</p>
-          <p><strong>Goal:</strong> To save enough for a downpayment on a house in 5 years without sacrificing their current lifestyle.</p>
-          <p><strong>Pain Point:</strong> They are overwhelmed by conflicting financial advice and find spreadsheets too tedious to maintain consistently.</p>
+          <p><strong>Profile:</strong> 29-year-old product manager at a 40-person B2B SaaS startup. She runs 4-6 cross-functional meetings per day and is expected to send structured minutes within 30 minutes of each meeting.</p>
+          <p><strong>Goal:</strong> Automate meeting minutes so she can focus on facilitating the discussion instead of frantically typing notes.</p>
+          <p><strong>Pain Point:</strong> She spends 45 minutes after each meeting editing notes, formatting them, and chasing colleagues for clarification on action items. On heavy meeting days, she falls behind and minutes are sent the next day, by which time the context is stale.</p>
         </div>
 
-        <h3>Empathy Mapping (Rahul & Sneha)</h3>
+        <h3>Empathy Mapping (Ananya)</h3>
         <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Says:</strong> "We don't know where our money goes at the end of the month."
+            <strong>Says:</strong> "I spend more time documenting meetings than actually leading them. Something has to change."
           </div>
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Thinks:</strong> "Are we saving enough for the downpayment?"
+            <strong>Thinks:</strong> "If I miss an action item in the notes, the entire sprint gets delayed and I get blamed."
           </div>
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Does:</strong> Tries to use Excel but gives up; leaves money sitting in low-yield savings accounts.
+            <strong>Does:</strong> Takes notes on a split screen during calls. Copies action items to Jira manually. Searches Slack threads to recall past decisions.
           </div>
           <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
-            <strong>Feels:</strong> Overwhelmed by jargon; uncertain about their financial future.
+            <strong>Feels:</strong> Exhausted from back-to-back meetings. Anxious about missing critical details. Relieved when someone else volunteers to take notes.
           </div>
         </div>
 
         <h3>Persona-Specific Journey Map</h3>
-        <p>Mapping their journey from financial confusion to confident action:</p>
+        <p>Mapping Ananya's meeting documentation workflow:</p>
         <div class="diagram-box">
           <div class="mermaid">
 journey
-    title Rahul & Sneha's Financial Journey
-    section Discovery
-      Realize they need to save: 3: Rahul, Sneha
-      Download AI Money Mentor: 4: Rahul, Sneha
-    section Onboarding
-      Input income and expenses: 3: Rahul, Sneha
-      Set 'House Downpayment' goal: 5: Rahul, Sneha
-    section Interaction
-      Ask AI how to reach goal: 4: Rahul, Sneha
-      AI explains 50/30/20 rule: 5: Rahul, Sneha
-    section Action
-      Set up automatic SIP: 5: Rahul, Sneha
-      Track progress on Dashboard: 5: Rahul, Sneha
+    title Ananya's Meeting Documentation Journey
+    section Before Meeting
+      Prepares agenda: 4: Ananya
+      Opens notepad alongside Meet: 3: Ananya
+    section During Meeting
+      Tries to facilitate AND take notes: 2: Ananya
+      Misses a key point while typing: 1: Ananya
+      Someone says 'I'll handle that': 3: Ananya
+    section After Meeting
+      Spends 45min editing raw notes: 1: Ananya
+      Formats minutes in Google Docs: 2: Ananya
+      Sends email with minutes: 3: Ananya
+    section Follow-Up
+      Colleague disputes a decision: 2: Ananya
+      Searches Slack for evidence: 1: Ananya
           </div>
         </div>
 
-        <h2>User Pain Points & Core Features</h2>
-        <p><strong>Dashboard:</strong> Multi-section layout. "Net Worth" card spans full width. Below, Budget and Bills side-by-side. Clean, grid-aligned layout with consistent margins.</p>
-        <p><strong>Chat UI:</strong> Full-screen vertical flow. Bot messages have a soft blue background. Suggested quick-reply chips appear above the input field.</p>
-        <p><strong>Color Scheme:</strong> A trustworthy palette of blues and teals (#2196F3, #4CAF50). White backgrounds with charcoal text. A high-contrast dark theme is also available.</p>
+        <h3>Competitive Analysis</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Cost</th>
+              <th>Strengths</th>
+              <th>Gaps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Otter.ai</td>
+              <td>$16.99/user/mo</td>
+              <td>Real-time transcription, Zoom integration</td>
+              <td>No structured minutes, weak action item extraction</td>
+            </tr>
+            <tr>
+              <td>Fireflies.ai</td>
+              <td>$19/user/mo</td>
+              <td>Good speaker identification, CRM integrations</td>
+              <td>Expensive at scale, limited customization</td>
+            </tr>
+            <tr>
+              <td>Grain</td>
+              <td>$19/user/mo</td>
+              <td>Video highlights, clip sharing</td>
+              <td>No full meeting minutes generation</td>
+            </tr>
+            <tr>
+              <td>This Project (Ours)</td>
+              <td>Free (self-hosted)</td>
+              <td>Full pipeline: join + record + transcribe + summarize + Q&A</td>
+              <td>Requires local setup, Windows-only for WASAPI</td>
+            </tr>
+          </tbody>
+        </table>
 
-        <h2>Metrics & KPIs</h2>
-        <p><strong>North Star Metric: Goal Completion Rate</strong><br>
-        The ultimate measure of the AI's effectiveness is the percentage of users who successfully meet their set financial goals (e.g., saving for a downpayment) within their target timelines.</p>
+        <h2>Design Strategy &amp; Solutions</h2>
+        
+        <h3>End-to-End Automation Pipeline</h3>
+        <p>The core design principle is zero manual intervention. The user pastes a Google Meet link, clicks one button, and gets structured minutes. The pipeline handles everything: joining the meeting silently, recording system audio, transcribing with speaker labels, generating minutes via LLM, and offering a Q&A interface.</p>
 
+        <h3>Five-Tab Gradio Interface</h3>
+        <p>We designed a tab-based UI that mirrors the pipeline stages, giving users visibility into each step while keeping the workflow linear:</p>
+        <div class="diagram-box">
+          <div class="mermaid">
+flowchart LR
+    A["Join and Record"] --> B["Transcribe"]
+    B --> C["Generate Minutes"]
+    C --> D["Q and A Chat"]
+    E["Upload and Process"] --> B
+          </div>
+        </div>
+
+        <h3>Speaker Diarization Strategy</h3>
+        <p>Raw transcription produces a wall of text. We integrated pyannote.audio's speaker diarization pipeline to segment audio by speaker. The merge algorithm maps Whisper's word-level timestamps to pyannote's speaker segments, producing a transcript formatted as "SPEAKER_01 [00:02:15]: We should prioritize the mobile app redesign."</p>
+
+        <h3>LLM Summarization Prompt Design</h3>
+        <p>We crafted a structured prompt template that instructs the LLM to output minutes in a consistent Markdown format with six mandatory sections: Meeting Overview, Summary, Key Discussion Points, Decisions Made, Action Items (with owners), and Notable Quotes. This ensures every meeting produces the same structured output.</p>
+
+        <h3>Interface Wireframes</h3>
+        <div class="grid">
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Join and Record Tab
+        A["Google Meet URL: [Paste Link]"] 
+        B["Bot Name: [Meeting Assistant]"] 
+        C["Join and Start Recording"] 
+        D["Status: Recording... 04:32"] 
+        E["Stop Recording"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Transcribe Tab
+        A["Audio Source: meeting_2026-06-27.wav"] 
+        B["Whisper Model: base | small | medium"] 
+        C["Enable Speaker Diarization: ON"] 
+        D["Transcribe Button"] 
+        E["Output: Speaker-labeled transcript"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Minutes Tab
+        A["Transcript Preview: 2,431 words"] 
+        B["Generate Minutes Button"] 
+        C["Meeting Overview"] 
+        D["Key Discussion Points"] 
+        E["Action Items with Owners"]
+    end
+            </div>
+          </div>
+          <div class="diagram-box">
+            <div class="mermaid">
+flowchart TB
+    subgraph Q and A Tab
+        A["Ask: What did marketing decide?"] 
+        B["AI: The marketing team decided to..."] 
+        C["Source: SPEAKER_02 at 00:14:32"] 
+        D["Follow-up: Who owns the Q3 budget?"] 
+        E["AI: SPEAKER_01 was assigned..."]
+    end
+            </div>
+          </div>
+        </div>
+
+        <h2>Key Technical Challenges &amp; Solutions</h2>
+        <ul>
+          <li><strong>WASAPI Loopback:</strong> Recording system audio on Windows without virtual cables. We used PyAudioWPatch to hook directly into the WASAPI loopback device, capturing all desktop audio including Google Meet output.</li>
+          <li><strong>Chrome Profile Auth:</strong> Google Meet blocks unrecognized bots. We use undetected-chromedriver with a real Chrome profile to bypass bot detection and join meetings seamlessly.</li>
+          <li><strong>Groq Rate Limiting:</strong> The Groq API has aggressive rate limits. We implemented automatic API key rotation across multiple keys to handle long transcripts without hitting limits.</li>
+          <li><strong>Speaker Overlap:</strong> When two people talk simultaneously, diarization accuracy drops. We tuned pyannote's segmentation threshold to handle cross-talk in typical meeting scenarios.</li>
+        </ul>
+
+        <h2>Metrics &amp; KPIs</h2>
+        <p><strong>North Star Metric: Time from Meeting End to Minutes Distributed</strong><br>
+        The primary indicator of success is how quickly structured minutes are available after a meeting ends. Our target is under 3 minutes for a 1-hour meeting, compared to the current 30-60 minute manual baseline.</p>
+        
         <h3>Success Metrics</h3>
         <ul>
-          <li><strong>User Engagement:</strong> Chat sessions per user, DAU/MAU ratio, and overall time spent interacting with the AI Mentor.</li>
-          <li><strong>Advice Adoption Rate:</strong> The percentage of AI-suggested actions (e.g., starting an SIP) that are actually executed by users.</li>
-          <li><strong>Financial Impact:</strong> Measurable outcomes like the average percentage increase in monthly savings across the user base.</li>
-          <li><strong>User Trust (NPS):</strong> Satisfaction surveys focusing on how confident users feel about their financial decisions.</li>
-          <li><strong>Error/Fallback Rates:</strong> Tracking how often the AI fails to answer or hallucinates, aimed to be minimized continuously.</li>
+          <li><strong>Transcription Accuracy (WER):</strong> Word Error Rate of the Whisper transcription compared to manual transcripts (target: under 10%).</li>
+          <li><strong>Speaker Identification Accuracy:</strong> Percentage of correctly attributed speaker segments (target: 85%+).</li>
+          <li><strong>Action Item Recall:</strong> Percentage of verbally discussed action items successfully captured in the generated minutes.</li>
+          <li><strong>Q&A Relevance:</strong> User satisfaction with answers provided by the meeting Q&A interface.</li>
+          <li><strong>Adoption Rate:</strong> Number of meetings processed per week per user, indicating workflow integration.</li>
         </ul>
 
       </section>
