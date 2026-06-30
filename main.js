@@ -494,7 +494,10 @@ document.addEventListener('click', (e) => {
     done.querySelector('#tour-done-btn').addEventListener('click', () => {
       done.style.opacity = '0';
       done.style.transition = 'opacity 0.4s ease';
-      setTimeout(() => done.remove(), 400);
+      setTimeout(() => {
+        done.remove();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 400);
     });
   }
 
