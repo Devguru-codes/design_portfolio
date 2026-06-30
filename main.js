@@ -134,14 +134,6 @@ document.addEventListener('click', (e) => {
     .tour-overlay.active {
       pointer-events: auto;
     }
-    .tour-backdrop {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 10001;
-      transition: opacity 0.3s ease;
-    }
     .tour-highlight {
       position: absolute;
       z-index: 10002;
@@ -375,11 +367,6 @@ document.addEventListener('click', (e) => {
     tooltip.className = 'tour-tooltip';
     document.body.appendChild(tooltip);
 
-    const backdrop = document.createElement('div');
-    backdrop.className = 'tour-backdrop';
-    backdrop.style.display = 'none';
-    document.body.appendChild(backdrop);
-
     function goToStep(index) {
       currentStep = index;
 
@@ -387,7 +374,6 @@ document.addEventListener('click', (e) => {
         // Tour complete
         highlight.remove();
         tooltip.remove();
-        backdrop.remove();
         showComplete();
         return;
       }
@@ -408,9 +394,6 @@ document.addEventListener('click', (e) => {
         highlight.style.left = (rect.left - pad) + 'px';
         highlight.style.width = (rect.width + pad * 2) + 'px';
         highlight.style.height = (rect.height + pad * 2) + 'px';
-
-        // Show backdrop
-        backdrop.style.display = 'block';
 
         // Build tooltip content
         tooltip.innerHTML = `
@@ -456,7 +439,6 @@ document.addEventListener('click', (e) => {
         tooltip.querySelector('.tour-btn-skip').addEventListener('click', () => {
           highlight.remove();
           tooltip.remove();
-          backdrop.remove();
           localStorage.setItem('tour_completed', 'true');
           showDismissMessage();
         });
