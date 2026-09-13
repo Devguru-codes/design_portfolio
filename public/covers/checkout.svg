@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Abstract cover: a checkout funnel narrowing through four steps to a completed order">
+  <defs>
+    <linearGradient id="cg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <radialGradient id="cglow" cx="50%" cy="80%" r="60%">
+      <stop offset="0" stop-color="#6366f1" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#08080c"/>
+  <rect width="1600" height="900" fill="url(#cglow)"/>
+  <g>
+    <rect x="400" y="150" width="800" height="92" rx="20" fill="#ffffff" fill-opacity=".1"/>
+    <rect x="460" y="282" width="680" height="92" rx="20" fill="#6366f1" fill-opacity=".22"/>
+    <rect x="540" y="414" width="520" height="92" rx="20" fill="#6366f1" fill-opacity=".34"/>
+    <rect x="620" y="546" width="360" height="92" rx="20" fill="url(#cg)" fill-opacity=".62"/>
+  </g>
+  <g fill="#ffffff" fill-opacity=".3">
+    <rect x="440" y="186" width="210" height="20" rx="10"/>
+    <rect x="500" y="318" width="180" height="20" rx="10"/>
+    <rect x="580" y="450" width="150" height="20" rx="10"/>
+  </g>
+  <g stroke="#818cf8" stroke-opacity=".4" stroke-width="2" stroke-dasharray="6 8">
+    <path d="M800 242v40M800 374v40M800 506v40"/>
+  </g>
+  <g transform="translate(800 720)">
+    <circle r="56" fill="#0f0f18" stroke="#818cf8" stroke-width="3"/>
+    <path d="M-24 2 L-7 20 L26 -16" fill="none" stroke="#a5b4fc" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart Home Dashboard - Case Study</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+    <!-- include:head -->
   </head>
   <body>
     <div class="bg-mesh"></div>
 
-    <nav>
-      <div class="container nav-container">
-        <a href="/" style="text-decoration: none;">
-          <div class="logo">
-            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
-          </div>
-        </a>
-        <div class="nav-links" style="align-items: center; display: flex;">
-          <a href="/#work">Work</a>
-          <a href="/#about">About</a>
-          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
-        </div>
-      </div>
-    </nav>
+    <!-- include:nav -->
 
-    <main>
+    <main id="main">
+      <!-- include:backlink -->
+
       <section class="case-study-hero container fade-up">
         <span class="card-tag">IoT UX Case Study</span>
         <h1>Unified Smart Home Dashboard</h1>
-        <p>Simplifying everyday device management</p>
+        <p class="subtitle">Simplifying everyday device management</p>
       </section>
 
       <section class="container content-block">
         
-        <div class="highlight-box" style="margin-top: 0;">
+        <div class="highlight-box">
           <h3>Opportunity Type: Adjacent</h3>
           <p>This represents an <strong>Adjacent Opportunity</strong>. It expands the ecosystem by creating a unified software experience that ties together various existing hardware devices (smart lights, thermostats, locks) into a cohesive, simplified market offering.</p>
         </div>
@@ -44,10 +27,10 @@
         <h2>Product Overview</h2>
         <p>As homes become smarter, users are increasingly overwhelmed by juggling multiple apps to control different devices. The "Unified Smart Home Dashboard" is a conceptual mobile app designed to bring all smart devices under one roof with a customizable, widget-based interface.</p>
 
-        <div style="text-align: center; margin: 3rem 0;">
-          <img src="/smart_home_dashboard.png" alt="Smart Home Dashboard Mockup" style="max-width: 100%; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <p style="font-size: 0.9rem; color: #888; margin-top: 1rem;">High-Fidelity AI Generated Concept</p>
-        </div>
+        <figure>
+          <img src="/smart_home_dashboard.webp" alt="High-fidelity concept: the smart home dashboard on a phone, showing quick-action scenes and device widgets for lighting, climate and security" width="1024" height="1024" loading="lazy" decoding="async" />
+          <figcaption>High-Fidelity AI Generated Concept</figcaption>
+        </figure>
 
         <div class="highlight-box">
           <h3>Problem Statement</h3>
@@ -66,24 +49,24 @@
         </ul>
 
         <h3>Primary User Persona: Arjun</h3>
-        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="persona-card">
           <p><strong>Profile:</strong> A 35-year-old tech enthusiast. His home has smart lights, a smart lock, a smart thermostat, and cameras - all from different brands.</p>
           <p><strong>Goal:</strong> To execute complex, multi-device routines with a single tap rather than opening 4 separate apps.</p>
           <p><strong>Pain Point:</strong> He experiences high cognitive load trying to remember which app controls which device, especially when he's tired at night.</p>
         </div>
 
         <h3>Empathy Mapping (Arjun)</h3>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+        <div class="empathy-grid">
+          <div>
             <strong>Says:</strong> "I just want to turn everything off and lock the door with one tap before bed."
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Thinks:</strong> "Why do I need 5 different apps just to control my living room?"
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Does:</strong> Uses voice assistants heavily but wants a visual fallback when people are sleeping.
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Feels:</strong> Annoyed by fragmentation; overwhelmed by notifications from different ecosystems.
           </div>
         </div>
@@ -161,19 +144,12 @@ flowchart TB
         </ul>
 
       </section>
+      <!-- include:case-nav -->
     </main>
 
-    <footer>
-      <div class="container fade-up">
-        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
-      </div>
-    </footer>
+    <!-- include:footer -->
 
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-      mermaid.run({ querySelector: '.mermaid' }).catch(console.error);
-    </script>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
