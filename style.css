@@ -426,7 +426,14 @@ footer {
 }
 .backlink:hover { color: var(--accent-1); }
 
-.case-study-hero { padding: var(--space-4) 0 var(--space-5); text-align: center; }
+/* Must match .content-block's width: the fixed table of contents is positioned
+   against the reading column, so anything wider runs underneath it. */
+.case-study-hero {
+  max-width: var(--reading-width);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  text-align: center;
+}
 .case-study-hero h1 { font-size: clamp(2rem, 5.5vw, 4rem); margin-bottom: var(--space-3); }
 .case-study-hero .card-tag { margin: 0 auto var(--space-4); display: inline-block; align-self: center; }
 .case-study-hero .subtitle { font-size: var(--fs-lg); max-width: 60ch; margin: 0 auto; color: var(--text-secondary); }
@@ -476,7 +483,7 @@ footer {
 /* Table of contents */
 .toc { display: none; }
 
-@media (min-width: 1200px) {
+@media (min-width: 1280px) {
   .toc {
     display: block;
     position: fixed;
@@ -608,6 +615,15 @@ figcaption { font-size: var(--fs-sm); color: var(--text-tertiary); margin-top: v
   box-shadow: 0 20px 50px rgb(0 0 0 / 0.5);
 }
 .figure--wide { max-width: min(1100px, 92vw); margin-inline: calc(50% - min(550px, 46vw)); }
+
+@media (min-width: 1280px) {
+  /* The left gutter belongs to the table of contents, so widen rightwards only. */
+  .figure--wide {
+    max-width: none;
+    margin-left: 0;
+    margin-right: calc(-1 * min(340px, calc(50vw - var(--reading-width) / 2 - 2rem)));
+  }
+}
 
 .embed-frame {
   position: relative;

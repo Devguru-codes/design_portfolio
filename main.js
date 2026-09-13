@@ -30,7 +30,7 @@ function initReveal() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Smooth scrolling — also handles "/#work" links used by the shared nav, which
+   Smooth scrolling - also handles "/#work" links used by the shared nav, which
    point at the current page when you are already on the homepage.
    ───────────────────────────────────────────────────────────────────────────*/
 
@@ -52,7 +52,7 @@ function initSmoothScroll() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Contact dialog — native <dialog> gives us the focus trap and Esc for free.
+   Contact dialog - native <dialog> gives us the focus trap and Esc for free.
    ───────────────────────────────────────────────────────────────────────────*/
 
 function initContactDialog() {
@@ -61,7 +61,7 @@ function initContactDialog() {
   dialog.id = 'contact-dialog';
   /* Padding lives on .modal-inner, not on the <dialog>. A padded dialog reports
      clicks in its own padding band as clicks on the dialog element, which is
-     indistinguishable from a backdrop click — so the modal would close when you
+     indistinguishable from a backdrop click - so the modal would close when you
      clicked just inside its edge. */
   dialog.innerHTML = `
     <div class="modal-inner">
@@ -176,7 +176,7 @@ function initToc() {
   const links = new Map(headings.map((h) => [h.id, toc.querySelector(`a[href="#${h.id}"]`)]));
 
   /* Highlight the last heading scrolled past, not whichever one happens to be
-     inside a narrow band — otherwise the whole of a long section reads as
+     inside a narrow band - otherwise the whole of a long section reads as
      "nowhere" in the contents. */
   const spy = () => {
     const line = 120;
@@ -197,7 +197,7 @@ function initToc() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Mermaid — only fetched when the page actually has a diagram.
+   Mermaid - only fetched when the page actually has a diagram.
    ───────────────────────────────────────────────────────────────────────────*/
 
 async function initMermaid() {
@@ -277,7 +277,7 @@ function tourSteps() {
     {
       selector: '#work',
       title: 'Case studies',
-      text: 'Each card is a full project — research, personas, wireframes, architecture and metrics. Click any card to read it.',
+      text: 'Each card is a full project - research, personas, wireframes, architecture and metrics. Click any card to read it.',
       position: 'top',
     },
     ...projectSteps,
@@ -395,7 +395,7 @@ function runTour() {
     tooltip.remove();
     document.removeEventListener('keydown', onKeydown);
     localStorage.setItem(TOUR_KEY, 'true');
-    if (!completed) showToast('Got it — explore at your own pace.');
+    if (!completed) showToast('Got it - explore at your own pace.');
   }
 
   function onKeydown(e) {
@@ -537,7 +537,7 @@ function offerTour() {
   dialog.querySelector('#tour-no').addEventListener('click', () => {
     dismiss();
     localStorage.setItem(TOUR_KEY, 'true');
-    showToast('Got it — explore at your own pace.');
+    showToast('Got it - explore at your own pace.');
   });
 
   // Escape on the offer counts as "no thanks".

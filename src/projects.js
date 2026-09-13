@@ -2,16 +2,16 @@
 //
 // Drives: the work grid on the homepage, per-page <head> metadata, prev/next
 // links at the foot of each case study, the guided tour, and sitemap.xml.
-// Adding a project means adding one entry here and one <name>.html file —
+// Adding a project means adding one entry here and one <name>.html file -
 // nothing else needs touching.
 
 export const site = {
   name: 'Devguru Tiwari',
   url: 'https://design-portfolio-three-tan.vercel.app',
   role: 'Product Manager',
-  tagline: 'Product Manager who ships. Research, prototype, build, measure.',
+  tagline: 'AI Product Manager who ships. Research, prototype, build, measure.',
   description:
-    'Case studies by Devguru Tiwari — product and UX work across institutional memory, ' +
+    'Case studies by Devguru Tiwari - product and UX work across institutional memory, ' +
     'AI voice systems, fintech, e-commerce checkout and IoT. Research through to shipped systems.',
   email: 'devguruatwork@gmail.com',
   phone: '+919354926131',
@@ -26,26 +26,26 @@ export const projects = [
     href: '/project_6.html',
     file: 'project_6.html',
     tag: 'AI / Institutional Memory',
-    title: 'Callosum — Verified Institutional Memory',
+    title: 'Callosum - Verified Institutional Memory',
     cardTitle: 'Verified Institutional Memory',
     blurb:
       'An AI system that answers questions about an organisation’s decisions and cannot ' +
       'fabricate the answer. Every fact carries a verbatim quote located character-for-character ' +
-      'in a source document — if the quote is not found, the fact never enters the system.',
+      'in a source document - if the quote is not found, the fact never enters the system.',
     description:
-      'Callosum case study — taking a board-governance product from market research and a ' +
+      'Callosum case study - taking a board-governance product from market research and a ' +
       'clickable prototype through to a shipped knowledge-graph system with a measured evaluation.',
     thumb: '/callosum/dashboard.webp',
     og: '/og/callosum.jpg',
     thumbAlt: 'The Callosum board dashboard, showing daily brief, board readiness and graph health',
     featured: true,
     year: '2026',
-    role: 'Product & UX lead — co-built',
+    role: 'Product & UX lead - co-built',
     stack: 'Postgres 16 + pgvector · Neo4j 5 · FastAPI · Next.js 16',
     opportunity: 'Disruptive',
     tour:
       'My flagship. I took a board-governance product from market research and a clickable ' +
-      'prototype through to a shipped system with a measured evaluation — the full arc, ' +
+      'prototype through to a shipped system with a measured evaluation - the full arc, ' +
       'in one case study.',
     links: [
       { label: 'Research & PRD', href: 'https://github.com/Devguru-codes/meridian_pre_intern_work' },
@@ -67,7 +67,7 @@ export const projects = [
       'An open-source, multi-agent voice platform with real-time STT, LLM reasoning, and TTS ' +
       'that replaces traditional call centre workflows.',
     description:
-      'Case study — designing and building a multi-agent AI voice platform with real-time ' +
+      'Case study - designing and building a multi-agent AI voice platform with real-time ' +
       'speech recognition, LLM reasoning and neural text-to-speech.',
     thumb: '/covers/voice.svg',
     thumbDecorative: true,
@@ -93,7 +93,7 @@ export const projects = [
       'An end-to-end pipeline that joins Google Meet, records audio, transcribes with speaker ' +
       'diarization, and generates structured meeting notes.',
     description:
-      'Case study — an end-to-end pipeline that joins meetings, transcribes with speaker ' +
+      'Case study - an end-to-end pipeline that joins meetings, transcribes with speaker ' +
       'diarization and generates structured notes automatically.',
     thumb: '/covers/minutes.svg',
     thumbDecorative: true,
@@ -119,7 +119,7 @@ export const projects = [
       'Designing DhanSarthi, an AI-powered personal finance assistant that brings affordable, ' +
       'on-demand advice to everyday users.',
     description:
-      'Case study — designing DhanSarthi, a multi-agent AI personal finance assistant for ' +
+      'Case study - designing DhanSarthi, a multi-agent AI personal finance assistant for ' +
       'the Indian mass market.',
     thumb: '/covers/money.svg',
     thumbDecorative: true,
@@ -143,7 +143,7 @@ export const projects = [
       'An overhaul of Snapdeal’s mobile checkout to cut cart abandonment and boost ' +
       'conversions in the Indian e-commerce market.',
     description:
-      'Case study — overhauling Snapdeal’s mobile checkout to cut cart abandonment in ' +
+      'Case study - overhauling Snapdeal’s mobile checkout to cut cart abandonment in ' +
       'India’s value-driven e-commerce market.',
     thumb: '/covers/checkout.svg',
     thumbDecorative: true,
@@ -167,7 +167,7 @@ export const projects = [
       'A unified, widget-based mobile interface designed to simplify everyday smart device ' +
       'management and routines.',
     description:
-      'Case study — a unified, widget-based smart home dashboard that collapses multi-app ' +
+      'Case study - a unified, widget-based smart home dashboard that collapses multi-app ' +
       'routines into a single tap.',
     thumb: '/covers/smarthome.webp',
     og: '/og/smarthome.jpg',

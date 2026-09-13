@@ -24,7 +24,7 @@
         <dl class="case-meta">
           <div>
             <dt>My role</dt>
-            <dd>Product &amp; UX lead — co-built</dd>
+            <dd>Product &amp; UX lead - co-built</dd>
           </div>
           <div>
             <dt>Year</dt>
@@ -50,7 +50,7 @@
           <h3>Opportunity type: Disruptive</h3>
           <p>
             Retrieval-augmented generation treats hallucination as something to be
-            <em>discouraged</em> — better prompts, better reranking, a confidence score.
+            <em>discouraged</em> - better prompts, better reranking, a confidence score.
             Callosum treats it as something to be <em>refused</em>. A fact that cannot be
             traced to a verbatim sentence in a source document never enters storage at all.
             That is a different product category, not a better version of the same one.
@@ -62,7 +62,7 @@
           This project began as a pre-internship product assignment: evaluate whether
           <strong>Meridian</strong>, an operating system for startups, should build a board
           management module. The research said the interesting problem was not running board
-          meetings. It was everything that happens between them — the decisions that get made,
+          meetings. It was everything that happens between them - the decisions that get made,
           then lost.
         </p>
         <p>
@@ -75,8 +75,8 @@
         </p>
         <p>
           The system is named for the <em>corpus callosum</em>, the fibre bundle joining the
-          brain's two hemispheres. Callosum has two hemispheres as well — a graph and a vector
-          store — and the bridge between them is the entire idea.
+          brain's two hemispheres. Callosum has two hemispheres as well - a graph and a vector
+          store - and the bridge between them is the entire idea.
         </p>
 
         <h2>The problem</h2>
@@ -93,7 +93,7 @@
         </div>
 
         <p>
-          The obvious fix — point an LLM at the document pile — fails for exactly the questions
+          The obvious fix - point an LLM at the document pile - fails for exactly the questions
           that matter. Ask <em>"why did we reject Pricing Model B?"</em> and a conventional RAG
           system will produce a fluent, plausible, unverifiable paragraph. In a governance
           context that is worse than no answer, because a fabricated rationale attributed to a
@@ -137,7 +137,7 @@
               <tr>
                 <td>BoardPro</td>
                 <td>SMB board packs, agendas, minutes</td>
-                <td>Document workflow only — no memory across meetings</td>
+                <td>Document workflow only - no memory across meetings</td>
               </tr>
               <tr>
                 <td>Carta</td>
@@ -162,7 +162,7 @@
           <li><strong>Pre-meeting:</strong> AI meeting preparation, agenda building, board-pack assembly.</li>
           <li><strong>During:</strong> live meeting intelligence, decision capture as it happens.</li>
           <li><strong>Post-meeting:</strong> resolution management, commitment tracking.</li>
-          <li><strong>Across time:</strong> institutional memory — the one that turned out to be the product.</li>
+          <li><strong>Across time:</strong> institutional memory - the one that turned out to be the product.</li>
         </ul>
         <p>
           The build-versus-buy analysis recommended reusing Meridian's existing
@@ -173,9 +173,9 @@
 
         <h2>Prototype: making the argument tangible</h2>
         <p>
-          A PRD persuades nobody on its own. I built a full clickable prototype — dashboard,
+          A PRD persuades nobody on its own. I built a full clickable prototype - dashboard,
           AI agenda builder, board pack view, decision capture, live meeting interface and the
-          institutional memory screen — using AI tooling to compress what would otherwise have
+          institutional memory screen - using AI tooling to compress what would otherwise have
           been weeks of mockup work into a working artifact that could be clicked through in a
           review.
         </p>
@@ -253,7 +253,7 @@
               <tr>
                 <td>AI write autonomy</td>
                 <td>Writes freely</td>
-                <td><strong>None</strong> — a human approves every change</td>
+                <td><strong>None</strong> - a human approves every change</td>
               </tr>
             </tbody>
           </table>
@@ -279,7 +279,7 @@
         <p>
           This is the design decision I'm proudest of, because it moves the guarantee out of
           the model's hands entirely. The verifier is not a judgement call, a second model, or
-          a confidence threshold — it is a character-for-character search. It tolerates the
+          a confidence threshold - it is a character-for-character search. It tolerates the
           ways a faithful quote's bytes can legitimately differ: whitespace reflow, casing,
           typographic glyph substitution. Nothing else.
         </p>
@@ -299,7 +299,7 @@
         <p>
           Failed edges are quarantined with a typed reason rather than silently discarded. This
           was a product decision, not a technical one. "This model fabricates a quote on 8% of
-          the relationships it marks approved" is a finding you can act on — and you can only
+          the relationships it marks approved" is a finding you can act on - and you can only
           make it if you kept the failures. Dropping them would have made the system look
           cleaner and told us nothing.
         </p>
@@ -346,7 +346,7 @@
         <h3>Constraints over conventions</h3>
         <p>
           One finding was genuinely surprising. Postgres validates foreign keys as the table
-          <em>owner</em>, which bypasses row-level security — so a single-column reference can
+          <em>owner</em>, which bypasses row-level security - so a single-column reference can
           link two tenants through a constraint neither of them can read across. We reproduced
           it as an attack, then fixed it with composite <code>(id, workspace_id)</code> keys
           that reject it even through a superuser connection, covering
@@ -359,7 +359,7 @@
           security work actually looks like.
         </p>
         <p>
-          Relatedly, two field names are never accepted from a client — and rather than rely on
+          Relatedly, two field names are never accepted from a client - and rather than rely on
           reviewers remembering that, the build walks the generated API schema and fails if
           either name appears anywhere, including nested inside a request body. Code review is
           the wrong instrument here: an endpoint that takes a workspace filter looks completely
@@ -368,7 +368,7 @@
 
         <h2>What the evaluation actually says</h2>
         <p>
-          The claim that the graph earns its place is testable, so we tested it — holding the
+          The claim that the graph earns its place is testable, so we tested it - holding the
           corpus, the questions and the traversal code constant, and varying only whether the
           planner grounds its seed entity.
         </p>
@@ -403,22 +403,22 @@
             </thead>
             <tbody>
               <tr>
-                <td>Candidate recall — right entity offered</td>
+                <td>Candidate recall - right entity offered</td>
                 <td>100% (21/21)</td>
                 <td>Retrieval always surfaced the correct entity</td>
               </tr>
               <tr>
-                <td>Entity grounding — correct seed chosen</td>
+                <td>Entity grounding - correct seed chosen</td>
                 <td>81% (17/21)</td>
                 <td>Every failure in the pipeline is here</td>
               </tr>
               <tr>
-                <td>Traversal — given correct grounding</td>
+                <td>Traversal - given correct grounding</td>
                 <td>100%</td>
                 <td>The graph never failed once seeded</td>
               </tr>
               <tr>
-                <td>Grounding precision — abstain when there is no referent</td>
+                <td>Grounding precision - abstain when there is no referent</td>
                 <td>50% (1/2)</td>
                 <td>Denominator of two; see the caveat below</td>
               </tr>
@@ -429,7 +429,7 @@
         <p>
           <strong>All of the loss sits in one stage.</strong> The right entity was offered every
           single time and traversal never failed once seeded, so the bottleneck is named entity
-          linking — not the graph, and not retrieval. That measurement is also why a planned
+          linking - not the graph, and not retrieval. That measurement is also why a planned
           abstention algorithm was never built: instrumenting the pipeline removed the reason
           for it. Measuring first saved building the wrong thing.
         </p>
@@ -440,7 +440,7 @@
             They come from a run dated <strong>20 July 2026</strong> against a
             <strong>29-item</strong> gold set. That set has since grown to 46 items, and seven
             of the questions in it have never been measured. Grounding precision of "50%" is
-            <strong>one item out of two</strong> — the gold set now carries four abstention
+            <strong>one item out of two</strong> - the gold set now carries four abstention
             negatives, so that denominator doubles the moment it is re-run.
           </p>
           <p>
@@ -460,7 +460,7 @@
           <div class="figure--light">
             <img src="/callosum/07-phase-roadmap-p0-p12.webp" alt="The phase roadmap from P0 to P12, showing which product phases are accepted, which are frozen, and which remain." width="1400" height="788" loading="lazy" decoding="async" />
           </div>
-          <figcaption>Phase roadmap — accepted, frozen and outstanding work.</figcaption>
+          <figcaption>Phase roadmap - accepted, frozen and outstanding work.</figcaption>
         </figure>
 
         <div class="stat-grid">
@@ -507,7 +507,7 @@
         <h3>One phase is frozen, not accepted</h3>
         <p>
           Of the three exit criteria for the product's third phase, one was met, one was
-          partial and one was not met — the accessibility and error-state checkpoints were
+          partial and one was not met - the accessibility and error-state checkpoints were
           deliberately deferred. That is recorded as a freeze rather than rounded up to a pass.
           A roadmap that only ever reports green is not a roadmap.
         </p>
@@ -527,7 +527,7 @@
             characterisation, so run-to-run variance is unknown.
           </li>
           <li>
-            <strong>Grounding precision is thinly measured</strong> — one abstention case out
+            <strong>Grounding precision is thinly measured</strong> - one abstention case out
             of two, as above.
           </li>
         </ul>

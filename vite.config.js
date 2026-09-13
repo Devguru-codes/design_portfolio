@@ -23,10 +23,10 @@ function head(file) {
   const isError = file === '404.html';
 
   const title = isHome
-    ? `${site.name} — ${site.role}`
+    ? `${site.name} - ${site.role}`
     : isError
-      ? `Page not found — ${site.name}`
-      : `${project ? project.title : basename(file, '.html')} — Case Study`;
+      ? `Page not found - ${site.name}`
+      : `${project ? project.title : basename(file, '.html')} - Case Study`;
   const description = isHome || isError || !project ? site.description : project.description;
   const url = isHome ? `${site.url}/` : `${site.url}${project ? project.href : '/' + file}`;
   /* Social crawlers are unreliable with WebP and will not render SVG at all, so
@@ -84,7 +84,7 @@ function workGrid() {
   return projects
     .map((p, i) => {
       /* Projects with a real screenshot use it and describe it. The rest get
-         abstract cover art, which is decorative — the card's own heading and
+         abstract cover art, which is decorative - the card's own heading and
          blurb already carry the meaning, so an alt text here would just be
          noise repeated to a screen reader. */
       const alt = p.thumbDecorative ? '' : esc(p.thumbAlt || '');

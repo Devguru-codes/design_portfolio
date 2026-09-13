@@ -1,4 +1,4 @@
-# Design portfolio — Devguru Tiwari
+# Design portfolio - Devguru Tiwari
 
 Product and UX case studies. Static multi-page site built with Vite, deployed on Vercel at
 [design-portfolio-three-tan.vercel.app](https://design-portfolio-three-tan.vercel.app).
@@ -17,13 +17,13 @@ in [`vite.config.js`](vite.config.js), which expands `<!-- include:name -->` com
 
 | Include | Comes from |
 |---|---|
-| `head` | generated per page — title, description, canonical, Open Graph, JSON-LD |
+| `head` | generated per page - title, description, canonical, Open Graph, JSON-LD |
 | `nav` / `footer` / `backlink` | `partials/*.html` |
 | `work-grid` | generated from `src/projects.js` |
 | `case-nav` | generated prev/next links, ordered by `src/projects.js` |
 
 Because includes are expanded during `transformIndexHtml`, the published pages are fully
-static HTML — nothing in the work grid depends on JavaScript running.
+static HTML - nothing in the work grid depends on JavaScript running.
 
 ## Adding a case study
 
@@ -31,7 +31,7 @@ static HTML — nothing in the work grid depends on JavaScript running.
 2. Create `project_N.html` at the repo root, using an existing case study as the shape.
 
 That's it. Build entries are discovered by globbing `*.html` at the root, so a new page
-cannot be left out of the production build — which is what previously caused pages to 404
+cannot be left out of the production build - which is what previously caused pages to 404
 after deploy.
 
 `src/projects.js` is the single source of truth for the work grid, per-page metadata,

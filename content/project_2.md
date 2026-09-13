@@ -1,4 +1,4 @@
-Case Study: AI Money Mentor — An AI-Powered Finance Assistant
+Case Study: AI Money Mentor - An AI-Powered Finance Assistant
 Product Overview
 AI Money Mentor is a proposed AI-driven personal finance assistant app. It leverages a multi-agent architecture to give everyday Indians affordable, on-demand financial advice. The system (internally called “DhanSarthi”) orchestrates specialized AI agents for tasks like tax planning, investment analysis, and budgeting. As one of India’s first AI chatbots for finance, it aims to simplify money management for users who lack access to human advisors. The front-end includes a conversational chat interface plus a dashboard of financial data (budgets, goals, insights). Essentially, it turns complex financial rules into chat-based answers and actionable insights, all personalized to each user’s profile.
 
@@ -9,7 +9,7 @@ Problem Statement
 Across India, financial management is complex for many users, especially novices. There is a wide advice gap: 750+ million employed Indians lack affordable personal finance support. Users face confusing choices (which investment or tax form to pick) and often feel anxious about money. Traditional fintech apps (expense trackers, digital wallets) either present raw data or simplistic budgeting, but none truly guide users in plain language. Users frequently mistrust automated advice: 63% of people report chatbot security concerns, and they worry about AI “hallucinations” making up wrong answers. Our product must solve these pain points by providing personalized, explainable financial recommendations in a conversational UI. Key challenges include ensuring accuracy (avoiding hallucinations), building trust (users must feel safe sharing financial details), and handling complex finance topics (taxes, investments) in an accessible way.
 
 Why AI for Personal Finance?
-Artificial intelligence brings several advantages for personal finance: it automates expertise and personalizes advice at scale. According to industry sources, AI chatbots can deliver instant, customized guidance—“tailoring communication style and product suggestions to individual preferences”. In other words, the AI can learn a user’s specific goals (saving for college vs. paying off debt) and craft relevant suggestions (e.g. recommending an SIP vs. a debt plan). AI also handles routine tasks: it can auto-categorize expenses and remind users about bill payments. Crucially, AI enables 24/7 interaction. As InData Labs notes, AI-driven personalization means “each customer receives a financial journey that adapts to them continuously”. So if someone spends extra this month, the app could proactively advise adjusting next month’s budget. Ultimately, AI in this space means shifting from a reactive platform to a proactive financial partner. Rather than leaving users to puzzle through spreadsheets and FAQs, the app can converse about money matters, democratizing expertise that was once only available from costly financial planners.
+Artificial intelligence brings several advantages for personal finance: it automates expertise and personalizes advice at scale. According to industry sources, AI chatbots can deliver instant, customized guidance-“tailoring communication style and product suggestions to individual preferences”. In other words, the AI can learn a user’s specific goals (saving for college vs. paying off debt) and craft relevant suggestions (e.g. recommending an SIP vs. a debt plan). AI also handles routine tasks: it can auto-categorize expenses and remind users about bill payments. Crucially, AI enables 24/7 interaction. As InData Labs notes, AI-driven personalization means “each customer receives a financial journey that adapts to them continuously”. So if someone spends extra this month, the app could proactively advise adjusting next month’s budget. Ultimately, AI in this space means shifting from a reactive platform to a proactive financial partner. Rather than leaving users to puzzle through spreadsheets and FAQs, the app can converse about money matters, democratizing expertise that was once only available from costly financial planners.
 
 AI Trust Challenges
 Designing a finance AI requires careful attention to trust and transparency. Users have legitimate fears:
@@ -25,7 +25,7 @@ These challenges shape our UX: every recommendation must be clearly explained, w
 Conversational UX Principles
 For the chat-based interface, we apply best practices for financial chatbots (inspired by research such as Commonwealth’s guide):
 
-Clarity & Simplicity: We use natural, jargon-free language. If the AI uses terms like “RBI-mandated limit,” we provide tooltips or explain in context (Heuristic: match to user’s mental model). The chatbot introduces itself as “Finance Mentor (beta) — your AI assistant” so users know what they’re dealing with.
+Clarity & Simplicity: We use natural, jargon-free language. If the AI uses terms like “RBI-mandated limit,” we provide tooltips or explain in context (Heuristic: match to user’s mental model). The chatbot introduces itself as “Finance Mentor (beta) - your AI assistant” so users know what they’re dealing with.
 
 User Control & Choice: Users dictate the conversation. Quick suggestion buttons (“Show me tips on saving”) help guide less verbose users. Critically, we give control over data: as Commonwealth advises, “Allow users to choose what financial questions to answer”. We add toggles in settings for data usage (e.g. “Use my transaction history to personalize advice: On/Off”).
 
@@ -50,7 +50,7 @@ Jupiter	Neo-bank + investing	Vibrant, youthful design; gamified (XP points, avat
 INDmoney	Investment aggregator	Data-rich dashboard with charts; investor-focused	Some robo-advisor tools; goal planning hints; no full conversational AI
 Cleo (Global)	AI Budgeting Chatbot	Friendly, chat-first interface (UK/US market); uses emoji and humor	Full AI chatbot (Cleo) for budgets, spending insights, with a playful, persona-driven tone
 
-Insights: Cleo is the closest analogue (though international). It uses a conversational bot to “help users budget, track expenses, and detect unusual subscriptions”. Jupiter has recently added chat-based assistance to stand out. CRED and Walnut focus more on visual dashboards and gamified elements. Our differentiator is a hybrid UX: combining a polished financial dashboard (like INDmoney) with a powerful chat interface (like Cleo) that speaks multiple finance domains. We will draw on competitive best practices—e.g. Jupiter’s gamification and CRED’s trust signals—while ensuring our AI assistant remains at the core, explaining each suggestion (something competitors lack).
+Insights: Cleo is the closest analogue (though international). It uses a conversational bot to “help users budget, track expenses, and detect unusual subscriptions”. Jupiter has recently added chat-based assistance to stand out. CRED and Walnut focus more on visual dashboards and gamified elements. Our differentiator is a hybrid UX: combining a polished financial dashboard (like INDmoney) with a powerful chat interface (like Cleo) that speaks multiple finance domains. We will draw on competitive best practices-e.g. Jupiter’s gamification and CRED’s trust signals-while ensuring our AI assistant remains at the core, explaining each suggestion (something competitors lack).
 
 Personas
 Aarav (College Student, 20)
@@ -240,7 +240,7 @@ No Goals Set: “You haven’t set any financial goals. Let’s start! Are you s
 
 Chat Idle: In the chat window before the first message: “Hello! I’m your AI Money Mentor. Ask me anything about savings, investments, or budgeting.” An example query (faded) is shown to prompt interaction.
 
-Empty Insights: If no data (e.g. first login): “Nothing to show yet—your dashboard will populate once you start tracking your spending or connect accounts.”
+Empty Insights: If no data (e.g. first login): “Nothing to show yet-your dashboard will populate once you start tracking your spending or connect accounts.”
 
 Empty states combine an explanation (“what this means”) with an immediate call to action (“start now by…”), ensuring the user isn’t confused by blank screens.
 
