@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meeting Minutes AI - Case Study</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+    <!-- include:head -->
   </head>
   <body>
     <div class="bg-mesh"></div>
 
-    <nav>
-      <div class="container nav-container">
-        <a href="/" style="text-decoration: none;">
-          <div class="logo">
-            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
-          </div>
-        </a>
-        <div class="nav-links" style="align-items: center; display: flex;">
-          <a href="/#work">Work</a>
-          <a href="/#about">About</a>
-          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
-        </div>
-      </div>
-    </nav>
+    <!-- include:nav -->
 
-    <main>
+    <main id="main">
+      <!-- include:backlink -->
+
       <section class="case-study-hero container fade-up">
         <span class="card-tag">AI / Productivity Case Study</span>
         <h1>Automating Meeting Documentation with AI</h1>
-        <p>Meeting Minutes AI - From Live Call to Structured Notes in One Click</p>
+        <p class="subtitle">Meeting Minutes AI - From Live Call to Structured Notes in One Click</p>
       </section>
 
       <section class="container content-block">
         
-        <div class="highlight-box" style="margin-top: 0;">
+        <div class="highlight-box">
           <h3>Opportunity Type: Transformational</h3>
           <p>This represents a <strong>Transformational Opportunity</strong>. It takes an entirely manual, time-consuming process (attending meetings, taking notes, distributing minutes) and replaces it with a fully automated AI pipeline: a bot joins your Google Meet, records audio, transcribes speech with speaker identification, and generates structured meeting minutes with action items.</p>
         </div>
@@ -76,24 +59,24 @@
         </ul>
 
         <h3>Primary User Persona: Ananya</h3>
-        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="persona-card">
           <p><strong>Profile:</strong> 29-year-old product manager at a 40-person B2B SaaS startup. She runs 4-6 cross-functional meetings per day and is expected to send structured minutes within 30 minutes of each meeting.</p>
           <p><strong>Goal:</strong> Automate meeting minutes so she can focus on facilitating the discussion instead of frantically typing notes.</p>
           <p><strong>Pain Point:</strong> She spends 45 minutes after each meeting editing notes, formatting them, and chasing colleagues for clarification on action items. On heavy meeting days, she falls behind and minutes are sent the next day, by which time the context is stale.</p>
         </div>
 
         <h3>Empathy Mapping (Ananya)</h3>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+        <div class="empathy-grid">
+          <div>
             <strong>Says:</strong> "I spend more time documenting meetings than actually leading them. Something has to change."
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Thinks:</strong> "If I miss an action item in the notes, the entire sprint gets delayed and I get blamed."
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Does:</strong> Takes notes on a split screen during calls. Copies action items to Jira manually. Searches Slack threads to recall past decisions.
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Feels:</strong> Exhausted from back-to-back meetings. Anxious about missing critical details. Relieved when someone else volunteers to take notes.
           </div>
         </div>
@@ -122,7 +105,8 @@ journey
         </div>
 
         <h3>Competitive Analysis</h3>
-        <table>
+        <div class="table-scroll">
+          <table>
           <thead>
             <tr>
               <th>Platform</th>
@@ -158,6 +142,7 @@ journey
             </tr>
           </tbody>
         </table>
+        </div>
 
         <h2>Design Strategy &amp; Solutions</h2>
         
@@ -256,19 +241,12 @@ flowchart TB
         </ul>
 
       </section>
+      <!-- include:case-nav -->
     </main>
 
-    <footer>
-      <div class="container fade-up">
-        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
-      </div>
-    </footer>
+    <!-- include:footer -->
 
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-      mermaid.run({ querySelector: '.mermaid' }).catch(console.error);
-    </script>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>

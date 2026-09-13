@@ -1,133 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-    <title>UX Design Portfolio</title>
-    <meta name="description" content="Portfolio of a UX/UI Designer showcasing case studies in e-commerce and fintech." />
+    <!-- include:head -->
   </head>
   <body>
     <div class="bg-mesh"></div>
 
-    <nav>
-      <div class="container nav-container">
-        <a href="/" style="text-decoration: none;">
-          <div class="logo">
-            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
-          </div>
-        </a>
-        <div class="nav-links" style="align-items: center; display: flex;">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
-        </div>
-      </div>
-    </nav>
+    <!-- include:nav -->
 
-    <main>
+    <main id="main">
       <section class="hero container fade-up">
         <div>
-          <span class="card-tag fade-up delay-1">UX/UI Designer</span>
+          <span class="card-tag fade-up delay-1">Product Manager</span>
           <h1 class="fade-up delay-1">Hi, I'm Devguru Tiwari.</h1>
-      <p class="fade-up delay-2" style="font-size: 1.5rem; font-weight: 600; color: #fff;">
-        4th-Year Student at IIIT Nagpur.<br>
-        <span style="color: var(--accent-1);">Product Manager.</span>
-      </p>
-      <p class="fade-up delay-2">
-        I architect scalable systems and analyze complex datasets. This is a collection of my UX research and UI design work.
-      </p>
+          <p class="hero-lede fade-up delay-2">
+            Final-year student at IIIT Nagpur.<br />
+            <span class="accent">Product Manager who ships.</span>
+          </p>
+          <p class="hero-body fade-up delay-2">
+            I take products from market research through to working systems — user research,
+            prototypes, and the engineering to prove the idea actually holds.
+          </p>
           <div class="fade-up delay-3">
-            <a href="#work" class="btn btn-primary">View My Work</a>
+            <a href="#work" class="btn btn-primary">View my work</a>
           </div>
         </div>
       </section>
 
       <section id="work" class="section container">
-        <h2 class="fade-up">Selected Case Studies</h2>
-        
+        <h2 class="fade-up">Selected case studies</h2>
+
         <div class="grid">
-          <!-- Case Study 1 -->
-          <a href="/project_1.html" class="card fade-up delay-1">
-            <span class="card-tag">AI / Voice UX</span>
-            <h3>AI Voice Call Centre</h3>
-            <p>An open-source, multi-agent voice platform with real-time STT, LLM reasoning, and TTS that replaces traditional call centre workflows.</p>
-            <div style="margin-top: 2rem;">
-              <span class="btn btn-outline" style="padding: 0.5rem 1rem; border-radius: 8px;">Read Case Study &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Case Study 2 -->
-          <a href="/project_2.html" class="card fade-up delay-2">
-            <span class="card-tag">AI / Productivity</span>
-            <h3>Meeting Minutes AI</h3>
-            <p>An end-to-end pipeline that joins Google Meet, records audio, transcribes with speaker diarization, and generates structured meeting notes.</p>
-            <div style="margin-top: 2rem;">
-              <span class="btn btn-outline" style="padding: 0.5rem 1rem; border-radius: 8px;">Read Case Study &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Case Study 3 -->
-          <a href="/project_3.html" class="card fade-up delay-3">
-            <span class="card-tag">Fintech / AI</span>
-            <h3>AI Money Mentor</h3>
-            <p>Designing DhanSarthi, an AI-powered personal finance assistant app that brings affordable, on-demand advice to everyday users.</p>
-            <div style="margin-top: 2rem;">
-              <span class="btn btn-outline" style="padding: 0.5rem 1rem; border-radius: 8px;">Read Case Study &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Case Study 4 -->
-          <a href="/project_4.html" class="card fade-up delay-1">
-            <span class="card-tag">E-Commerce UX</span>
-            <h3>Reducing Checkout Friction</h3>
-            <p>An overhaul of Snapdeal's mobile checkout to cut cart abandonment and boost conversions in the Indian e-commerce market.</p>
-            <div style="margin-top: 2rem;">
-              <span class="btn btn-outline" style="padding: 0.5rem 1rem; border-radius: 8px;">Read Case Study &rarr;</span>
-            </div>
-          </a>
-
-          <!-- Case Study 5 -->
-          <a href="/project_5.html" class="card fade-up delay-2">
-            <span class="card-tag">IoT UX</span>
-            <h3>Smart Home Dashboard</h3>
-            <p>A unified, widget-based mobile interface designed to simplify everyday smart device management and routines.</p>
-            <div style="margin-top: 2rem;">
-              <span class="btn btn-outline" style="padding: 0.5rem 1rem; border-radius: 8px;">Read Case Study &rarr;</span>
-            </div>
-          </a>
+          <!-- include:work-grid -->
         </div>
       </section>
 
-      <section id="about" class="container fade-up delay-2" style="margin-top: 8rem; margin-bottom: 4rem;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">About Me</h2>
-        <div style="background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 3rem;">
-          <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
-            I am a <strong style="color: var(--text-primary);">4th-Year Student at IIIT Nagpur</strong> and a passionate <strong style="color: var(--accent-1);">Product Manager</strong>. I thrive at the intersection of systems engineering, data science, and user experience. 
+      <section id="about" class="container fade-up delay-2">
+        <h2>About me</h2>
+        <div class="about-card">
+          <p>
+            I am a <strong>final-year student at IIIT Nagpur</strong> and a
+            <strong class="accent">Product Manager</strong>. I work at the intersection of
+            systems engineering, data and user experience.
           </p>
-          <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary);">
-            My approach to product development is deeply analytical. I believe in understanding the core user journey, identifying friction points through data, and executing elegant, scalable solutions. Whether it's redesigning an e-commerce checkout flow to boost conversion or architecting a multi-agent AI mentor, my goal is always to deliver measurable impact.
+          <p>
+            My approach to product is deliberately analytical. I start by understanding the
+            core user journey, find the friction with data, and then build — whether that means
+            redesigning a checkout flow for conversion or architecting a knowledge graph that
+            refuses to store a fact it cannot prove. The goal is always measurable impact, and
+            an honest account of what was and wasn't measured.
           </p>
         </div>
       </section>
     </main>
 
-  <footer class="container">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
-      <p style="margin: 0;">&copy; 2026 Devguru Tiwari. All rights reserved.</p>
-      <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
-        <a href="mailto:devguruatwork@gmail.com" target="_blank" style="color: var(--text-secondary); text-decoration: none;">Email</a>
-        <a href="tel:+919354926131" style="color: var(--text-secondary); text-decoration: none;">Phone</a>
-        <a href="https://github.com/Devguru-codes" target="_blank" style="color: var(--text-secondary); text-decoration: none;">GitHub</a>
-        <a href="https://www.linkedin.com/in/devguru-tiwari" target="_blank" style="color: var(--text-secondary); text-decoration: none;">LinkedIn</a>
-        <a href="https://my-portfolio-website-silk-one.vercel.app/" target="_blank" style="color: var(--accent-1); font-weight: 600; text-decoration: none;">Full Portfolio</a>
-      </div>
-    </div>
-  </footer>
+    <!-- include:footer -->
 
     <script type="module" src="/main.js"></script>
   </body>

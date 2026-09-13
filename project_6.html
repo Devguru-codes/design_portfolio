@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- include:head -->
+  </head>
+  <body>
+    <div class="bg-mesh"></div>
+
+    <!-- include:nav -->
+
+    <main id="main">
+      <!-- include:backlink -->
+
+      <section class="case-study-hero container fade-up">
+        <span class="card-tag">AI / Institutional Memory</span>
+        <h1>Callosum</h1>
+        <p class="subtitle">
+          An AI system that answers questions about an organisation's decisions and cannot
+          fabricate the answer.
+        </p>
+      </section>
+
+      <section class="container content-block">
+        <dl class="case-meta">
+          <div>
+            <dt>My role</dt>
+            <dd>Product &amp; UX lead — co-built</dd>
+          </div>
+          <div>
+            <dt>Year</dt>
+            <dd>2026</dd>
+          </div>
+          <div>
+            <dt>Type</dt>
+            <dd>Research → prototype → shipped system</dd>
+          </div>
+          <div>
+            <dt>Stack</dt>
+            <dd>Postgres&nbsp;+&nbsp;pgvector · Neo4j · FastAPI · Next.js</dd>
+          </div>
+        </dl>
+
+        <div class="case-links">
+          <a class="btn btn-primary" href="https://github.com/Devguru-codes/meridian_pre_intern_work" target="_blank" rel="noopener">Research &amp; PRD ↗</a>
+          <a class="btn btn-outline" href="https://devguru-codes.github.io/meridian_pre_intern_work/Meridian_prototype/Meridian%20Dashboard.dc.html" target="_blank" rel="noopener">Live prototype ↗</a>
+          <a class="btn btn-outline" href="https://github.com/Cloverag/callosum" target="_blank" rel="noopener">Source ↗</a>
+        </div>
+
+        <div class="highlight-box">
+          <h3>Opportunity type: Disruptive</h3>
+          <p>
+            Retrieval-augmented generation treats hallucination as something to be
+            <em>discouraged</em> — better prompts, better reranking, a confidence score.
+            Callosum treats it as something to be <em>refused</em>. A fact that cannot be
+            traced to a verbatim sentence in a source document never enters storage at all.
+            That is a different product category, not a better version of the same one.
+          </p>
+        </div>
+
+        <h2>Executive summary</h2>
+        <p>
+          This project began as a pre-internship product assignment: evaluate whether
+          <strong>Meridian</strong>, an operating system for startups, should build a board
+          management module. The research said the interesting problem was not running board
+          meetings. It was everything that happens between them — the decisions that get made,
+          then lost.
+        </p>
+        <p>
+          I produced thirteen deliverables covering market and user research, a competitor
+          teardown, a prioritisation matrix, a build-versus-buy analysis, a three-phase roadmap
+          and a full PRD for the V1 MVP, then built a clickable prototype to make the argument
+          tangible. That work became the specification for <strong>Callosum</strong>: a
+          working system with a knowledge graph, a vector store, and a verification gate
+          between the model and the database.
+        </p>
+        <p>
+          The system is named for the <em>corpus callosum</em>, the fibre bundle joining the
+          brain's two hemispheres. Callosum has two hemispheres as well — a graph and a vector
+          store — and the bridge between them is the entire idea.
+        </p>
+
+        <h2>The problem</h2>
+
+        <div class="highlight-box">
+          <h3>Problem statement</h3>
+          <p>
+            Founders don't struggle with running board meetings. They struggle with preserving,
+            retrieving and acting on board knowledge over time. Documents scatter across
+            email, Drive, Notion and slide decks; the reasoning behind a decision lives in a
+            transcript nobody re-reads. Our research put the cost at
+            <strong>15–20 hours of context reconstruction before each board meeting</strong>.
+          </p>
+        </div>
+
+        <p>
+          The obvious fix — point an LLM at the document pile — fails for exactly the questions
+          that matter. Ask <em>"why did we reject Pricing Model B?"</em> and a conventional RAG
+          system will produce a fluent, plausible, unverifiable paragraph. In a governance
+          context that is worse than no answer, because a fabricated rationale attributed to a
+          named director is a liability, not a convenience.
+        </p>
+        <p>
+          So the product requirement was unusual: the system must be able to say
+          <strong>"I don't know"</strong>, and it must be structurally incapable of inventing
+          the alternative.
+        </p>
+
+        <h2>Discovery: research before design</h2>
+        <p>
+          Before any interface existed, I worked through the board lifecycle end to end. The
+          deliverables are public in the
+          <a href="https://github.com/Devguru-codes/meridian_pre_intern_work" target="_blank" rel="noopener">research repository</a>.
+        </p>
+
+        <h3>Competitive landscape</h3>
+        <p>
+          I ran a teardown of four incumbents and found the same gap in each: they all manage
+          the <em>artifacts</em> of governance and none of them manage the
+          <em>reasoning</em>.
+        </p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Core offering</th>
+                <th>The gap</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Diligent</td>
+                <td>Enterprise board portal, compliance-first</td>
+                <td>Heavy, expensive, built for listed companies rather than startups</td>
+              </tr>
+              <tr>
+                <td>BoardPro</td>
+                <td>SMB board packs, agendas, minutes</td>
+                <td>Document workflow only — no memory across meetings</td>
+              </tr>
+              <tr>
+                <td>Carta</td>
+                <td>Cap table and equity management</td>
+                <td>Owns the numbers, not the decisions behind them</td>
+              </tr>
+              <tr>
+                <td>Visible.vc</td>
+                <td>Investor updates and reporting</td>
+                <td>Outbound reporting; nothing to query afterwards</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Use cases and prioritisation</h3>
+        <p>
+          I mapped eight high-value use cases across the lifecycle and scored them on an
+          impact-versus-engineering-effort matrix:
+        </p>
+        <ul>
+          <li><strong>Pre-meeting:</strong> AI meeting preparation, agenda building, board-pack assembly.</li>
+          <li><strong>During:</strong> live meeting intelligence, decision capture as it happens.</li>
+          <li><strong>Post-meeting:</strong> resolution management, commitment tracking.</li>
+          <li><strong>Across time:</strong> institutional memory — the one that turned out to be the product.</li>
+        </ul>
+        <p>
+          The build-versus-buy analysis recommended reusing Meridian's existing
+          authentication, notifications and shared context layer, and building only the
+          differentiated pieces: the decision engine and the meeting workspace. Everything
+          else was someone else's solved problem.
+        </p>
+
+        <h2>Prototype: making the argument tangible</h2>
+        <p>
+          A PRD persuades nobody on its own. I built a full clickable prototype — dashboard,
+          AI agenda builder, board pack view, decision capture, live meeting interface and the
+          institutional memory screen — using AI tooling to compress what would otherwise have
+          been weeks of mockup work into a working artifact that could be clicked through in a
+          review.
+        </p>
+
+        <div class="embed-frame">
+          <iframe
+            src="https://devguru-codes.github.io/meridian_pre_intern_work/Meridian_prototype/Meridian%20Dashboard.dc.html"
+            title="Interactive Meridian board management prototype"
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-popups"
+          ></iframe>
+        </div>
+        <p class="figure-note">
+          <a class="btn btn-outline" href="https://devguru-codes.github.io/meridian_pre_intern_work/Meridian_prototype/Meridian%20Dashboard.dc.html" target="_blank" rel="noopener">Open the full prototype ↗</a>
+        </p>
+
+        <p>
+          Using generative tooling for fidelity is, I'd argue, a product skill rather than a
+          shortcut. The value of a prototype is how fast it can be wrong in front of someone;
+          anything that shortens that loop is worth using. The prototype is where the
+          institutional-memory screen stopped being a bullet in a roadmap and started being
+          the thing the whole product was actually for.
+        </p>
+
+        <h2>From prototype to system</h2>
+        <p>
+          Callosum is the prototype's memory screen, built for real. Two stores, bridged by a
+          shared chunk UUID: a chunk row in Postgres and its node in Neo4j carry the same
+          identifier, so a vector hit can traverse into the graph, and a graph hit can pull
+          back the passage that proves it.
+        </p>
+
+        <figure class="figure--wide">
+          <div class="figure--light">
+            <img src="/callosum/architecture.webp" alt="System architecture: source documents flow through ingestion and Claude-based extraction into a Neo4j graph store and a Postgres pgvector store, bridged by a shared chunk UUID, with retrieval guarded by a permission filter and a human approval queue before anything is committed to memory." width="1400" height="779" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>One source of truth, two ways to search, a human at the gate.</figcaption>
+        </figure>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Typical RAG</th>
+                <th>Callosum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>What is stored</td>
+                <td>Chunks and embeddings</td>
+                <td>Chunks, embeddings <strong>and a verified edge graph</strong></td>
+              </tr>
+              <tr>
+                <td>Source of truth</td>
+                <td>The model's output</td>
+                <td>The located quote</td>
+              </tr>
+              <tr>
+                <td>Fabrication</td>
+                <td>Mitigated by prompting</td>
+                <td><strong>Refused at write time</strong></td>
+              </tr>
+              <tr>
+                <td>Multi-hop questions</td>
+                <td>Hope the chunks co-occur</td>
+                <td>Explicit traversal from a grounded seed</td>
+              </tr>
+              <tr>
+                <td>Access control</td>
+                <td>Filtered after retrieval, or not at all</td>
+                <td>Excluded <strong>before</strong> retrieval, in SQL and Cypher</td>
+              </tr>
+              <tr>
+                <td>AI write autonomy</td>
+                <td>Writes freely</td>
+                <td><strong>None</strong> — a human approves every change</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure>
+          <div class="figure--light">
+            <img src="/callosum/02-graph-vector.webp" alt="The graph store and the vector store side by side, showing how a shared chunk UUID lets a semantic hit traverse into the relationship graph and a graph hit retrieve its proving passage." width="1400" height="788" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>The bridge: one UUID shared between both hemispheres.</figcaption>
+        </figure>
+
+        <h2>The invariant that makes it work</h2>
+
+        <div class="highlight-box">
+          <h3>The rule the whole system rests on</h3>
+          <p>
+            No relationship enters the graph without a verbatim quote that a string search
+            located in the source document.
+          </p>
+        </div>
+
+        <p>
+          This is the design decision I'm proudest of, because it moves the guarantee out of
+          the model's hands entirely. The verifier is not a judgement call, a second model, or
+          a confidence threshold — it is a character-for-character search. It tolerates the
+          ways a faithful quote's bytes can legitimately differ: whitespace reflow, casing,
+          typographic glyph substitution. Nothing else.
+        </p>
+        <p>
+          <strong>A paraphrase is treated as a fabrication.</strong> The model is free to
+          hallucinate as much as it likes; the hallucination simply cannot become memory.
+        </p>
+
+        <figure>
+          <div class="figure--light">
+            <img src="/callosum/04-evidence-verification.webp" alt="The evidence verification flow: a proposed relationship is checked against its cited source text, and is either accepted into the approval queue or quarantined with a typed failure reason." width="1400" height="933" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>Verification gate: accepted, or quarantined with a reason.</figcaption>
+        </figure>
+
+        <h3>Rejections are kept, not dropped</h3>
+        <p>
+          Failed edges are quarantined with a typed reason rather than silently discarded. This
+          was a product decision, not a technical one. "This model fabricates a quote on 8% of
+          the relationships it marks approved" is a finding you can act on — and you can only
+          make it if you kept the failures. Dropping them would have made the system look
+          cleaner and told us nothing.
+        </p>
+
+        <h2>Access control as a design decision</h2>
+        <p>
+          A board pack contains material that not every reader should see. The conventional
+          approach is to retrieve everything and hide the sensitive rows in the interface. That
+          leaks: the shape of what was hidden is usually enough to infer its content.
+        </p>
+        <p>
+          Callosum filters <em>before</em> retrieval, in SQL and in Cypher, at the caller's own
+          clearance level. Surviving items are renumbered from 1, so a lower-cleared reader
+          sees a shorter list with no gap in the numbering to count.
+        </p>
+
+        <figure>
+          <div class="figure--light">
+            <img src="/callosum/03-auth-session.webp" alt="The authentication and session flow: a session resolves to a principal through an active membership join, clearance is derived from the membership role, and tenancy is enforced by Postgres row-level security." width="1400" height="788" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>Clearance is derived from an active membership, never sent by the client.</figcaption>
+        </figure>
+
+        <h3>Two withholding contracts, deliberately different</h3>
+        <p>
+          The graph view discloses a <em>count</em> of withheld items. Board packs disclose
+          nothing at all. That inconsistency is intentional and took the longest to settle: a
+          notice that appears only when something is hidden is itself a disclosure. On a page
+          where a count is always shown, showing it is safe. On a page where it would appear
+          selectively, it is not.
+        </p>
+
+        <figure>
+          <div class="figure--light">
+            <img src="/callosum/packs.webp" alt="A board pack view, with items filtered server-side at the reader's clearance level and renumbered sequentially." width="1400" height="696" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>
+            A board pack as its author sees it. The notice states that filtering applies; it
+            never states how much. (Screenshot predates the assistant-rail revisions of
+            August 2026.)
+          </figcaption>
+        </figure>
+
+        <h3>Constraints over conventions</h3>
+        <p>
+          One finding was genuinely surprising. Postgres validates foreign keys as the table
+          <em>owner</em>, which bypasses row-level security — so a single-column reference can
+          link two tenants through a constraint neither of them can read across. We reproduced
+          it as an attack, then fixed it with composite <code>(id, workspace_id)</code> keys
+          that reject it even through a superuser connection, covering
+          <strong>16 relationships across 14 tables</strong>.
+        </p>
+        <p>
+          There is a second half to that story worth telling: the migration rewrote 16 keys but
+          gave only 11 an explicit delete behaviour, so cascade semantics silently changed
+          until a follow-up migration restored them. The fix needed a fix. That is what
+          security work actually looks like.
+        </p>
+        <p>
+          Relatedly, two field names are never accepted from a client — and rather than rely on
+          reviewers remembering that, the build walks the generated API schema and fails if
+          either name appears anywhere, including nested inside a request body. Code review is
+          the wrong instrument here: an endpoint that takes a workspace filter looks completely
+          ordinary, and the harm is invisible at the call site.
+        </p>
+
+        <h2>What the evaluation actually says</h2>
+        <p>
+          The claim that the graph earns its place is testable, so we tested it — holding the
+          corpus, the questions and the traversal code constant, and varying only whether the
+          planner grounds its seed entity.
+        </p>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat__value">38%</div>
+            <div class="stat__label">Recall, no grounding</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">100%</div>
+            <div class="stat__label">Recall, grounded</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">81%</div>
+            <div class="stat__label">Entity grounding</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">50%</div>
+            <div class="stat__label">Grounding precision</div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>Result</th>
+                <th>Reading</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Candidate recall — right entity offered</td>
+                <td>100% (21/21)</td>
+                <td>Retrieval always surfaced the correct entity</td>
+              </tr>
+              <tr>
+                <td>Entity grounding — correct seed chosen</td>
+                <td>81% (17/21)</td>
+                <td>Every failure in the pipeline is here</td>
+              </tr>
+              <tr>
+                <td>Traversal — given correct grounding</td>
+                <td>100%</td>
+                <td>The graph never failed once seeded</td>
+              </tr>
+              <tr>
+                <td>Grounding precision — abstain when there is no referent</td>
+                <td>50% (1/2)</td>
+                <td>Denominator of two; see the caveat below</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          <strong>All of the loss sits in one stage.</strong> The right entity was offered every
+          single time and traversal never failed once seeded, so the bottleneck is named entity
+          linking — not the graph, and not retrieval. That measurement is also why a planned
+          abstention algorithm was never built: instrumenting the pipeline removed the reason
+          for it. Measuring first saved building the wrong thing.
+        </p>
+
+        <div class="caveat">
+          <span class="caveat__label">These numbers are not current</span>
+          <p>
+            They come from a run dated <strong>20 July 2026</strong> against a
+            <strong>29-item</strong> gold set. That set has since grown to 46 items, and seven
+            of the questions in it have never been measured. Grounding precision of "50%" is
+            <strong>one item out of two</strong> — the gold set now carries four abstention
+            negatives, so that denominator doubles the moment it is re-run.
+          </p>
+          <p>
+            The figures are correct for what they measured. They are not a current
+            characterisation of the system, and I'd rather publish that sentence than a number
+            that quietly implies otherwise.
+          </p>
+        </div>
+
+        <h2>What shipped</h2>
+        <p>
+          Two tracks. The research engine is closed and frozen; the product is partway through
+          its phase plan.
+        </p>
+
+        <figure>
+          <div class="figure--light">
+            <img src="/callosum/07-phase-roadmap-p0-p12.webp" alt="The phase roadmap from P0 to P12, showing which product phases are accepted, which are frozen, and which remain." width="1400" height="788" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>Phase roadmap — accepted, frozen and outstanding work.</figcaption>
+        </figure>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat__value">786</div>
+            <div class="stat__label">Backend tests</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">290</div>
+            <div class="stat__label">Frontend tests</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">75</div>
+            <div class="stat__label">API operations</div>
+          </div>
+          <div class="stat">
+            <div class="stat__value">18</div>
+            <div class="stat__label">Architecture decisions</div>
+          </div>
+        </div>
+        <p class="stat__note">
+          Measured on a single pinned commit dated 24 August 2026, not carried forward. Both
+          test figures are a real run on that commit rather than an estimate.
+        </p>
+
+        <figure>
+          <div class="figure--light">
+            <img src="/callosum/dashboard.webp" alt="The Callosum board dashboard: a daily brief, the upcoming board meeting with readiness indicators, a needs-attention queue, graph health metrics, and an assistant rail that answers only from approved memory." width="1400" height="696" loading="lazy" decoding="async" />
+          </div>
+          <figcaption>
+            The board home. Note the board-readiness row: figures that were never measured
+            render as an em dash, never as a plausible zero.
+          </figcaption>
+        </figure>
+
+        <p>
+          That em-dash rule is a small interface decision with an outsized effect on trust. A
+          dashboard that shows <code>0%</code> for something it simply hasn't computed is
+          lying in a way users cannot detect. Showing <code>—</code> costs nothing and keeps
+          the interface honest about the difference between <em>zero</em> and
+          <em>unknown</em>.
+        </p>
+
+        <h3>One phase is frozen, not accepted</h3>
+        <p>
+          Of the three exit criteria for the product's third phase, one was met, one was
+          partial and one was not met — the accessibility and error-state checkpoints were
+          deliberately deferred. That is recorded as a freeze rather than rounded up to a pass.
+          A roadmap that only ever reports green is not a roadmap.
+        </p>
+
+        <h2>Limitations</h2>
+        <ul>
+          <li>
+            <strong>The corpus is synthetic.</strong> Sixteen authored documents, no real
+            organisational data. Everything above is measured on a corpus we wrote.
+          </li>
+          <li>
+            <strong>Accessibility is designed but unaudited.</strong> The interface was built
+            to a spec; no audit has been run against it.
+          </li>
+          <li>
+            <strong>Single run.</strong> The results have no multi-run stability
+            characterisation, so run-to-run variance is unknown.
+          </li>
+          <li>
+            <strong>Grounding precision is thinly measured</strong> — one abstention case out
+            of two, as above.
+          </li>
+        </ul>
+
+        <h2>What I'd do differently</h2>
+        <p>
+          <strong>Instrument earlier.</strong> The stage-by-stage evaluation is what told us the
+          bottleneck was entity linking rather than the graph, and it arrived after a planned
+          abstention algorithm had already been specified. Had it existed a month sooner, that
+          specification would never have been written.
+        </p>
+        <p>
+          <strong>Keep the evaluation and the gold set in step.</strong> The most honest thing
+          on this page is also the most avoidable: the gold set grew while the published
+          figures did not. The gap is documented and tracked, but the right answer was to make
+          re-running the evaluation cheap enough that it never drifted.
+        </p>
+        <p>
+          <strong>Decide the withholding contracts up front.</strong> The graph-versus-board-pack
+          disclosure asymmetry is correct, but we reached it by argument after both pages
+          existed. It should have been a written contract before either was designed.
+        </p>
+      </section>
+
+      <!-- include:case-nav -->
+    </main>
+
+    <!-- include:footer -->
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

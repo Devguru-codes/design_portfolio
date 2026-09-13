@@ -1,522 +1,598 @@
-// Intersection Observer for scroll animations
-document.addEventListener('DOMContentLoaded', () => {
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
+import { projects, site } from './src/projects.js';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isHome = ['/', '/index.html'].includes(window.location.pathname);
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Scroll reveal
+   ───────────────────────────────────────────────────────────────────────────*/
+
+function initReveal() {
+  const elements = document.querySelectorAll('.fade-up');
+
+  if (reduceMotion) {
+    elements.forEach((el) => el.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  elements.forEach((el) => observer.observe(el));
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Smooth scrolling — also handles "/#work" links used by the shared nav, which
+   point at the current page when you are already on the homepage.
+   ───────────────────────────────────────────────────────────────────────────*/
+
+function initSmoothScroll() {
+  document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a[href*="#"]');
+    if (!anchor) return;
+
+    const url = new URL(anchor.href, window.location.href);
+    if (url.pathname !== window.location.pathname || !url.hash || url.hash === '#') return;
+
+    const target = document.querySelector(url.hash);
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    history.pushState(null, '', url.hash);
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Contact dialog — native <dialog> gives us the focus trap and Esc for free.
+   ───────────────────────────────────────────────────────────────────────────*/
+
+function initContactDialog() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'contact-modal';
+  dialog.id = 'contact-dialog';
+  /* Padding lives on .modal-inner, not on the <dialog>. A padded dialog reports
+     clicks in its own padding band as clicks on the dialog element, which is
+     indistinguishable from a backdrop click — so the modal would close when you
+     clicked just inside its edge. */
+  dialog.innerHTML = `
+    <div class="modal-inner">
+      <button type="button" class="modal-close" id="modal-close" aria-label="Close contact details">&times;</button>
+      <h2>Get in touch</h2>
+      <p><span class="label">Email</span><br><a class="value" href="mailto:${site.email}">${site.email}</a></p>
+      <p><span class="label">Phone</span><br><a class="value" href="tel:${site.phone}">${site.phone.replace('+91', '')}</a></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="copy-email">Copy email</button>
+        <a class="btn btn-outline" href="${site.github}" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-outline" href="${site.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>`;
+  document.body.appendChild(dialog);
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#contact-btn')) {
+      dialog.showModal();
+      return;
+    }
+
+    if (e.target.closest('#modal-close')) {
+      dialog.close();
+      return;
+    }
+
+    // Clicking the backdrop closes: the dialog element itself only receives the
+    // click when it lands outside the padded content box.
+    if (e.target === dialog) {
+      dialog.close();
+      return;
+    }
+
+    const copy = e.target.closest('#copy-email');
+    if (copy) {
+      navigator.clipboard
+        .writeText(site.email)
+        .then(() => {
+          const original = copy.textContent;
+          copy.textContent = 'Copied';
+          setTimeout(() => {
+            copy.textContent = original;
+          }, 2000);
+        })
+        .catch(() => {
+          copy.textContent = site.email;
+        });
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Case-study furniture: reading progress + generated table of contents
+   ───────────────────────────────────────────────────────────────────────────*/
+
+function initReadingProgress() {
+  const bar = document.getElementById('progress-bar');
+  const article = document.querySelector('.content-block');
+  if (!bar || !article) return;
+
+  /* Measured from live rects rather than cached offsets: these pages lazy-load
+     large diagrams, so the article's height and position both change after the
+     last scroll event. A ResizeObserver catches those shifts. */
+  const update = () => {
+    const rect = article.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    const passed = -rect.top;
+    const progress = scrollable <= 0 ? 1 : passed / scrollable;
+    bar.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
   };
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  new ResizeObserver(update).observe(article);
+}
 
-  const animatedElements = document.querySelectorAll('.fade-up');
-  animatedElements.forEach(el => observer.observe(el));
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
 
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth'
-        });
-      }
-    });
+function initToc() {
+  const article = document.querySelector('.content-block');
+  if (!article) return;
+
+  const headings = [...article.querySelectorAll('h2')];
+  if (headings.length < 3) return;
+
+  const toc = document.createElement('nav');
+  toc.className = 'toc';
+  toc.setAttribute('aria-label', 'On this page');
+
+  const list = document.createElement('ol');
+  headings.forEach((heading, i) => {
+    if (!heading.id) heading.id = slugify(heading.textContent) || `section-${i}`;
+
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = `#${heading.id}`;
+    link.textContent = heading.textContent;
+    item.appendChild(link);
+    list.appendChild(item);
   });
-});
 
-// Inject Contact Modal
-const modalHtml = `
-  <div id="contactModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(10, 14, 23, 0.8); backdrop-filter: blur(10px); align-items: center; justify-content: center;">
-    <div style="background: var(--surface-color); border: 1px solid var(--accent-1); padding: 3rem; border-radius: 16px; text-align: center; max-width: 400px; width: 90%; position: relative;">
-      <span id="closeModal" style="position: absolute; right: 1.5rem; top: 1.5rem; font-size: 2rem; cursor: pointer; color: var(--text-secondary);">&times;</span>
-      <h2 style="color: #fff; margin-bottom: 1.5rem;">Contact Details</h2>
-      <p style="margin-bottom: 1rem; font-size: 1.2rem;"><strong style="color: var(--accent-1);">Email:</strong><br><a href="mailto:devguruatwork@gmail.com" style="color: #fff; text-decoration: none;">devguruatwork@gmail.com</a></p>
-      <p style="margin-bottom: 2rem; font-size: 1.2rem;"><strong style="color: var(--accent-1);">Phone:</strong><br><a href="tel:+919354926131" style="color: #fff; text-decoration: none;">9354926131</a></p>
-      <div style="display: flex; gap: 1rem; flex-direction: column;">
-        <a href="#" id="copyEmailBtn" class="btn btn-primary" style="display: block; width: 100%;">Copy Email</a>
-        <a href="https://github.com/Devguru-codes" target="_blank" class="btn btn-outline" style="display: block; width: 100%;">GitHub</a>
-        <a href="https://www.linkedin.com/in/devguru-tiwari" target="_blank" class="btn btn-outline" style="display: block; width: 100%;">LinkedIn</a>
-      </div>
-    </div>
-  </div>
-`;
-document.body.insertAdjacentHTML('beforeend', modalHtml);
+  toc.innerHTML = '<p class="toc__label">On this page</p>';
+  toc.appendChild(list);
+  document.body.appendChild(toc);
 
-document.addEventListener('click', (e) => {
-  if (e.target.closest('#contact-btn')) {
-    e.preventDefault();
-    document.getElementById('contactModal').style.display = 'flex';
-  }
-  if (e.target.id === 'closeModal' || e.target.id === 'contactModal') {
-    document.getElementById('contactModal').style.display = 'none';
-  }
-  if (e.target.id === 'copyEmailBtn') {
-    e.preventDefault();
-    navigator.clipboard.writeText('devguruatwork@gmail.com').then(() => {
-      const btn = e.target;
-      const originalText = btn.textContent;
-      btn.textContent = 'Email Copied!';
-      btn.style.background = 'rgba(0, 245, 255, 0.2)';
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = 'transparent';
-      }, 2000);
-    }).catch(err => {
-      console.error('Failed to copy email: ', err);
+  const links = new Map(headings.map((h) => [h.id, toc.querySelector(`a[href="#${h.id}"]`)]));
+
+  /* Highlight the last heading scrolled past, not whichever one happens to be
+     inside a narrow band — otherwise the whole of a long section reads as
+     "nowhere" in the contents. */
+  const spy = () => {
+    const line = 120;
+    let current = headings[0];
+    for (const heading of headings) {
+      if (heading.getBoundingClientRect().top <= line) current = heading;
+      else break;
+    }
+
+    links.forEach((link, id) => {
+      if (link) link.setAttribute('aria-current', current.id === id ? 'true' : 'false');
     });
+  };
+
+  spy();
+  window.addEventListener('scroll', spy, { passive: true });
+  window.addEventListener('resize', spy, { passive: true });
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Mermaid — only fetched when the page actually has a diagram.
+   ───────────────────────────────────────────────────────────────────────────*/
+
+async function initMermaid() {
+  const nodes = document.querySelectorAll('.mermaid');
+  if (!nodes.length) return;
+
+  const { default: mermaid } = await import(
+    'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+  );
+
+  mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+
+  // Mermaid replaces the source text with an <svg>, so capture the definition
+  // first: it is the only text alternative these diagrams have, and rendering
+  // destroys it. Each diagram gets a name plus an expandable source listing.
+  const alternatives = [...nodes].map((node) => {
+    const source = node.textContent.trim();
+    const titleLine = source.match(/^\s*title\s+(.+)$/m);
+    const kind = source.split(/\s+/)[0] || 'diagram';
+    const name = titleLine ? titleLine[1].trim() : `${kind} diagram`;
+
+    node.setAttribute('role', 'img');
+    node.setAttribute('aria-label', name);
+    return { node, source, name };
+  });
+
+  try {
+    await mermaid.run({ querySelector: '.mermaid' });
+  } catch (err) {
+    console.error('Mermaid failed to render:', err);
   }
-});
 
+  alternatives.forEach(({ node, source, name }) => {
+    const details = document.createElement('details');
+    details.className = 'diagram-alt';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// GUIDED TOUR SYSTEM
-// ─────────────────────────────────────────────────────────────────────────────
+    const summary = document.createElement('summary');
+    summary.textContent = `Text description: ${name}`;
 
-(function () {
-  // Only run on the homepage
-  if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
+    const pre = document.createElement('pre');
+    pre.textContent = source;
 
-  // Only show once per browser
-  if (localStorage.getItem('tour_completed')) return;
+    details.append(summary, pre);
+    node.insertAdjacentElement('afterend', details);
+  });
+}
 
-  const TOUR_STEPS = [
+/* ─────────────────────────────────────────────────────────────────────────────
+   Guided tour
+   ───────────────────────────────────────────────────────────────────────────*/
+
+const TOUR_KEY = 'tour_completed';
+
+function tourSteps() {
+  const projectSteps = projects
+    .filter((p) => p.tour)
+    .map((p) => ({
+      selector: `[data-tour="${p.slug}"]`,
+      title: p.cardTitle,
+      text: p.tour,
+      position: 'top',
+    }));
+
+  return [
     {
       selector: 'nav',
-      title: 'Navigation Bar',
-      text: 'This is the main navigation. Use "Work" to jump to my case studies, "About" to learn more about me, and "Contact Me" to get my email and socials.',
-      position: 'bottom'
+      title: 'Navigation',
+      text: 'Use "Work" to jump to the case studies, "About" for background, and "Contact" for my email and socials.',
+      position: 'bottom',
     },
     {
       selector: '.hero',
-      title: 'Welcome Section',
-      text: 'This is my introduction. I am a 4th-year student at IIIT Nagpur and a Product Manager. This portfolio showcases my UX research and product design work.',
-      position: 'bottom'
+      title: 'Welcome',
+      text: `I'm ${site.name}, a final-year student at IIIT Nagpur working as a product manager. This site collects my product and UX work.`,
+      position: 'bottom',
     },
     {
       selector: '#work',
-      title: 'Case Studies',
-      text: 'These are my detailed case studies. Each card represents a full product design project with research, personas, wireframes, and metrics. Click any card to read the full case study.',
-      position: 'top'
+      title: 'Case studies',
+      text: 'Each card is a full project — research, personas, wireframes, architecture and metrics. Click any card to read it.',
+      position: 'top',
     },
-    {
-      selector: '#work .card:first-child',
-      title: 'AI Voice Call Centre',
-      text: 'My flagship project. I designed and built a multi-agent AI voice platform that replaces traditional call centres using real-time speech recognition, LLM reasoning, and neural text-to-speech.',
-      position: 'right'
-    },
-    {
-      selector: '#work .card:nth-child(2)',
-      title: 'Meeting Minutes AI',
-      text: 'An end-to-end AI pipeline that joins Google Meet, records audio, transcribes with speaker identification, and generates structured meeting notes automatically.',
-      position: 'left'
-    },
+    ...projectSteps,
     {
       selector: '#about',
-      title: 'About Me',
-      text: 'A brief background on my experience and approach to product development. I work at the intersection of systems engineering, data science, and user experience.',
-      position: 'top'
+      title: 'About me',
+      text: 'Background on how I work, at the intersection of systems engineering, data and user experience.',
+      position: 'top',
     },
     {
       selector: 'footer',
-      title: 'Footer & Links',
-      text: 'Find my email, phone, GitHub, LinkedIn, and a link to my full developer portfolio here.',
-      position: 'top'
-    }
+      title: 'Links',
+      text: 'Email, phone, GitHub, LinkedIn and my full developer portfolio. You can replay this tour from here any time.',
+      position: 'top',
+    },
   ];
+}
 
-  // Inject tour CSS
-  const tourCSS = document.createElement('style');
-  tourCSS.textContent = `
-    .tour-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 10000;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .tour-overlay.active {
-      pointer-events: auto;
-    }
+function injectTourStyles() {
+  if (document.getElementById('tour-styles')) return;
+
+  const style = document.createElement('style');
+  style.id = 'tour-styles';
+  style.textContent = `
     .tour-highlight {
-      position: fixed;
-      z-index: 10002;
-      border: 2px solid #6366f1;
-      border-radius: 12px;
-      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.75), 0 0 30px rgba(99, 102, 241, 0.5);
+      position: fixed; z-index: 10002;
+      border: 2px solid var(--accent-1); border-radius: 12px;
+      box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.75), 0 0 30px rgb(99 102 241 / 0.5);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
     }
     .tour-tooltip {
-      position: fixed;
-      z-index: 10003;
-      background: #111;
-      border: 1px solid rgba(99, 102, 241, 0.5);
-      border-radius: 16px;
-      padding: 1.5rem 2rem;
-      max-width: 380px;
-      width: 90vw;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      position: fixed; z-index: 10003;
+      background: var(--surface-raised);
+      border: 1px solid var(--accent-edge);
+      border-radius: 16px; padding: 1.5rem;
+      max-width: 380px; width: min(90vw, 380px);
+      box-shadow: 0 20px 60px rgb(0 0 0 / 0.5);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: auto;
     }
     .tour-tooltip h4 {
-      color: #6366f1;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
+      color: var(--accent-bright); font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;
     }
-    .tour-tooltip h3 {
-      color: #fff;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .tour-tooltip p {
-      color: #a3a3a3;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
-    }
-    .tour-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .tour-progress {
-      color: #666;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-    .tour-btns {
-      display: flex;
-      gap: 0.5rem;
-    }
+    .tour-tooltip h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .tour-tooltip p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem; }
+    .tour-footer { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; }
+    .tour-progress { color: var(--text-tertiary); font-size: 0.8rem; font-weight: 500; }
+    .tour-btns { display: flex; gap: 0.5rem; }
     .tour-btn {
-      padding: 0.5rem 1.25rem;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
+      padding: 0.5rem 1.25rem; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600; font-family: inherit;
+      cursor: pointer; border: none; transition: background 0.2s ease, color 0.2s ease;
     }
-    .tour-btn-skip {
-      background: transparent;
-      color: #666;
-      border: 1px solid #333;
+    .tour-btn-skip { background: transparent; color: var(--text-tertiary); border: 1px solid var(--border-strong); }
+    .tour-btn-skip:hover { color: #fff; }
+    .tour-btn-next { background: var(--accent-1); color: #fff; }
+    .tour-btn-next:hover { background: var(--accent-bright); }
+    dialog.tour-dialog {
+      border: 1px solid var(--accent-edge); background: var(--surface-raised);
+      border-radius: 20px; padding: 2.5rem; text-align: center;
+      max-width: 420px; width: min(90vw, 420px); color: var(--text-primary);
     }
-    .tour-btn-skip:hover {
-      color: #fff;
-      border-color: #555;
-    }
-    .tour-btn-next {
-      background: #6366f1;
-      color: #fff;
-    }
-    .tour-btn-next:hover {
-      background: #818cf8;
-      transform: translateY(-1px);
-    }
-    .tour-ask-modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 10000;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: tourFadeIn 0.4s ease;
-    }
-    .tour-ask-box {
-      background: #111;
-      border: 1px solid rgba(99, 102, 241, 0.4);
-      border-radius: 20px;
-      padding: 2.5rem;
-      text-align: center;
-      max-width: 420px;
-      width: 90%;
-      animation: tourSlideUp 0.4s ease;
-    }
-    .tour-ask-box h2 {
-      color: #fff;
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-    .tour-ask-box p {
-      color: #a3a3a3;
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-    .tour-ask-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-    .tour-ask-btn {
-      padding: 0.75rem 2rem;
-      border-radius: 100px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
-      font-family: 'Inter', sans-serif;
-    }
-    .tour-ask-yes {
-      background: #6366f1;
-      color: #fff;
-    }
-    .tour-ask-yes:hover {
-      background: #818cf8;
-      transform: translateY(-2px);
-    }
-    .tour-ask-no {
-      background: transparent;
-      color: #a3a3a3;
-      border: 1px solid #333;
-    }
-    .tour-ask-no:hover {
-      color: #fff;
-      border-color: #555;
-    }
-    .tour-complete {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 10000;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: tourFadeIn 0.4s ease;
-    }
-    .tour-complete-box {
-      text-align: center;
-      animation: tourSlideUp 0.4s ease;
-    }
-    .tour-complete-box h2 {
-      color: #fff;
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-    .tour-complete-box p {
-      color: #a3a3a3;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-    }
-    @keyframes tourFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes tourSlideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `;
-  document.head.appendChild(tourCSS);
+    dialog.tour-dialog::backdrop { background: rgb(0 0 0 / 0.8); backdrop-filter: blur(12px); }
+    dialog.tour-dialog h2 { color: #fff; font-size: 1.5rem; margin-bottom: 0.75rem; }
+    dialog.tour-dialog p { color: var(--text-secondary); margin-bottom: 2rem; }
+    .tour-dialog-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .tour-toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 10000; background: var(--surface-raised);
+      border: 1px solid var(--border-strong); border-radius: 12px;
+      padding: 1rem 2rem; color: var(--text-secondary); font-size: 0.95rem;
+      transition: opacity 0.5s ease;
+    }`;
+  document.head.appendChild(style);
+}
 
-  let currentStep = -1;
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'tour-toast';
+  toast.setAttribute('role', 'status');
+  toast.textContent = message;
+  document.body.appendChild(toast);
 
-  // STEP 1: Ask the user
-  function showAskModal() {
-    const ask = document.createElement('div');
-    ask.className = 'tour-ask-modal';
-    ask.innerHTML = `
-      <div class="tour-ask-box">
-        <h2>Welcome to my Portfolio!</h2>
-        <p>Would you like a quick guided overview of the site? I'll walk you through each section.</p>
-        <div class="tour-ask-btns">
-          <button class="tour-ask-btn tour-ask-yes">Yes, show me around</button>
-          <button class="tour-ask-btn tour-ask-no">No thanks</button>
+  setTimeout(() => {
+    toast.style.opacity = '0';
+  }, 2500);
+  setTimeout(() => toast.remove(), 3100);
+}
+
+function runTour() {
+  const steps = tourSteps();
+  injectTourStyles();
+
+  const highlight = document.createElement('div');
+  highlight.className = 'tour-highlight';
+
+  const tooltip = document.createElement('div');
+  tooltip.className = 'tour-tooltip';
+  tooltip.setAttribute('role', 'dialog');
+  tooltip.setAttribute('aria-live', 'polite');
+  tooltip.setAttribute('aria-label', 'Guided tour');
+
+  document.body.append(highlight, tooltip);
+
+  let active = true;
+  let frame = null;
+  let target = null;
+  let config = null;
+
+  function teardown(completed) {
+    active = false;
+    if (frame) cancelAnimationFrame(frame);
+    highlight.remove();
+    tooltip.remove();
+    document.removeEventListener('keydown', onKeydown);
+    localStorage.setItem(TOUR_KEY, 'true');
+    if (!completed) showToast('Got it — explore at your own pace.');
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape') teardown(false);
+  }
+
+  function place() {
+    if (!active || !target || !config) return;
+
+    const rect = target.getBoundingClientRect();
+    const pad = 8;
+
+    highlight.style.top = `${rect.top - pad}px`;
+    highlight.style.left = `${rect.left - pad}px`;
+    highlight.style.width = `${rect.width + pad * 2}px`;
+    highlight.style.height = `${rect.height + pad * 2}px`;
+
+    const tip = tooltip.getBoundingClientRect();
+    const margin = 16;
+    let top;
+    let left;
+
+    if (config.position === 'bottom') {
+      top = rect.bottom + margin;
+      left = rect.left + rect.width / 2 - tip.width / 2;
+    } else if (config.position === 'top') {
+      top = rect.top - tip.height - margin;
+      left = rect.left + rect.width / 2 - tip.width / 2;
+    } else if (config.position === 'right') {
+      top = rect.top + rect.height / 2 - tip.height / 2;
+      left = rect.right + margin;
+    } else {
+      top = rect.top + rect.height / 2 - tip.height / 2;
+      left = rect.left - tip.width - margin;
+    }
+
+    left = Math.max(margin, Math.min(left, window.innerWidth - tip.width - margin));
+    if (top < margin) top = rect.bottom + margin;
+    if (top + tip.height > window.innerHeight - margin) top = rect.top - tip.height - margin;
+    top = Math.max(margin, Math.min(top, window.innerHeight - tip.height - margin));
+
+    tooltip.style.top = `${top}px`;
+    tooltip.style.left = `${left}px`;
+
+    frame = requestAnimationFrame(place);
+  }
+
+  function goTo(index) {
+    if (index >= steps.length) {
+      teardown(true);
+      showComplete();
+      return;
+    }
+
+    config = steps[index];
+    target = document.querySelector(config.selector);
+    if (!target) {
+      goTo(index + 1);
+      return;
+    }
+
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+
+    tooltip.innerHTML = `
+      <h4>Step ${index + 1} of ${steps.length}</h4>
+      <h3>${config.title}</h3>
+      <p>${config.text}</p>
+      <div class="tour-footer">
+        <span class="tour-progress">${index + 1} / ${steps.length}</span>
+        <div class="tour-btns">
+          <button type="button" class="tour-btn tour-btn-skip">${index === 0 ? 'Skip tour' : 'Skip'}</button>
+          <button type="button" class="tour-btn tour-btn-next">${index === steps.length - 1 ? 'Finish' : 'Next'}</button>
         </div>
-      </div>
-    `;
-    document.body.appendChild(ask);
+      </div>`;
 
-    ask.querySelector('.tour-ask-yes').addEventListener('click', () => {
-      ask.remove();
-      startTour();
-    });
+    tooltip.querySelector('.tour-btn-next').addEventListener('click', () => goTo(index + 1));
+    tooltip.querySelector('.tour-btn-skip').addEventListener('click', () => teardown(false));
+    tooltip.querySelector('.tour-btn-next').focus();
 
-    ask.querySelector('.tour-ask-no').addEventListener('click', () => {
-      ask.remove();
-      showDismissMessage();
-      localStorage.setItem('tour_completed', 'true');
-    });
+    if (!frame) place();
   }
 
-  function showDismissMessage() {
-    const msg = document.createElement('div');
-    msg.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10000;background:#111;border:1px solid #333;border-radius:12px;padding:1rem 2rem;color:#a3a3a3;font-size:0.95rem;animation:tourSlideUp 0.3s ease;';
-    msg.textContent = 'Got it! Feel free to explore at your own pace.';
-    document.body.appendChild(msg);
-    setTimeout(() => { msg.style.opacity = '0'; msg.style.transition = 'opacity 0.5s'; }, 2500);
-    setTimeout(() => msg.remove(), 3000);
-  }
+  document.addEventListener('keydown', onKeydown);
+  goTo(0);
+}
 
-  // STEP 2: Run the tour
-  function startTour() {
-    // Create overlay elements
-    const highlight = document.createElement('div');
-    highlight.className = 'tour-highlight';
-    document.body.appendChild(highlight);
+function showComplete() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'tour-dialog';
+  dialog.innerHTML = `
+    <h2>That's the tour</h2>
+    <p>You're all set. The case studies are the interesting part.</p>
+    <div class="tour-dialog-btns">
+      <button type="button" class="btn btn-solid" id="tour-done">Start exploring</button>
+    </div>`;
+  document.body.appendChild(dialog);
+  dialog.showModal();
 
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tour-tooltip';
-    document.body.appendChild(tooltip);
+  const finish = () => {
+    dialog.remove();
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
 
-    let tourActive = true;
-    let trackRAF = null;
-    let activeTarget = null;
-    let activeStepConfig = null;
+  dialog.querySelector('#tour-done').addEventListener('click', () => {
+    dialog.close();
+    finish();
+  });
 
-    function updatePositions() {
-      if (!tourActive || !activeTarget || !activeStepConfig) return;
+  // Escape fires `close` without going through the button, so clean up there too
+  // rather than leaving an orphaned <dialog> in the document.
+  dialog.addEventListener('close', finish);
+}
 
-      const rect = activeTarget.getBoundingClientRect();
-      const pad = 8;
+function offerTour() {
+  injectTourStyles();
 
-      // Position highlight (fixed to viewport)
-      highlight.style.top = (rect.top - pad) + 'px';
-      highlight.style.left = (rect.left - pad) + 'px';
-      highlight.style.width = (rect.width + pad * 2) + 'px';
-      highlight.style.height = (rect.height + pad * 2) + 'px';
+  const dialog = document.createElement('dialog');
+  dialog.className = 'tour-dialog';
+  dialog.innerHTML = `
+    <h2>Welcome</h2>
+    <p>Want a quick guided overview of the site? It takes about a minute.</p>
+    <div class="tour-dialog-btns">
+      <button type="button" class="btn btn-solid" id="tour-yes">Show me around</button>
+      <button type="button" class="btn btn-outline" id="tour-no">No thanks</button>
+    </div>`;
+  document.body.appendChild(dialog);
+  dialog.showModal();
 
-      // Position tooltip
-      const ttRect = tooltip.getBoundingClientRect();
-      let ttTop, ttLeft;
+  const dismiss = () => {
+    dialog.close();
+    dialog.remove();
+  };
 
-      if (activeStepConfig.position === 'bottom') {
-        ttTop = rect.bottom + 16;
-        ttLeft = rect.left + rect.width / 2 - ttRect.width / 2;
-      } else if (activeStepConfig.position === 'top') {
-        ttTop = rect.top - ttRect.height - 16;
-        ttLeft = rect.left + rect.width / 2 - ttRect.width / 2;
-      } else if (activeStepConfig.position === 'right') {
-        ttTop = rect.top + rect.height / 2 - ttRect.height / 2;
-        ttLeft = rect.right + 16;
+  dialog.querySelector('#tour-yes').addEventListener('click', () => {
+    dismiss();
+    runTour();
+  });
+
+  dialog.querySelector('#tour-no').addEventListener('click', () => {
+    dismiss();
+    localStorage.setItem(TOUR_KEY, 'true');
+    showToast('Got it — explore at your own pace.');
+  });
+
+  // Escape on the offer counts as "no thanks".
+  dialog.addEventListener('cancel', () => {
+    localStorage.setItem(TOUR_KEY, 'true');
+  });
+  dialog.addEventListener('close', () => dialog.remove());
+}
+
+function initTour() {
+  const replay = document.getElementById('replay-tour');
+  if (replay) {
+    replay.addEventListener('click', () => {
+      localStorage.removeItem(TOUR_KEY);
+      if (isHome) {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        offerTour();
       } else {
-        ttTop = rect.top + rect.height / 2 - ttRect.height / 2;
-        ttLeft = rect.left - ttRect.width - 16;
+        window.location.href = '/';
       }
-
-      // Clamp to viewport
-      const margin = 16;
-      ttLeft = Math.max(margin, Math.min(ttLeft, window.innerWidth - ttRect.width - margin));
-      
-      // Smart vertical clamping (flip to bottom if top goes off-screen, etc.)
-      if (ttTop < margin) {
-         ttTop = rect.bottom + 16; // flip to bottom
-      }
-      if (ttTop + ttRect.height > window.innerHeight - margin) {
-         ttTop = rect.top - ttRect.height - 16; // flip to top
-      }
-      // Final hard clamp
-      ttTop = Math.max(margin, Math.min(ttTop, window.innerHeight - ttRect.height - margin));
-
-      tooltip.style.top = ttTop + 'px';
-      tooltip.style.left = ttLeft + 'px';
-
-      if (tourActive) {
-        trackRAF = requestAnimationFrame(updatePositions);
-      }
-    }
-
-    function goToStep(index) {
-      currentStep = index;
-
-      if (index >= TOUR_STEPS.length) {
-        // Tour complete
-        tourActive = false;
-        cancelAnimationFrame(trackRAF);
-        highlight.remove();
-        tooltip.remove();
-        showComplete();
-        return;
-      }
-
-      activeStepConfig = TOUR_STEPS[index];
-      activeTarget = document.querySelector(activeStepConfig.selector);
-      
-      if (!activeTarget) { goToStep(index + 1); return; }
-
-      // Scroll to element (smoothly)
-      activeTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-      // Build tooltip content immediately
-      tooltip.innerHTML = `
-        <h4>Step ${index + 1} of ${TOUR_STEPS.length}</h4>
-        <h3>${activeStepConfig.title}</h3>
-        <p>${activeStepConfig.text}</p>
-        <div class="tour-footer">
-          <span class="tour-progress">${index + 1} / ${TOUR_STEPS.length}</span>
-          <div class="tour-btns">
-            <button class="tour-btn tour-btn-skip">${index === 0 ? 'Skip Tour' : 'Skip'}</button>
-            <button class="tour-btn tour-btn-next">${index === TOUR_STEPS.length - 1 ? 'Finish' : 'Next'}</button>
-          </div>
-        </div>
-      `;
-
-      // Wire buttons
-      tooltip.querySelector('.tour-btn-next').addEventListener('click', () => goToStep(index + 1));
-      tooltip.querySelector('.tour-btn-skip').addEventListener('click', () => {
-        tourActive = false;
-        cancelAnimationFrame(trackRAF);
-        highlight.remove();
-        tooltip.remove();
-        localStorage.setItem('tour_completed', 'true');
-        showDismissMessage();
-      });
-
-      // Start tracking
-      if (!trackRAF) {
-        updatePositions();
-      }
-    }
-
-    goToStep(0);
-  }
-
-  function showComplete() {
-    localStorage.setItem('tour_completed', 'true');
-    const done = document.createElement('div');
-    done.className = 'tour-complete';
-    done.innerHTML = `
-      <div class="tour-complete-box">
-        <h2>Tour Complete!</h2>
-        <p>You're all set. Go ahead and explore the case studies.</p>
-        <button class="tour-ask-btn tour-ask-yes" id="tour-done-btn">Start Exploring</button>
-      </div>
-    `;
-    document.body.appendChild(done);
-    done.querySelector('#tour-done-btn').addEventListener('click', () => {
-      done.style.opacity = '0';
-      done.style.transition = 'opacity 0.4s ease';
-      setTimeout(() => {
-        done.remove();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 400);
     });
   }
 
-  // Kick off after a short delay to let the page render
-  setTimeout(showAskModal, 1500);
-})();
+  if (!isHome || reduceMotion) return;
+  if (localStorage.getItem(TOUR_KEY)) return;
 
+  setTimeout(offerTour, 1500);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+function init() {
+  /* Content is hidden until initReveal() runs, so a throw in any one of these
+     would leave the page blank from that point on. Isolate each step. */
+  const steps = [
+    initReveal,
+    initSmoothScroll,
+    initContactDialog,
+    initReadingProgress,
+    initToc,
+    initMermaid,
+    initTour,
+  ];
+
+  for (const step of steps) {
+    try {
+      step();
+    } catch (err) {
+      console.error(`${step.name} failed:`, err);
+    }
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}

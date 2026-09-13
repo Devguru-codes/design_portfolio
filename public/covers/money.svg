@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Abstract cover: a rising financial chart behind a conversational assistant bubble">
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6366f1" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="fglow" cx="70%" cy="65%" r="65%">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#08080c"/>
+  <rect width="1600" height="900" fill="url(#fglow)"/>
+  <g stroke="#ffffff" stroke-opacity=".05">
+    <path d="M160 700h1280M160 560h1280M160 420h1280M160 280h1280"/>
+  </g>
+  <path d="M160 660 L360 600 L560 640 L760 470 L960 500 L1160 340 L1440 210 L1600 170 L1600 700 L160 700 Z" fill="url(#area)"/>
+  <path d="M160 660 L360 600 L560 640 L760 470 L960 500 L1160 340 L1440 210 L1600 170"
+        fill="none" stroke="#818cf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#0f0f18" stroke="#818cf8" stroke-width="4">
+    <circle cx="760" cy="470" r="12"/><circle cx="1160" cy="340" r="12"/><circle cx="1440" cy="210" r="14"/>
+  </g>
+  <g>
+    <rect x="300" y="150" width="520" height="190" rx="28" fill="#101018" stroke="#6366f1" stroke-opacity=".55" stroke-width="2"/>
+    <rect x="344" y="196" width="300" height="20" rx="10" fill="#818cf8" fill-opacity=".85"/>
+    <rect x="344" y="238" width="430" height="16" rx="8" fill="#ffffff" fill-opacity=".2"/>
+    <rect x="344" y="272" width="360" height="16" rx="8" fill="#ffffff" fill-opacity=".13"/>
+  </g>
+</svg>

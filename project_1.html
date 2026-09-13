@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Voice Call Centre - Case Study</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+    <!-- include:head -->
   </head>
   <body>
     <div class="bg-mesh"></div>
 
-    <nav>
-      <div class="container nav-container">
-        <a href="/" style="text-decoration: none;">
-          <div class="logo">
-            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
-          </div>
-        </a>
-        <div class="nav-links" style="align-items: center; display: flex;">
-          <a href="/#work">Work</a>
-          <a href="/#about">About</a>
-          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
-        </div>
-      </div>
-    </nav>
+    <!-- include:nav -->
 
-    <main>
+    <main id="main">
+      <!-- include:backlink -->
+
       <section class="case-study-hero container fade-up">
         <span class="card-tag">AI / Voice UX Case Study</span>
         <h1>Building an AI-Powered Voice Call Centre from Scratch</h1>
-        <p>Multi-Agent Voice Platform with Real-Time STT, LLM Routing, and TTS</p>
+        <p class="subtitle">Multi-Agent Voice Platform with Real-Time STT, LLM Routing, and TTS</p>
       </section>
 
       <section class="container content-block">
         
-        <div class="highlight-box" style="margin-top: 0;">
+        <div class="highlight-box">
           <h3>Opportunity Type: Disruptive</h3>
           <p>This represents a <strong>Disruptive Opportunity</strong>. Traditional call centres rely on human agents and rigid IVR trees. This project replaces the entire stack with an AI-native voice pipeline: real-time speech recognition, LLM-powered reasoning with tool execution, and neural text-to-speech, all orchestrated as a multi-agent swarm that hot-swaps personas during a live call.</p>
         </div>
@@ -83,24 +66,24 @@ flowchart LR
         </ul>
 
         <h3>Primary User Persona: Meera (Business Admin)</h3>
-        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="persona-card">
           <p><strong>Profile:</strong> 34-year-old operations manager at a 50-person SaaS startup. She currently handles support calls herself because they can't afford a dedicated team.</p>
           <p><strong>Goal:</strong> Set up an AI phone system that handles tier-1 support and appointment booking so she can focus on operations.</p>
           <p><strong>Pain Point:</strong> Tried Vapi but the per-minute cost was unsustainable at their call volume. Tried building with raw APIs but couldn't get agent handoffs to work reliably.</p>
         </div>
 
         <h3>Empathy Mapping (Meera)</h3>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+        <div class="empathy-grid">
+          <div>
             <strong>Says:</strong> "I need something I can set up in a day, not a month. And it can't cost more than a junior employee."
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Thinks:</strong> "If the AI sounds robotic or gets confused, callers will lose trust in our brand."
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Does:</strong> Answers support calls herself between meetings. Uses Google Sheets to track follow-ups. Manually books demo calls via email.
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Feels:</strong> Overwhelmed by context-switching. Frustrated that "simple" AI solutions are either too expensive or too fragile.
           </div>
         </div>
@@ -128,7 +111,8 @@ journey
         </div>
 
         <h3>Competitive Analysis</h3>
-        <table>
+        <div class="table-scroll">
+          <table>
           <thead>
             <tr>
               <th>Platform</th>
@@ -164,6 +148,7 @@ journey
             </tr>
           </tbody>
         </table>
+        </div>
 
         <h2>Design Strategy &amp; Solutions</h2>
         
@@ -262,19 +247,12 @@ flowchart TB
         </ul>
 
       </section>
+      <!-- include:case-nav -->
     </main>
 
-    <footer>
-      <div class="container fade-up">
-        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
-      </div>
-    </footer>
+    <!-- include:footer -->
 
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-      mermaid.run({ querySelector: '.mermaid' }).catch(console.error);
-    </script>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>

@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snapdeal Checkout Redesign - Case Study</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+    <!-- include:head -->
   </head>
   <body>
     <div class="bg-mesh"></div>
 
-    <nav>
-      <div class="container nav-container">
-        <a href="/" style="text-decoration: none;">
-          <div class="logo">
-            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
-          </div>
-        </a>
-        <div class="nav-links" style="align-items: center; display: flex;">
-          <a href="/#work">Work</a>
-          <a href="/#about">About</a>
-          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
-        </div>
-      </div>
-    </nav>
+    <!-- include:nav -->
 
-    <main>
+    <main id="main">
+      <!-- include:backlink -->
+
       <section class="case-study-hero container fade-up">
         <span class="card-tag">E-Commerce UX Case Study</span>
         <h1>Reducing Checkout Friction in Indian E-Commerce</h1>
-        <p>Snapdeal Checkout Redesign</p>
+        <p class="subtitle">Snapdeal Checkout Redesign</p>
       </section>
 
       <section class="container content-block">
         
-        <div class="highlight-box" style="margin-top: 0;">
+        <div class="highlight-box">
           <h3>Opportunity Type: Linear</h3>
           <p>This project represents a <strong>Linear Opportunity</strong> - focusing on the continuous, iterative improvement of an existing core product. By streamlining Snapdeal's checkout flow, we are removing friction from an established user journey to maximize conversion efficiency.</p>
         </div>
@@ -78,24 +61,24 @@
         </ul>
 
         <h3>Primary User Persona: Priya</h3>
-        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="persona-card">
           <p><strong>Profile:</strong> 28-year-old marketing executive. She is tech-savvy but very mindful of her monthly budget.</p>
           <p><strong>Goal:</strong> To find the best deals online and checkout quickly without hidden surprises.</p>
           <p><strong>Pain Point:</strong> She frequently abandons carts on e-commerce sites when unexpected delivery charges or convenience fees are added at the final step.</p>
         </div>
 
         <h3>Empathy Mapping (Priya)</h3>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+        <div class="empathy-grid">
+          <div>
             <strong>Says:</strong> "Why is the total suddenly higher? Did they add a fee?"
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Thinks:</strong> "Is my payment information really secure on this app?"
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Does:</strong> Hunts for promo codes online; abandons the cart if shipping is too high.
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Feels:</strong> Anxious about hidden charges; frustrated by unnecessarily long forms.
           </div>
         </div>
@@ -123,7 +106,8 @@ journey
         </div>
 
         <h3>Heuristic Evaluation & Competitor Analysis</h3>
-        <table>
+        <div class="table-scroll">
+          <table>
           <thead>
             <tr>
               <th>Platform</th>
@@ -154,6 +138,7 @@ journey
             </tr>
           </tbody>
         </table>
+        </div>
 
         <h2>Design Strategy & Solutions</h2>
         <h3>Mobile-First Layout</h3>
@@ -277,19 +262,12 @@ flowchart TB
         </ul>
 
       </section>
+      <!-- include:case-nav -->
     </main>
 
-    <footer>
-      <div class="container fade-up">
-        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
-      </div>
-    </footer>
+    <!-- include:footer -->
 
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-      mermaid.run({ querySelector: '.mermaid' }).catch(console.error);
-    </script>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>

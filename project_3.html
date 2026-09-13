@@ -1,42 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Money Mentor - Case Study</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css" />
+    <!-- include:head -->
   </head>
   <body>
     <div class="bg-mesh"></div>
 
-    <nav>
-      <div class="container nav-container">
-        <a href="/" style="text-decoration: none;">
-          <div class="logo">
-            <span style="font-weight: 300;">Dev</span><span style="font-weight: 800;">guru</span><span style="color: var(--accent-1);">.</span>
-          </div>
-        </a>
-        <div class="nav-links" style="align-items: center; display: flex;">
-          <a href="/#work">Work</a>
-          <a href="/#about">About</a>
-          <a href="#" id="contact-btn" class="btn btn-primary" style="padding: 0.5rem 1.5rem; margin-left: 1rem; font-size: 0.9rem;">Contact Me</a>
-        </div>
-      </div>
-    </nav>
+    <!-- include:nav -->
 
-    <main>
+    <main id="main">
+      <!-- include:backlink -->
+
       <section class="case-study-hero container fade-up">
         <span class="card-tag">Fintech / AI Case Study</span>
         <h1>AI Money Mentor (DhanSarthi)</h1>
-        <p>An AI-Powered Finance Assistant</p>
+        <p class="subtitle">An AI-Powered Finance Assistant</p>
       </section>
 
       <section class="container content-block">
         
-        <div class="highlight-box" style="margin-top: 0;">
+        <div class="highlight-box">
           <h3>Opportunity Type: Disruptive</h3>
           <p>This project represents a <strong>Disruptive Opportunity</strong>. By leveraging generative AI and multi-agent orchestration, it creates an entirely new category of highly personalized, on-demand financial advising that was previously inaccessible to the mass market.</p>
         </div>
@@ -64,7 +47,8 @@
         </ul>
 
         <h2>Competitive Landscape</h2>
-        <table>
+        <div class="table-scroll">
+          <table>
           <thead>
             <tr>
               <th>App</th>
@@ -95,6 +79,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <h2>Information Architecture</h2>
         <p>The app’s structure organizes content into core areas:</p>
@@ -163,24 +148,24 @@ flowchart TB
         </ul>
 
         <h3>Primary User Persona: Rahul & Sneha</h3>
-        <div style="background: rgba(255,255,255,0.03); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="persona-card">
           <p><strong>Profile:</strong> A newlywed couple in their early 30s. They have a decent combined income but no formal budget.</p>
           <p><strong>Goal:</strong> To save enough for a downpayment on a house in 5 years without sacrificing their current lifestyle.</p>
           <p><strong>Pain Point:</strong> They are overwhelmed by conflicting financial advice and find spreadsheets too tedious to maintain consistently.</p>
         </div>
 
         <h3>Empathy Mapping (Rahul & Sneha)</h3>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 2rem;">
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+        <div class="empathy-grid">
+          <div>
             <strong>Says:</strong> "We don't know where our money goes at the end of the month."
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Thinks:</strong> "Are we saving enough for the downpayment?"
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Does:</strong> Tries to use Excel but gives up; leaves money sitting in low-yield savings accounts.
           </div>
-          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+          <div>
             <strong>Feels:</strong> Overwhelmed by jargon; uncertain about their financial future.
           </div>
         </div>
@@ -225,19 +210,12 @@ journey
         </ul>
 
       </section>
+      <!-- include:case-nav -->
     </main>
 
-    <footer>
-      <div class="container fade-up">
-        <p>&copy; 2026 UX Portfolio. Designed with purpose.</p>
-      </div>
-    </footer>
+    <!-- include:footer -->
 
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-      mermaid.run({ querySelector: '.mermaid' }).catch(console.error);
-    </script>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
